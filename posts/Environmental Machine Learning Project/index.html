@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Configured parameters to obtain custom dataset</li>
 <li><img src="Screenshot 2025-04-21 at 6.21.45 PM.png" alt="User submitting message 'Happy Valentines Day' by user Megan Elizabeth Tieu" height="300"></li>
 </ul>
-<div id="7f5b976d" class="cell" data-execution_count="91">
+<div id="7f5b976d" class="cell" data-execution_count="107">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_excel(<span class="st">"emdat.xlsx"</span>, engine<span class="op">=</span><span class="st">"openpyxl"</span>)  </span>
@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Let’s inspect the data</p>
-<div id="23ec5554" class="cell" data-execution_count="92">
+<div id="23ec5554" class="cell" data-execution_count="108">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.info()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -330,7 +330,7 @@ Data columns (total 46 columns):
 dtypes: float64(20), int64(2), object(24)
 memory usage: 5.7+ MB</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="92">
+<div class="cell-output cell-output-display" data-execution_count="108">
 <div>
 
 
@@ -565,9 +565,9 @@ memory usage: 5.7+ MB</code></pre>
 <section id="data-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
 <p>Get rid of columns where the data is irrelevant or there’s not enough of it for it to be interesting.</p>
-<div id="d58243f1" class="cell" data-execution_count="93">
+<div id="d58243f1" class="cell" data-execution_count="109">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="93">
+<div class="cell-output cell-output-display" data-execution_count="109">
 <pre><code>Reconstruction Costs, Adjusted ('000 US$)    16176
 Reconstruction Costs ('000 US$)              16176
 AID Contribution ('000 US$)                  15720
@@ -617,10 +617,10 @@ Last Update                                      0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="ed57a53d" class="cell" data-execution_count="94">
+<div id="ed57a53d" class="cell" data-execution_count="110">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[ <span class="st">'DisNo.'</span>, <span class="st">'External IDs'</span>,<span class="st">'Event Name'</span>, <span class="st">'Origin'</span>,<span class="st">'Associated Types'</span>,<span class="st">'Appeal'</span>,<span class="st">'Declaration'</span>,<span class="st">'OFDA/BHA Response'</span>,<span class="st">'AID Contribution (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,  <span class="st">'Reconstruction Costs (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Reconstruction Costs, Adjusted (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Insured Damage (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Insured Damage, Adjusted (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'River Basin'</span>,<span class="st">'Admin Units'</span>,<span class="st">'Entry Date'</span>,<span class="st">'Last Update'</span>   ], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="94">
+<div class="cell-output cell-output-display" data-execution_count="110">
 <div>
 
 
@@ -924,10 +924,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Let’s also get rid of data points if it’s missing important variables we care about.</p>
-<div id="d4cdccc8" class="cell" data-execution_count="95">
+<div id="d4cdccc8" class="cell" data-execution_count="111">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">'Country'</span>, <span class="st">'Disaster Type'</span>, <span class="st">'Start Year'</span>])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="95">
+<div class="cell-output cell-output-display" data-execution_count="111">
 <div>
 
 
@@ -1231,10 +1231,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Get rid of duplicates</p>
-<div id="828ef5f4" class="cell" data-execution_count="96">
+<div id="828ef5f4" class="cell" data-execution_count="112">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="96">
+<div class="cell-output cell-output-display" data-execution_count="112">
 <div>
 
 
@@ -1568,14 +1568,14 @@ dtype: int64</code></pre>
 <section id="lets-get-started-on-first-research-question" class="level2">
 <h2 class="anchored" data-anchor-id="lets-get-started-on-first-research-question">Let’s get started on first research question</h2>
 <p>“Which countries have experienced the highest number of natural disasters?” - We’ll need to investigate variables on countries, when it occured, and type of disaster</p>
-<div id="3bf7a7e7" class="cell" data-execution_count="97">
+<div id="3bf7a7e7" class="cell" data-execution_count="113">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>disaster_count_by_country_df <span class="op">=</span> df.groupby([<span class="st">'Country'</span>]).agg(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    disaster_count<span class="op">=</span>(<span class="st">'Disaster Type'</span>, <span class="st">'count'</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>).reset_index().sort_values(by<span class="op">=</span><span class="st">'disaster_count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>disaster_count_by_country_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="97">
+<div class="cell-output cell-output-display" data-execution_count="113">
 <div>
 
 
@@ -1650,7 +1650,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="10198729" class="cell" data-execution_count="98">
+<div id="10198729" class="cell" data-execution_count="114">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.io <span class="im">as</span> pio</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pio.renderers.default<span class="op">=</span><span class="st">"iframe"</span></span>
@@ -1669,7 +1669,7 @@ dtype: int64</code></pre>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_98.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_114.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1693,25 +1693,110 @@ dtype: int64</code></pre>
 <li><p>We’ll need to investigate variables on time, when it occured, and type of disaster</p></li>
 <li><p>Let’s consider limitations with this dataset since it starts in 2000</p></li>
 </ul>
-<div id="8d88bce6" class="cell" data-execution_count="99">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>disaster_counts <span class="op">=</span> df.groupby([<span class="st">'Start Year'</span>, <span class="st">'Disaster Type'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.line(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    disaster_counts,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Start Year'</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'Count'</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'Disaster Type'</span>,  </span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Disaster Types Over Time'</span>,</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'Year'</span>: <span class="st">'Year'</span>, <span class="st">'Count'</span>: <span class="st">'Number of Disasters'</span>},</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f7004063" class="cell" data-execution_count="115">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>disaster_counts <span class="op">=</span> df.groupby([<span class="st">'Start Year'</span>, <span class="st">'Disaster Type'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>disaster_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="115">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Start Year</th>
+<th data-quarto-table-cell-role="th">Disaster Type</th>
+<th data-quarto-table-cell-role="th">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2000</td>
+<td>Air</td>
+<td>31</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2000</td>
+<td>Chemical spill</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2000</td>
+<td>Collapse (Industrial)</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2000</td>
+<td>Collapse (Miscellaneous)</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2000</td>
+<td>Drought</td>
+<td>27</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">609</td>
+<td>2025</td>
+<td>Rail</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">610</td>
+<td>2025</td>
+<td>Road</td>
+<td>19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">611</td>
+<td>2025</td>
+<td>Storm</td>
+<td>26</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">612</td>
+<td>2025</td>
+<td>Water</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">613</td>
+<td>2025</td>
+<td>Wildfire</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+
+<p>614 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<div id="8d88bce6" class="cell" data-execution_count="116">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.line(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    disaster_counts,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Start Year'</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'Count'</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'Disaster Type'</span>,  </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Disaster Types Over Time'</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'Year'</span>: <span class="st">'Year'</span>, <span class="st">'Count'</span>: <span class="st">'Number of Disasters'</span>},</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_99.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_116.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1721,30 +1806,119 @@ dtype: int64</code></pre>
 </section>
 <section id="visualization-to-explore-relationship-between-total-deaths-and-occurence-count-for-each-disaster-subtype" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-to-explore-relationship-between-total-deaths-and-occurence-count-for-each-disaster-subtype">Visualization to explore relationship between total deaths and occurence count for each disaster subtype</h2>
-<div id="4edfa032" class="cell" data-execution_count="100">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>scatter_data <span class="op">=</span> df.groupby(<span class="st">'Disaster Subtype'</span>).agg(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    total_deaths<span class="op">=</span>(<span class="st">'Total Deaths'</span>, <span class="st">'sum'</span>),</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    occurrence_count<span class="op">=</span>(<span class="st">'Disaster Subtype'</span>, <span class="st">'count'</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    scatter_data,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Disaster Subtype'</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'total_deaths'</span>,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="st">'occurrence_count'</span>,    </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'Disaster Subtype'</span>,     </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Disaster Subtypes: Total Deaths vs. Occurrence Count'</span>,</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'disaster_subtype'</span>: <span class="st">'Disaster Subtype'</span>,</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'total_deaths'</span>: <span class="st">'Total Deaths'</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="42a0ec1f" class="cell" data-execution_count="117">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scatter_data <span class="op">=</span> df.groupby(<span class="st">'Disaster Subtype'</span>).agg(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    total_deaths<span class="op">=</span>(<span class="st">'Total Deaths'</span>, <span class="st">'sum'</span>),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    occurrence_count<span class="op">=</span>(<span class="st">'Disaster Subtype'</span>, <span class="st">'count'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>scatter_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="117">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Disaster Subtype</th>
+<th data-quarto-table-cell-role="th">total_deaths</th>
+<th data-quarto-table-cell-role="th">occurrence_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Air</td>
+<td>17267.0</td>
+<td>439</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Animal incident</td>
+<td>12.0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Ash fall</td>
+<td>663.0</td>
+<td>102</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Avalanche (dry)</td>
+<td>16.0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Avalanche (wet)</td>
+<td>1889.0</td>
+<td>54</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">58</td>
+<td>Viral disease</td>
+<td>47825.0</td>
+<td>350</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">59</td>
+<td>Volcanic activity (General)</td>
+<td>516.0</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60</td>
+<td>Water</td>
+<td>51946.0</td>
+<td>1149</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">61</td>
+<td>Wildfire (General)</td>
+<td>702.0</td>
+<td>85</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">62</td>
+<td>Worms infestation</td>
+<td>0.0</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+<p>63 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<div id="4edfa032" class="cell" data-execution_count="118">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    scatter_data,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Disaster Subtype'</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'total_deaths'</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="st">'occurrence_count'</span>,    </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'Disaster Subtype'</span>,     </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Disaster Subtypes: Total Deaths vs. Occurrence Count'</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'disaster_subtype'</span>: <span class="st">'Disaster Subtype'</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">'total_deaths'</span>: <span class="st">'Total Deaths'</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_100.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_118.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1754,38 +1928,16 @@ dtype: int64</code></pre>
 </section>
 <section id="map-visualization-on-devastating-disasters-around-the-world" class="level2">
 <h2 class="anchored" data-anchor-id="map-visualization-on-devastating-disasters-around-the-world">Map Visualization on Devastating Disasters Around the World</h2>
-<div id="fd5d35f0" class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>map_df <span class="op">=</span> df[(df[<span class="st">'Latitude'</span>].notna()) <span class="op">&amp;</span> (df[<span class="st">'Longitude'</span>].notna())]</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>map_df[<span class="st">'Total Deaths'</span>] <span class="op">=</span> map_df[<span class="st">'Total Deaths'</span>].fillna(<span class="dv">0</span>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>map_df <span class="op">=</span> map_df[(map_df[<span class="st">'Total Deaths'</span>] <span class="op">&gt;</span> <span class="dv">0</span>)]</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter_geo(</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    map_df,</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="st">'Latitude'</span>,</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="st">'Longitude'</span>,</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'Disaster Subtype'</span>,</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="st">'Total Deaths'</span>,  </span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    hover_name<span class="op">=</span><span class="st">'Country'</span>,</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Global Disasters Map'</span>,</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    size_max<span class="op">=</span><span class="dv">30</span>,</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>fig.update_layout(</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    geo<span class="op">=</span><span class="bu">dict</span>(</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        showland<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>        showcountries<span class="op">=</span><span class="va">True</span></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="21d67e2c" class="cell" data-execution_count="119">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>map_df <span class="op">=</span> df[(df[<span class="st">'Latitude'</span>].notna()) <span class="op">&amp;</span> (df[<span class="st">'Longitude'</span>].notna())]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>map_df[<span class="st">'Total Deaths'</span>] <span class="op">=</span> map_df[<span class="st">'Total Deaths'</span>].fillna(<span class="dv">0</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>map_df <span class="op">=</span> map_df[(map_df[<span class="st">'Total Deaths'</span>] <span class="op">&gt;</span> <span class="dv">0</span>)]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>map_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/h6/1nj6sx2s1nxdyfr36bhcxvlc0000gn/T/ipykernel_77005/725255830.py:10: SettingWithCopyWarning:
+<pre><code>/var/folders/h6/1nj6sx2s1nxdyfr36bhcxvlc0000gn/T/ipykernel_77005/904054904.py:3: SettingWithCopyWarning:
 
 
 A value is trying to be set on a copy of a slice from a DataFrame.
@@ -1794,8 +1946,331 @@ Try using .loc[row_indexer,col_indexer] = value instead
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 </code></pre>
 </div>
+<div class="cell-output cell-output-display" data-execution_count="119">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Historic</th>
+<th data-quarto-table-cell-role="th">Classification Key</th>
+<th data-quarto-table-cell-role="th">Disaster Group</th>
+<th data-quarto-table-cell-role="th">Disaster Subgroup</th>
+<th data-quarto-table-cell-role="th">Disaster Type</th>
+<th data-quarto-table-cell-role="th">Disaster Subtype</th>
+<th data-quarto-table-cell-role="th">ISO</th>
+<th data-quarto-table-cell-role="th">Country</th>
+<th data-quarto-table-cell-role="th">Subregion</th>
+<th data-quarto-table-cell-role="th">Region</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">End Month</th>
+<th data-quarto-table-cell-role="th">End Day</th>
+<th data-quarto-table-cell-role="th">Total Deaths</th>
+<th data-quarto-table-cell-role="th">No. Injured</th>
+<th data-quarto-table-cell-role="th">No. Affected</th>
+<th data-quarto-table-cell-role="th">No. Homeless</th>
+<th data-quarto-table-cell-role="th">Total Affected</th>
+<th data-quarto-table-cell-role="th">Total Damage ('000 US$)</th>
+<th data-quarto-table-cell-role="th">Total Damage, Adjusted ('000 US$)</th>
+<th data-quarto-table-cell-role="th">CPI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">33</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>CHN</td>
+<td>China</td>
+<td>Eastern Asia</td>
+<td>Asia</td>
+<td>...</td>
+<td>1.0</td>
+<td>14.0</td>
+<td>7.0</td>
+<td>2528.0</td>
+<td>1760000.0</td>
+<td>92479.0</td>
+<td>1855007.0</td>
+<td>73500.0</td>
+<td>130056.0</td>
+<td>56.514291</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">36</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>CHN</td>
+<td>China</td>
+<td>Eastern Asia</td>
+<td>Asia</td>
+<td>...</td>
+<td>1.0</td>
+<td>26.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>10300.0</td>
+<td>NaN</td>
+<td>10302.0</td>
+<td>483.0</td>
+<td>855.0</td>
+<td>56.514291</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">50</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>IRN</td>
+<td>Iran (Islamic Republic of)</td>
+<td>Southern Asia</td>
+<td>Asia</td>
+<td>...</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>15.0</td>
+<td>1500.0</td>
+<td>500.0</td>
+<td>2015.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>56.514291</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">75</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>COL</td>
+<td>Colombia</td>
+<td>Latin America and the Caribbean</td>
+<td>Americas</td>
+<td>...</td>
+<td>11.0</td>
+<td>8.0</td>
+<td>2.0</td>
+<td>NaN</td>
+<td>430.0</td>
+<td>NaN</td>
+<td>430.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>56.514291</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">208</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>IDN</td>
+<td>Indonesia</td>
+<td>South-eastern Asia</td>
+<td>Asia</td>
+<td>...</td>
+<td>5.0</td>
+<td>4.0</td>
+<td>45.0</td>
+<td>270.0</td>
+<td>NaN</td>
+<td>52500.0</td>
+<td>52770.0</td>
+<td>30000.0</td>
+<td>53084.0</td>
+<td>56.514291</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16091</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>CHN</td>
+<td>China</td>
+<td>Eastern Asia</td>
+<td>Asia</td>
+<td>...</td>
+<td>1.0</td>
+<td>7.0</td>
+<td>126.0</td>
+<td>188.0</td>
+<td>46500.0</td>
+<td>NaN</td>
+<td>46688.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">16099</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>ETH</td>
+<td>Ethiopia</td>
+<td>Sub-Saharan Africa</td>
+<td>Africa</td>
+<td>...</td>
+<td>1.0</td>
+<td>11.0</td>
+<td>2.0</td>
+<td>NaN</td>
+<td>99000.0</td>
+<td>NaN</td>
+<td>99000.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16184</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>MMR</td>
+<td>Myanmar</td>
+<td>South-eastern Asia</td>
+<td>Asia</td>
+<td>...</td>
+<td>3.0</td>
+<td>28.0</td>
+<td>3784.0</td>
+<td>4824.0</td>
+<td>282790.0</td>
+<td>NaN</td>
+<td>287614.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">16185</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>THA</td>
+<td>Thailand</td>
+<td>South-eastern Asia</td>
+<td>Asia</td>
+<td>...</td>
+<td>3.0</td>
+<td>28.0</td>
+<td>44.0</td>
+<td>37.0</td>
+<td>2313.0</td>
+<td>NaN</td>
+<td>2350.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16196</td>
+<td>No</td>
+<td>nat-geo-ear-gro</td>
+<td>Natural</td>
+<td>Geophysical</td>
+<td>Earthquake</td>
+<td>Ground movement</td>
+<td>TJK</td>
+<td>Tajikistan</td>
+<td>Central Asia</td>
+<td>Asia</td>
+<td>...</td>
+<td>4.0</td>
+<td>13.0</td>
+<td>1.0</td>
+<td>NaN</td>
+<td>145.0</td>
+<td>NaN</td>
+<td>145.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>1356 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<div id="fd5d35f0" class="cell" data-execution_count="120">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter_geo(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    map_df,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="st">'Latitude'</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="st">'Longitude'</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'Disaster Subtype'</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="st">'Total Deaths'</span>,  </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    hover_name<span class="op">=</span><span class="st">'Country'</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Global Disasters Map'</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    size_max<span class="op">=</span><span class="dv">30</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>fig.update_layout(</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    geo<span class="op">=</span><span class="bu">dict</span>(</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        showland<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        showcountries<span class="op">=</span><span class="va">True</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_103.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_120.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
