@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Configured parameters to obtain custom dataset</li>
 <li><img src="Screenshot 2025-04-21 at 6.21.45 PM.png" alt="User submitting message 'Happy Valentines Day' by user Megan Elizabeth Tieu" height="300"></li>
 </ul>
-<div id="7f5b976d" class="cell" data-execution_count="107">
+<div id="7f5b976d" class="cell" data-execution_count="60">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_excel(<span class="st">"emdat.xlsx"</span>, engine<span class="op">=</span><span class="st">"openpyxl"</span>)  </span>
@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Let’s inspect the data</p>
-<div id="23ec5554" class="cell" data-execution_count="108">
+<div id="23ec5554" class="cell" data-execution_count="61">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.info()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -330,7 +330,7 @@ Data columns (total 46 columns):
 dtypes: float64(20), int64(2), object(24)
 memory usage: 5.7+ MB</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="108">
+<div class="cell-output cell-output-display" data-execution_count="61">
 <div>
 
 
@@ -565,9 +565,9 @@ memory usage: 5.7+ MB</code></pre>
 <section id="data-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
 <p>Get rid of columns where the data is irrelevant or there’s not enough of it for it to be interesting.</p>
-<div id="d58243f1" class="cell" data-execution_count="109">
+<div id="d58243f1" class="cell" data-execution_count="62">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="109">
+<div class="cell-output cell-output-display" data-execution_count="62">
 <pre><code>Reconstruction Costs, Adjusted ('000 US$)    16176
 Reconstruction Costs ('000 US$)              16176
 AID Contribution ('000 US$)                  15720
@@ -617,10 +617,10 @@ Last Update                                      0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="ed57a53d" class="cell" data-execution_count="110">
+<div id="ed57a53d" class="cell" data-execution_count="63">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[ <span class="st">'DisNo.'</span>, <span class="st">'External IDs'</span>,<span class="st">'Event Name'</span>, <span class="st">'Origin'</span>,<span class="st">'Associated Types'</span>,<span class="st">'Appeal'</span>,<span class="st">'Declaration'</span>,<span class="st">'OFDA/BHA Response'</span>,<span class="st">'AID Contribution (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,  <span class="st">'Reconstruction Costs (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Reconstruction Costs, Adjusted (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Insured Damage (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Insured Damage, Adjusted (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'River Basin'</span>,<span class="st">'Admin Units'</span>,<span class="st">'Entry Date'</span>,<span class="st">'Last Update'</span>   ], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="110">
+<div class="cell-output cell-output-display" data-execution_count="63">
 <div>
 
 
@@ -924,10 +924,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Let’s also get rid of data points if it’s missing important variables we care about.</p>
-<div id="d4cdccc8" class="cell" data-execution_count="111">
+<div id="d4cdccc8" class="cell" data-execution_count="64">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">'Country'</span>, <span class="st">'Disaster Type'</span>, <span class="st">'Start Year'</span>])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="111">
+<div class="cell-output cell-output-display" data-execution_count="64">
 <div>
 
 
@@ -1231,10 +1231,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Get rid of duplicates</p>
-<div id="828ef5f4" class="cell" data-execution_count="112">
+<div id="828ef5f4" class="cell" data-execution_count="65">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="112">
+<div class="cell-output cell-output-display" data-execution_count="65">
 <div>
 
 
@@ -1551,11 +1551,38 @@ dtype: int64</code></pre>
 </section>
 <section id="research-questions" class="level2">
 <h2 class="anchored" data-anchor-id="research-questions">Research Questions:</h2>
-<p>“Which countries have experienced the highest number of natural disasters in the past 25 years?” - We’ll need to investigate variables on countries, when it occured, and type of disaster</p>
-<p>“Are certain types of disasters becoming more common over time?” - We’ll need to investigate variables on time, when it occured, and type of disaster - Let’s consider limitations with this dataset since it starts in 2000</p>
-<p>“Can we predict the average number of deaths or affected people for an event based on disaster type and context?” - We’ll need to investigate variables on Total Deaths, No.&nbsp;Affected, and No.&nbsp;Injured and type of disaster</p>
-<p>“Can we experiment with data forecasting and predict the number of disasters a country might experience based on its historical trends and geography?” - We’ll need to investigate variables on type of disaster, when it occured, and location - We’ll need to incorporate another dataset on geography</p>
-<p>“Can we classify the severity of a disaster based on its type, location, and year?” - We’ll need to investigate variables on type, location, time, and severity</p>
+<ol type="1">
+<li>“Which countries have experienced the highest number of natural disasters in the past 25 years?”</li>
+</ol>
+<ul>
+<li>We’ll need to investigate variables on countries, when it occured, and type of disaster</li>
+</ul>
+<ol start="2" type="1">
+<li>“Are certain types of disasters becoming more common over time?”</li>
+</ol>
+<ul>
+<li>We’ll need to investigate variables on time, when it occured, and type of disaster</li>
+<li>Let’s consider limitations with this dataset since it starts in 2000</li>
+</ul>
+<ol start="3" type="1">
+<li>“Can we predict the average number of deaths or affected people for an event based on disaster type and context?”</li>
+</ol>
+<ul>
+<li>We’ll need to investigate variables on Total Deaths, No.&nbsp;Affected, and No.&nbsp;Injured and type of disaster</li>
+</ul>
+<ol start="4" type="1">
+<li>“Can we experiment with data forecasting and predict the number of disasters a country might experience based on its historical trends and geography?”</li>
+</ol>
+<ul>
+<li>We’ll need to investigate variables on type of disaster, when it occured, and location</li>
+<li>We’ll need to incorporate another dataset on geography</li>
+</ul>
+<ol start="5" type="1">
+<li>“Can we classify the severity of a disaster based on its type, location, and year?”</li>
+</ol>
+<ul>
+<li>We’ll need to investigate variables on type, location, time, and severity</li>
+</ul>
 </section>
 <section id="tools-needed" class="level2">
 <h2 class="anchored" data-anchor-id="tools-needed">Tools Needed</h2>
@@ -1567,15 +1594,20 @@ dtype: int64</code></pre>
 </section>
 <section id="lets-get-started-on-first-research-question" class="level2">
 <h2 class="anchored" data-anchor-id="lets-get-started-on-first-research-question">Let’s get started on first research question</h2>
-<p>“Which countries have experienced the highest number of natural disasters?” - We’ll need to investigate variables on countries, when it occured, and type of disaster</p>
-<div id="3bf7a7e7" class="cell" data-execution_count="113">
+<ol type="1">
+<li>“Which countries have experienced the highest number of natural disasters?”</li>
+</ol>
+<ul>
+<li>We’ll need to investigate variables on countries, when it occured, and type of disaster</li>
+</ul>
+<div id="3bf7a7e7" class="cell" data-execution_count="66">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>disaster_count_by_country_df <span class="op">=</span> df.groupby([<span class="st">'Country'</span>]).agg(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    disaster_count<span class="op">=</span>(<span class="st">'Disaster Type'</span>, <span class="st">'count'</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>).reset_index().sort_values(by<span class="op">=</span><span class="st">'disaster_count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>disaster_count_by_country_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="113">
+<div class="cell-output cell-output-display" data-execution_count="66">
 <div>
 
 
@@ -1650,7 +1682,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="10198729" class="cell" data-execution_count="114">
+<div id="10198729" class="cell" data-execution_count="67">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.io <span class="im">as</span> pio</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pio.renderers.default<span class="op">=</span><span class="st">"iframe"</span></span>
@@ -1669,7 +1701,7 @@ dtype: int64</code></pre>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_114.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_67.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1681,23 +1713,25 @@ dtype: int64</code></pre>
 <section id="week-two-goals" class="level1">
 <h1>Week two goals</h1>
 <ul>
-<li>Answer research question “Are certain types of disasters becoming more common over time?” using visualization and data analysis</li>
+<li>Answer research question 2. “Are certain types of disasters becoming more common over time?” using visualization and data analysis</li>
 <li>Create a visualization to explore relationship between total deaths and occurence count for each disaster subtype</li>
 <li>Create an Interactive Map Visualization on Devastating Disasters Around the World</li>
 <li>Consider other APIs or Datasets to use that are related to the EM-DAT data but also offer something new and interesting</li>
 </ul>
 <section id="lets-get-started-on-the-second-research-question" class="level2">
 <h2 class="anchored" data-anchor-id="lets-get-started-on-the-second-research-question">Let’s get started on the second research question</h2>
-<p>“Are certain types of disasters becoming more common over time?”</p>
+<ol start="2" type="1">
+<li>“Are certain types of disasters becoming more common over time?”</li>
+</ol>
 <ul>
 <li><p>We’ll need to investigate variables on time, when it occured, and type of disaster</p></li>
 <li><p>Let’s consider limitations with this dataset since it starts in 2000</p></li>
 </ul>
-<div id="f7004063" class="cell" data-execution_count="115">
+<div id="f7004063" class="cell" data-execution_count="68">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>disaster_counts <span class="op">=</span> df.groupby([<span class="st">'Start Year'</span>, <span class="st">'Disaster Type'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>disaster_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="115">
+<div class="cell-output cell-output-display" data-execution_count="68">
 <div>
 
 
@@ -1784,7 +1818,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="8d88bce6" class="cell" data-execution_count="116">
+<div id="8d88bce6" class="cell" data-execution_count="69">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.line(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    disaster_counts,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Start Year'</span>,</span>
@@ -1796,7 +1830,7 @@ dtype: int64</code></pre>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_116.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_69.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1806,14 +1840,14 @@ dtype: int64</code></pre>
 </section>
 <section id="visualization-to-explore-relationship-between-total-deaths-and-occurence-count-for-each-disaster-subtype" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-to-explore-relationship-between-total-deaths-and-occurence-count-for-each-disaster-subtype">Visualization to explore relationship between total deaths and occurence count for each disaster subtype</h2>
-<div id="42a0ec1f" class="cell" data-execution_count="117">
+<div id="42a0ec1f" class="cell" data-execution_count="70">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scatter_data <span class="op">=</span> df.groupby(<span class="st">'Disaster Subtype'</span>).agg(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    total_deaths<span class="op">=</span>(<span class="st">'Total Deaths'</span>, <span class="st">'sum'</span>),</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    occurrence_count<span class="op">=</span>(<span class="st">'Disaster Subtype'</span>, <span class="st">'count'</span>)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>scatter_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="117">
+<div class="cell-output cell-output-display" data-execution_count="70">
 <div>
 
 
@@ -1900,7 +1934,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="4edfa032" class="cell" data-execution_count="118">
+<div id="4edfa032" class="cell" data-execution_count="71">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    scatter_data,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Disaster Subtype'</span>,</span>
@@ -1918,7 +1952,7 @@ dtype: int64</code></pre>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_118.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_71.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1928,7 +1962,7 @@ dtype: int64</code></pre>
 </section>
 <section id="map-visualization-on-devastating-disasters-around-the-world" class="level2">
 <h2 class="anchored" data-anchor-id="map-visualization-on-devastating-disasters-around-the-world">Map Visualization on Devastating Disasters Around the World</h2>
-<div id="21d67e2c" class="cell" data-execution_count="119">
+<div id="21d67e2c" class="cell" data-execution_count="72">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>map_df <span class="op">=</span> df[(df[<span class="st">'Latitude'</span>].notna()) <span class="op">&amp;</span> (df[<span class="st">'Longitude'</span>].notna())]</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>map_df[<span class="st">'Total Deaths'</span>] <span class="op">=</span> map_df[<span class="st">'Total Deaths'</span>].fillna(<span class="dv">0</span>)</span>
@@ -1937,7 +1971,7 @@ dtype: int64</code></pre>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>map_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/h6/1nj6sx2s1nxdyfr36bhcxvlc0000gn/T/ipykernel_77005/904054904.py:3: SettingWithCopyWarning:
+<pre><code>/var/folders/h6/1nj6sx2s1nxdyfr36bhcxvlc0000gn/T/ipykernel_35903/904054904.py:3: SettingWithCopyWarning:
 
 
 A value is trying to be set on a copy of a slice from a DataFrame.
@@ -1946,7 +1980,7 @@ Try using .loc[row_indexer,col_indexer] = value instead
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="119">
+<div class="cell-output cell-output-display" data-execution_count="72">
 <div>
 
 
@@ -2249,7 +2283,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<div id="fd5d35f0" class="cell" data-execution_count="120">
+<div id="fd5d35f0" class="cell" data-execution_count="73">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter_geo(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    map_df,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="st">'Latitude'</span>,</span>
@@ -2270,13 +2304,346 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_120.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_73.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
 <section id="analysis-of-map-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-of-map-visualization">Analysis of Map Visualization</h2>
 <p>Here, we can see that Haiti experienced a Ground Movement disaster that resulted in a huge amount of deaths. We also see that Indonesia has deathly tsunamis. China, Kazakhstan, and Russia face a lot of floods that have caused a large loss of lives.</p>
+</section>
+</section>
+<section id="week-three-goals" class="level1">
+<h1>Week three goals</h1>
+<ul>
+<li>Respond to questions from research professor prior week</li>
+<li>Find interesting environmental API</li>
+<li>Obtain API key by creating an account and adding credit card information to subscribe</li>
+<li>Testing the API with a simple query</li>
+<li>Using the API with interesting parameters</li>
+<li>Creating a visualization based on the API</li>
+</ul>
+<section id="responding-to-questions-from-research-professor-prior-week" class="level2">
+<h2 class="anchored" data-anchor-id="responding-to-questions-from-research-professor-prior-week">Responding to questions from research professor prior week</h2>
+<ul>
+<li>“This is likely due to their large size, which means that there is more surface area taken into account.” -&gt; Would it be possible to apply some normalization techniques to account for differences in country size? -&gt; answer: Great idea! We could try to find another data source that contains the country size and use data techniques to merge it together. Once we’ve prepared the data, we can perform normalization techniques by dividing the number of natural disasters with the corresponding country’s size. We can try doing this during week 5 when we incorporate SQL.</li>
+<li>Would you consider numbering the research questions with bullet points to make them easier to reference? -&gt; Yes, I’ll go back and adjust them! This is a great piece of advice</li>
+<li>Clarifying question “dataset spans from 2000 to 2025—is that right?” -&gt; answer: Yes, this dataset spans 25 years starting from 2000. Even though there exists data before 2000, according to the data source, “Pre-2000 data is particularly subject to reporting biases.”</li>
+<li>Regarding visualizations and figures: Could you ensure consistency in how parameters are represented? For example, if size represents occurrence or death, it would be helpful to maintain that convention across all figures. -&gt; answer: Yes, this is a helpful piece of advice but the reason for the inconsistency in how parameters are represented is due to how these visualizations were more so for exploratory purposes to better understand the data. I’ll keep this advice in mind and ensure consistency in how parameters are represented for the final report.</li>
+</ul>
+</section>
+<section id="air-pollution-dataset-using-api" class="level2">
+<h2 class="anchored" data-anchor-id="air-pollution-dataset-using-api">Air Pollution Dataset Using API</h2>
+<p>Our data source is called Open Weather Map. I made an account with them and verified my email address to obtain the API key. According to the website, “the Air Pollution API provides current, forecast and historical air pollution data for any coordinates on the globe. Besides basic Air Quality Index, the API returns data about polluting gases, such as Carbon monoxide (CO), Nitrogen monoxide (NO), Nitrogen dioxide (NO2), Ozone (O3), Sulphur dioxide (SO2), Ammonia (NH3), and particulates (PM2.5 and PM10). Air pollution forecast is available for 4 days with hourly granularity. Historical data is accessible from 27th November 2020.”</p>
+<ul>
+<li><img src="Screenshot 2025-05-12 at 10.00.38 PM.png" alt="Image of a description of OpenWeather scale for Air Quality Index levels:" height="300"></li>
+</ul>
+<div id="01080ce5" class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"dc622205c25e4f765124ba4c03f370ba"</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>LAT <span class="op">=</span> <span class="fl">35.6764</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>LON <span class="op">=</span> <span class="fl">139.6500</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f"http://api.openweathermap.org/data/2.5/air_pollution"</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lat"</span>: LAT,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lon"</span>: LON,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"appid"</span>: API_KEY</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> response.json()</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Air Quality Index (AQI):"</span>, data[<span class="st">'list'</span>][<span class="dv">0</span>][<span class="st">'main'</span>][<span class="st">'aqi'</span>])</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Components (μg/m³):"</span>, data[<span class="st">'list'</span>][<span class="dv">0</span>][<span class="st">'components'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Air Quality Index (AQI): 2
+Components (μg/m³): {'co': 220.8, 'no': 0, 'no2': 14.02, 'o3': 88.16, 'so2': 7.18, 'pm2_5': 7.79, 'pm10': 9.89, 'nh3': 0.67}</code></pre>
+</div>
+</div>
+</section>
+<section id="air-quality-history" class="level2">
+<h2 class="anchored" data-anchor-id="air-quality-history">Air Quality History</h2>
+<p>The above code is testing the usage of the API. I looked up the coordinates of Tokyo and plugged that in to obtain the Air Quality Index. I received a value of 2. Now let’s trying using the API to obtain the Air Quality History.</p>
+<div id="eec7bf9f" class="cell" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"dc622205c25e4f765124ba4c03f370ba"</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>LAT <span class="op">=</span> <span class="fl">35.6764</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>LON <span class="op">=</span> <span class="fl">139.6500</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="bu">int</span>(datetime(<span class="dv">2025</span>, <span class="dv">1</span>, <span class="dv">1</span>).timestamp())</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> <span class="bu">int</span>(datetime(<span class="dv">2025</span>, <span class="dv">1</span>, <span class="dv">6</span>).timestamp())  </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"http://api.openweathermap.org/data/2.5/air_pollution/history"</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lat"</span>: LAT,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lon"</span>: LON,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"start"</span>: start,</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"end"</span>: end,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"appid"</span>: API_KEY</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> response.json()</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> []</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> entry <span class="kw">in</span> data.get(<span class="st">"list"</span>, []):</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    ts <span class="op">=</span> datetime.fromtimestamp(entry[<span class="st">"dt"</span>])</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    aqi <span class="op">=</span> entry[<span class="st">"main"</span>][<span class="st">"aqi"</span>]</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    components <span class="op">=</span> entry[<span class="st">"components"</span>]</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    components[<span class="st">"timestamp"</span>] <span class="op">=</span> ts</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    components[<span class="st">"aqi"</span>] <span class="op">=</span> aqi</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    records.append(components)</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(records)</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">"timestamp"</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         co      no     no2     o3    so2  pm2_5   pm10   nh3  \
+timestamp                                                                       
+2025-01-01 00:00:00  333.79    0.00   26.73  57.22  19.07   0.86   2.03  1.03   
+2025-01-01 01:00:00  323.77    0.00   23.65  59.37  16.45   0.72   1.90  0.95   
+2025-01-01 02:00:00  317.10    0.00   22.62  60.80  15.74   0.65   1.91  0.90   
+2025-01-01 03:00:00  317.10    0.00   23.31  61.51  16.21   0.67   2.04  0.89   
+2025-01-01 04:00:00  323.77    0.00   24.68  60.80  17.40   0.72   2.18  0.93   
+...                     ...     ...     ...    ...    ...    ...    ...   ...   
+2025-01-05 20:00:00  834.47  236.03  126.12   0.00  72.48  22.26  31.77  3.96   
+2025-01-05 21:00:00  741.00  189.54  116.53   0.00  58.65  20.81  28.91  3.64   
+2025-01-05 22:00:00  554.08   98.35   98.71   0.00  47.21  16.70  22.60  2.94   
+2025-01-05 23:00:00  500.68   75.10   89.11   0.00  40.53  16.16  21.01  2.28   
+2025-01-06 00:00:00  480.65   64.37   84.31   0.00  31.47  16.41  20.80  1.63   
+
+                     aqi  
+timestamp                 
+2025-01-01 00:00:00    1  
+2025-01-01 01:00:00    1  
+2025-01-01 02:00:00    2  
+2025-01-01 03:00:00    2  
+2025-01-01 04:00:00    2  
+...                  ...  
+2025-01-05 20:00:00    3  
+2025-01-05 21:00:00    3  
+2025-01-05 22:00:00    3  
+2025-01-05 23:00:00    3  
+2025-01-06 00:00:00    3  
+
+[121 rows x 9 columns]</code></pre>
+</div>
+</div>
+<p>Now that we have our history of the air quality over the past five days at the start of 2025, we can try to categorize it based on https://www.iaqdetectors.com/blogs/what-is-air-quality-index-uba-standardhttps://www.iaqdetectors.com/blogs/what-is-air-quality-index-uba-standard, which says: Level 1: Excellent Air Quality. AQI Range: 1 (Green) Level 2: Good Air Quality. AQI Range: 2 (Green) Level 3: Moderate Air Quality. AQI Range: 3 (Yellow) Level 4: Poor Air Quality. AQI Range: 4 (Orange) Level 5: Very Poor Air Quality. AQI Range: 5 (Red or Purple)</p>
+</section>
+<section id="categorizing-air-quality" class="level2">
+<h2 class="anchored" data-anchor-id="categorizing-air-quality">Categorizing Air Quality</h2>
+<div id="47e91a23" class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> categorize_aqi(aqi):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> aqi <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Excellent"</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> aqi <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Good"</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> aqi <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Moderate"</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> aqi <span class="op">==</span> <span class="dv">4</span>:</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Poor"</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Very Poor"</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"risk_level"</span>] <span class="op">=</span> df[<span class="st">"aqi"</span>].<span class="bu">apply</span>(categorize_aqi)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         co      no     no2     o3    so2  pm2_5   pm10   nh3  \
+timestamp                                                                       
+2025-01-01 00:00:00  333.79    0.00   26.73  57.22  19.07   0.86   2.03  1.03   
+2025-01-01 01:00:00  323.77    0.00   23.65  59.37  16.45   0.72   1.90  0.95   
+2025-01-01 02:00:00  317.10    0.00   22.62  60.80  15.74   0.65   1.91  0.90   
+2025-01-01 03:00:00  317.10    0.00   23.31  61.51  16.21   0.67   2.04  0.89   
+2025-01-01 04:00:00  323.77    0.00   24.68  60.80  17.40   0.72   2.18  0.93   
+...                     ...     ...     ...    ...    ...    ...    ...   ...   
+2025-01-05 20:00:00  834.47  236.03  126.12   0.00  72.48  22.26  31.77  3.96   
+2025-01-05 21:00:00  741.00  189.54  116.53   0.00  58.65  20.81  28.91  3.64   
+2025-01-05 22:00:00  554.08   98.35   98.71   0.00  47.21  16.70  22.60  2.94   
+2025-01-05 23:00:00  500.68   75.10   89.11   0.00  40.53  16.16  21.01  2.28   
+2025-01-06 00:00:00  480.65   64.37   84.31   0.00  31.47  16.41  20.80  1.63   
+
+                     aqi risk_level  
+timestamp                            
+2025-01-01 00:00:00    1  Excellent  
+2025-01-01 01:00:00    1  Excellent  
+2025-01-01 02:00:00    2       Good  
+2025-01-01 03:00:00    2       Good  
+2025-01-01 04:00:00    2       Good  
+...                  ...        ...  
+2025-01-05 20:00:00    3   Moderate  
+2025-01-05 21:00:00    3   Moderate  
+2025-01-05 22:00:00    3   Moderate  
+2025-01-05 23:00:00    3   Moderate  
+2025-01-06 00:00:00    3   Moderate  
+
+[121 rows x 10 columns]</code></pre>
+</div>
+</div>
+</section>
+<section id="line-graph-on-air-quality" class="level2">
+<h2 class="anchored" data-anchor-id="line-graph-on-air-quality">Line graph on Air Quality</h2>
+<p>After, we can visualize the data over the 5 day period!</p>
+<div id="92d002f1" class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AQI_Plot(df, start, end, location):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> px.line(df, x<span class="op">=</span>df.index, y<span class="op">=</span><span class="st">"aqi"</span>, title<span class="op">=</span><span class="ss">f"Air Quality Index (AQI) in </span><span class="sc">{</span>location<span class="sc">}</span><span class="ss"> from </span><span class="sc">{</span>start<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>end<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>              labels<span class="op">=</span>{<span class="st">"AQI"</span>: <span class="st">"AQI"</span>, <span class="st">"timestamp"</span>: <span class="st">"Date"</span>})</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    fig.update_traces(line<span class="op">=</span><span class="bu">dict</span>(color<span class="op">=</span><span class="st">'blue'</span>))</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    fig.update_layout(yaxis_title<span class="op">=</span><span class="st">"AQI"</span>, xaxis_title<span class="op">=</span><span class="st">"Date"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    fig.show()</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>AQI_Plot(df, <span class="st">"2025-01-01"</span> ,<span class="st">"2025-01-06"</span>, <span class="st">"Tokyo"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_77.html" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div>
+<p>However, if we wanted to incorporate the risk levels onto the visualization, we can add some color identification by specifying the color discrete map. The downside is that it is no longer continuous and a little harder to understand since the levels change so dramatically.</p>
+<div id="56ee38b8" class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AQI_Color_Plot(df, start, end, location):</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> px.scatter(df, x<span class="op">=</span>df.index, y<span class="op">=</span><span class="st">"aqi"</span>, color<span class="op">=</span><span class="st">"risk_level"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                    title<span class="op">=</span><span class="ss">f"Air Quality Index (AQI) in </span><span class="sc">{</span>location<span class="sc">}</span><span class="ss"> from </span><span class="sc">{</span>start<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>end<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                    labels<span class="op">=</span>{<span class="st">"aqi"</span>: <span class="st">"AQI"</span>, <span class="st">"timestamp"</span>: <span class="st">"Date"</span>},</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                    color_discrete_map<span class="op">=</span>{</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Excellent"</span>: <span class="st">"green"</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Good"</span>: <span class="st">"limegreen"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Moderate"</span>: <span class="st">"orange"</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Poor"</span>: <span class="st">"orangered"</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Very Poor"</span>: <span class="st">"red"</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>                    })</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    fig.update_traces(mode<span class="op">=</span><span class="st">"lines+markers"</span>)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    fig.update_layout(yaxis_title<span class="op">=</span><span class="st">"AQI"</span>, xaxis_title<span class="op">=</span><span class="st">"Date"</span>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    fig.show()</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>AQI_Color_Plot(df, <span class="st">"2025-01-01"</span> ,<span class="st">"2025-01-06"</span>, <span class="st">"Tokyo"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_78.html" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div>
+<p>Now let’s wrap everything into a function so that the parameters can be easily changed based on user input.</p>
+<div id="6239a4f3" class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_df(lat, lon, start, end, location):</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    API_KEY <span class="op">=</span> <span class="st">"dc622205c25e4f765124ba4c03f370ba"</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    LAT <span class="op">=</span> lat</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    LON <span class="op">=</span> lon</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> <span class="bu">int</span>(datetime.strptime(start, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>).timestamp())</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> <span class="bu">int</span>(datetime.strptime(end, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>).timestamp())</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="st">"http://api.openweathermap.org/data/2.5/air_pollution/history"</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> {</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"lat"</span>: LAT,</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"lon"</span>: LON,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start"</span>: start,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"end"</span>: end,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"appid"</span>: API_KEY</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> response.json()</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    records <span class="op">=</span> []</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> entry <span class="kw">in</span> data.get(<span class="st">"list"</span>, []):</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>        ts <span class="op">=</span> datetime.fromtimestamp(entry[<span class="st">"dt"</span>])</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>        aqi <span class="op">=</span> entry[<span class="st">"main"</span>][<span class="st">"aqi"</span>]</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>        components <span class="op">=</span> entry[<span class="st">"components"</span>]</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>        components[<span class="st">"timestamp"</span>] <span class="op">=</span> ts</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>        components[<span class="st">"aqi"</span>] <span class="op">=</span> aqi</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>        records.append(components)</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.DataFrame(records)</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>        df.set_index(<span class="st">"timestamp"</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> categorize_aqi(aqi):</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> aqi <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="st">"Excellent"</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> aqi <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="st">"Good"</span></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> aqi <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="st">"Moderate"</span></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> aqi <span class="op">==</span> <span class="dv">4</span>:</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="st">"Poor"</span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="st">"Very Poor"</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"risk_level"</span>] <span class="op">=</span> df[<span class="st">"aqi"</span>].<span class="bu">apply</span>(categorize_aqi)</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(df)</span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>    AQI_Color_Plot(df, start, end, location )</span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="example-usage-of-our-function-for-the-specific-location-los-angeles" class="level2">
+<h2 class="anchored" data-anchor-id="example-usage-of-our-function-for-the-specific-location-los-angeles">Example usage of our function for the specific location Los Angeles</h2>
+<p>Here we are using the coordinates of Los Angeles and observing the air quality between Jan.&nbsp;5 and Jan.&nbsp;10, 2025, which was during the wildfires in the Palisades and Eaton Canyon.</p>
+<div id="c59ab3af" class="cell" data-execution_count="80">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>lat <span class="op">=</span> <span class="fl">34.0549</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>lon <span class="op">=</span> <span class="fl">118.2426</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>start_date <span class="op">=</span> <span class="st">"2025-01-05"</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>end_date <span class="op">=</span> <span class="st">"2025-01-10"</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>location <span class="op">=</span> <span class="st">"Los Angeles"</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> create_df(lat, lon, start_date, end_date, location)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          co     no    no2     o3    so2   pm2_5    pm10  \
+timestamp                                                                  
+2025-01-05 00:00:00  1735.69  29.95  58.95   0.00  15.74  173.36  225.51   
+2025-01-05 01:00:00  1642.23  29.50  61.01   0.00  14.78  173.32  217.93   
+2025-01-05 02:00:00  1562.12  29.50  63.75   0.00  14.90  175.63  215.06   
+2025-01-05 03:00:00  1482.01  28.61  67.17   0.00  15.50  178.79  215.36   
+2025-01-05 04:00:00  1415.25  25.70  70.60   0.00  16.45  187.26  221.11   
+...                      ...    ...    ...    ...    ...     ...     ...   
+2025-01-09 20:00:00   614.17   0.02  43.87  33.97  42.92   38.82   61.52   
+2025-01-09 21:00:00   620.84   0.02  44.55  32.54  44.82   38.22   61.39   
+2025-01-09 22:00:00   647.54   0.04  49.35  28.25  51.98   39.03   61.56   
+2025-01-09 23:00:00   754.36   0.14  61.69  17.70  62.94   47.53   71.75   
+2025-01-10 00:00:00   834.47   0.31  71.29  11.00  66.76   54.43   79.63   
+
+                      nh3  aqi risk_level  
+timestamp                                  
+2025-01-05 00:00:00  3.20    5  Very Poor  
+2025-01-05 01:00:00  2.03    5  Very Poor  
+2025-01-05 02:00:00  1.33    5  Very Poor  
+2025-01-05 03:00:00  0.81    5  Very Poor  
+2025-01-05 04:00:00  0.34    5  Very Poor  
+...                   ...  ...        ...  
+2025-01-09 20:00:00  6.46    3   Moderate  
+2025-01-09 21:00:00  7.16    3   Moderate  
+2025-01-09 22:00:00  7.41    3   Moderate  
+2025-01-09 23:00:00  8.61    3   Moderate  
+2025-01-10 00:00:00  9.88    4       Poor  
+
+[121 rows x 10 columns]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_80.html" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>None</code></pre>
+</div>
+</div>
+<p>Using this function, a user can pull specific data for an API and create a visualization on the air quality of a chosen location, as well as date range. This would allow them to answer the newly created sixth research question</p>
+<ol start="6" type="1">
+<li>Over the course of a specific time period in a certain area, how does the air quality change and fluctuate over a rating of 5?</li>
+</ol>
+<p>This could help them consider whether urban vs rural areas experience different air quality. In addition, it might encourage the user to think about other factors affecting the air quality. For example, from the Los Angeles example, we can understand that a large reason for the bad air quality has to do with the wildfires that begun at the start of this year.</p>
+<p>In the future, we can try using to classify pollution levels into health risk categories, such as “Low”, “Moderate”, or “Very Poor”. We can do so by using pollutant concentrations as input and training a classifier like Logistic Regression, Decision Tree, or SVM.</p>
+<p>This bring us to our seventh research question which is</p>
+<ol start="7" type="1">
+<li>How we can try to classify pollution levels into health risk categories using pollutant concentrations?</li>
+</ol>
 
 
 </section>
