@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Configured parameters to obtain custom dataset</li>
 <li><img src="Screenshot 2025-04-21 at 6.21.45 PM.png" alt="User submitting message 'Happy Valentines Day' by user Megan Elizabeth Tieu" height="300"></li>
 </ul>
-<div id="7f5b976d" class="cell" data-execution_count="42">
+<div id="7f5b976d" class="cell" data-execution_count="118">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_excel(<span class="st">"emdat.xlsx"</span>, engine<span class="op">=</span><span class="st">"openpyxl"</span>)  </span>
@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Let’s inspect the data</p>
-<div id="23ec5554" class="cell" data-execution_count="43">
+<div id="23ec5554" class="cell" data-execution_count="119">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.info()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -330,7 +330,7 @@ Data columns (total 46 columns):
 dtypes: float64(20), int64(2), object(24)
 memory usage: 5.7+ MB</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="43">
+<div class="cell-output cell-output-display" data-execution_count="119">
 <div>
 
 
@@ -565,9 +565,9 @@ memory usage: 5.7+ MB</code></pre>
 <section id="data-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
 <p>Get rid of columns where the data is irrelevant or there’s not enough of it for it to be interesting.</p>
-<div id="d58243f1" class="cell" data-execution_count="44">
+<div id="d58243f1" class="cell" data-execution_count="120">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="120">
 <pre><code>Reconstruction Costs, Adjusted ('000 US$)    16176
 Reconstruction Costs ('000 US$)              16176
 AID Contribution ('000 US$)                  15720
@@ -617,10 +617,10 @@ Last Update                                      0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="ed57a53d" class="cell" data-execution_count="45">
+<div id="ed57a53d" class="cell" data-execution_count="121">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[ <span class="st">'DisNo.'</span>, <span class="st">'External IDs'</span>,<span class="st">'Event Name'</span>, <span class="st">'Origin'</span>,<span class="st">'Associated Types'</span>,<span class="st">'Appeal'</span>,<span class="st">'Declaration'</span>,<span class="st">'OFDA/BHA Response'</span>,<span class="st">'AID Contribution (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,  <span class="st">'Reconstruction Costs (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Reconstruction Costs, Adjusted (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Insured Damage (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Insured Damage, Adjusted (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'River Basin'</span>,<span class="st">'Admin Units'</span>,<span class="st">'Entry Date'</span>,<span class="st">'Last Update'</span>   ], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="121">
 <div>
 
 
@@ -924,10 +924,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Let’s also get rid of data points if it’s missing important variables we care about.</p>
-<div id="d4cdccc8" class="cell" data-execution_count="46">
+<div id="d4cdccc8" class="cell" data-execution_count="122">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">'Country'</span>, <span class="st">'Disaster Type'</span>, <span class="st">'Start Year'</span>])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell-output cell-output-display" data-execution_count="122">
 <div>
 
 
@@ -1231,10 +1231,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Get rid of duplicates</p>
-<div id="828ef5f4" class="cell" data-execution_count="47">
+<div id="828ef5f4" class="cell" data-execution_count="123">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="47">
+<div class="cell-output cell-output-display" data-execution_count="123">
 <div>
 
 
@@ -1600,14 +1600,14 @@ dtype: int64</code></pre>
 <ul>
 <li>We’ll need to investigate variables on countries, when it occured, and type of disaster</li>
 </ul>
-<div id="3bf7a7e7" class="cell" data-execution_count="48">
+<div id="3bf7a7e7" class="cell" data-execution_count="124">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>disaster_count_by_country_df <span class="op">=</span> df.groupby([<span class="st">'Country'</span>]).agg(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    disaster_count<span class="op">=</span>(<span class="st">'Disaster Type'</span>, <span class="st">'count'</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>).reset_index().sort_values(by<span class="op">=</span><span class="st">'disaster_count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>disaster_count_by_country_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="48">
+<div class="cell-output cell-output-display" data-execution_count="124">
 <div>
 
 
@@ -1682,7 +1682,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="10198729" class="cell" data-execution_count="49">
+<div id="10198729" class="cell" data-execution_count="125">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.io <span class="im">as</span> pio</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pio.renderers.default<span class="op">=</span><span class="st">"iframe"</span></span>
@@ -1701,7 +1701,7 @@ dtype: int64</code></pre>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_49.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_125.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1727,11 +1727,11 @@ dtype: int64</code></pre>
 <li><p>We’ll need to investigate variables on time, when it occured, and type of disaster</p></li>
 <li><p>Let’s consider limitations with this dataset since it starts in 2000</p></li>
 </ul>
-<div id="f7004063" class="cell" data-execution_count="50">
+<div id="f7004063" class="cell" data-execution_count="126">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>disaster_counts <span class="op">=</span> df.groupby([<span class="st">'Start Year'</span>, <span class="st">'Disaster Type'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>disaster_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="126">
 <div>
 
 
@@ -1818,7 +1818,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="8d88bce6" class="cell" data-execution_count="51">
+<div id="8d88bce6" class="cell" data-execution_count="127">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.line(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    disaster_counts,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Start Year'</span>,</span>
@@ -1830,7 +1830,7 @@ dtype: int64</code></pre>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_51.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_127.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1840,14 +1840,14 @@ dtype: int64</code></pre>
 </section>
 <section id="visualization-to-explore-relationship-between-total-deaths-and-occurence-count-for-each-disaster-subtype" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-to-explore-relationship-between-total-deaths-and-occurence-count-for-each-disaster-subtype">Visualization to explore relationship between total deaths and occurence count for each disaster subtype</h2>
-<div id="42a0ec1f" class="cell" data-execution_count="52">
+<div id="42a0ec1f" class="cell" data-execution_count="128">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scatter_data <span class="op">=</span> df.groupby(<span class="st">'Disaster Subtype'</span>).agg(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    total_deaths<span class="op">=</span>(<span class="st">'Total Deaths'</span>, <span class="st">'sum'</span>),</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    occurrence_count<span class="op">=</span>(<span class="st">'Disaster Subtype'</span>, <span class="st">'count'</span>)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>scatter_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="52">
+<div class="cell-output cell-output-display" data-execution_count="128">
 <div>
 
 
@@ -1934,7 +1934,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="4edfa032" class="cell" data-execution_count="53">
+<div id="4edfa032" class="cell" data-execution_count="129">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    scatter_data,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Disaster Subtype'</span>,</span>
@@ -1952,7 +1952,7 @@ dtype: int64</code></pre>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_53.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_129.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1962,7 +1962,7 @@ dtype: int64</code></pre>
 </section>
 <section id="map-visualization-on-devastating-disasters-around-the-world" class="level2">
 <h2 class="anchored" data-anchor-id="map-visualization-on-devastating-disasters-around-the-world">Map Visualization on Devastating Disasters Around the World</h2>
-<div id="21d67e2c" class="cell" data-execution_count="54">
+<div id="21d67e2c" class="cell" data-execution_count="130">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>map_df <span class="op">=</span> df[(df[<span class="st">'Latitude'</span>].notna()) <span class="op">&amp;</span> (df[<span class="st">'Longitude'</span>].notna())]</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>map_df[<span class="st">'Total Deaths'</span>] <span class="op">=</span> map_df[<span class="st">'Total Deaths'</span>].fillna(<span class="dv">0</span>)</span>
@@ -1980,7 +1980,7 @@ Try using .loc[row_indexer,col_indexer] = value instead
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="54">
+<div class="cell-output cell-output-display" data-execution_count="130">
 <div>
 
 
@@ -2283,7 +2283,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<div id="fd5d35f0" class="cell" data-execution_count="55">
+<div id="fd5d35f0" class="cell" data-execution_count="131">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter_geo(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    map_df,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="st">'Latitude'</span>,</span>
@@ -2304,7 +2304,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_55.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_131.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -2338,7 +2338,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <ul>
 <li><img src="Screenshot 2025-05-12 at 10.00.38 PM.png" alt="Image of a description of OpenWeather scale for Air Quality Index levels:" height="300"></li>
 </ul>
-<div id="01080ce5" class="cell" data-execution_count="56">
+<div id="01080ce5" class="cell" data-execution_count="132">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"dc622205c25e4f765124ba4c03f370ba"</span></span>
@@ -2366,7 +2366,7 @@ Components (μg/m³): {'co': 171.31, 'no': 1.28, 'no2': 17.65, 'o3': 82.99, 'so2
 <section id="air-quality-history" class="level2">
 <h2 class="anchored" data-anchor-id="air-quality-history">Air Quality History</h2>
 <p>The above code is testing the usage of the API. I looked up the coordinates of Tokyo and plugged that in to obtain the Air Quality Index. I received a value of 2. Now let’s trying using the API to obtain the Air Quality History.</p>
-<div id="eec7bf9f" class="cell" data-execution_count="57">
+<div id="eec7bf9f" class="cell" data-execution_count="133">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
@@ -2439,7 +2439,7 @@ timestamp
 </section>
 <section id="categorizing-air-quality" class="level2">
 <h2 class="anchored" data-anchor-id="categorizing-air-quality">Categorizing Air Quality</h2>
-<div id="47e91a23" class="cell" data-execution_count="58">
+<div id="47e91a23" class="cell" data-execution_count="134">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> categorize_aqi(aqi):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> aqi <span class="op">==</span> <span class="dv">1</span>:</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Excellent"</span></span>
@@ -2491,7 +2491,7 @@ timestamp
 <section id="line-graph-on-air-quality" class="level2">
 <h2 class="anchored" data-anchor-id="line-graph-on-air-quality">Line graph on Air Quality</h2>
 <p>After, we can visualize the data over the 5 day period!</p>
-<div id="92d002f1" class="cell" data-execution_count="59">
+<div id="92d002f1" class="cell" data-execution_count="135">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AQI_Plot(df, start, end, location):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> px.line(df, x<span class="op">=</span>df.index, y<span class="op">=</span><span class="st">"aqi"</span>, title<span class="op">=</span><span class="ss">f"Air Quality Index (AQI) in </span><span class="sc">{</span>location<span class="sc">}</span><span class="ss"> from </span><span class="sc">{</span>start<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>end<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>              labels<span class="op">=</span>{<span class="st">"AQI"</span>: <span class="st">"AQI"</span>, <span class="st">"timestamp"</span>: <span class="st">"Date"</span>})</span>
@@ -2502,11 +2502,11 @@ timestamp
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    fig.show()</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>AQI_Plot(df, <span class="st">"2025-01-01"</span> ,<span class="st">"2025-01-06"</span>, <span class="st">"Tokyo"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_59.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_135.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <p>However, if we wanted to incorporate the risk levels onto the visualization, we can add some color identification by specifying the color discrete map. The downside is that it is no longer continuous and a little harder to understand since the levels change so dramatically.</p>
-<div id="56ee38b8" class="cell" data-execution_count="60">
+<div id="56ee38b8" class="cell" data-execution_count="136">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AQI_Color_Plot(df, start, end, location):</span>
@@ -2528,11 +2528,11 @@ timestamp
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    fig.show()</span>
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>AQI_Color_Plot(df, <span class="st">"2025-01-01"</span> ,<span class="st">"2025-01-06"</span>, <span class="st">"Tokyo"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_60.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_136.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <p>Now let’s wrap everything into a function so that the parameters can be easily changed based on user input.</p>
-<div id="6239a4f3" class="cell" data-execution_count="61">
+<div id="6239a4f3" class="cell" data-execution_count="137">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_df(lat, lon, start, end, location):</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    API_KEY <span class="op">=</span> <span class="st">"dc622205c25e4f765124ba4c03f370ba"</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    LAT <span class="op">=</span> lat</span>
@@ -2587,7 +2587,7 @@ timestamp
 <section id="example-usage-of-our-function-for-the-specific-location-los-angeles" class="level2">
 <h2 class="anchored" data-anchor-id="example-usage-of-our-function-for-the-specific-location-los-angeles">Example usage of our function for the specific location Los Angeles</h2>
 <p>Here we are using the coordinates of Los Angeles and observing the air quality between Jan.&nbsp;5 and Jan.&nbsp;10, 2025, which was during the wildfires in the Palisades and Eaton Canyon.</p>
-<div id="c59ab3af" class="cell" data-execution_count="62">
+<div id="c59ab3af" class="cell" data-execution_count="138">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>lat <span class="op">=</span> <span class="fl">34.0549</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>lon <span class="op">=</span> <span class="fl">118.2426</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>start_date <span class="op">=</span> <span class="st">"2025-01-05"</span> </span>
@@ -2628,7 +2628,7 @@ timestamp
 [121 rows x 10 columns]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_62.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_138.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>None</code></pre>
@@ -2669,10 +2669,10 @@ timestamp
 <ul>
 <li><img src="Screenshot 2025-05-19 at 10.04.00 PM.png" alt="Image of a description of OpenWeather scale for Air Quality Index levels:" height="300"></li>
 </ul>
-<div id="942ce93b" class="cell" data-execution_count="63">
+<div id="942ce93b" class="cell" data-execution_count="139">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_pop <span class="op">=</span> pd.read_csv(<span class="st">'world_population.csv'</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="63">
+<div class="cell-output cell-output-display" data-execution_count="139">
 <div>
 
 
@@ -2931,17 +2931,17 @@ timestamp
 <section id="create-and-use-sql-databases-for-data-manipulation" class="level2">
 <h2 class="anchored" data-anchor-id="create-and-use-sql-databases-for-data-manipulation">Create and Use SQL Databases for Data Manipulation</h2>
 <p>So now, we have two seperate databases. One on EMDAT data and the other one containing information of different countries. Because our goal is to apply some normalization techniques to account for differences in country size, we want to use SQL to merge the two databases. Our first step is to import SQL and then start a connection. With this connection, we can convert the two df’s into sql.</p>
-<div id="a9fa969b" class="cell" data-execution_count="64">
+<div id="a9fa969b" class="cell" data-execution_count="140">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"pop.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="23198543" class="cell" data-execution_count="65">
+<div id="23198543" class="cell" data-execution_count="141">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sqlite3.<span class="ex">connect</span>(<span class="st">"pop.sqlite"</span>) <span class="im">as</span> conn:</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    df_pop.to_sql(<span class="st">"pop"</span>, conn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    map_df.to_sql(<span class="st">"emdat"</span>, conn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="85aef0aa" class="cell" data-execution_count="66">
+<div id="85aef0aa" class="cell" data-execution_count="142">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sqlite3.<span class="ex">connect</span>(<span class="st">"pop.sqlite"</span>) <span class="im">as</span> conn:</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    merged_df <span class="op">=</span> pd.read_sql_query(<span class="st">"""</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT </span></span>
@@ -2956,7 +2956,7 @@ timestamp
 <span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>, conn)</span>
 <span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>merged_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="66">
+<div class="cell-output cell-output-display" data-execution_count="142">
 <div>
 
 
@@ -3263,7 +3263,7 @@ timestamp
 <section id="visualization" class="level2">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
 <p>Now we can create the new visualization, but this time, the deaths are normalized by the country size.</p>
-<div id="cb728242" class="cell" data-execution_count="67">
+<div id="cb728242" class="cell" data-execution_count="143">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>disaster_counts <span class="op">=</span> merged_df.groupby(<span class="st">'Country'</span>).size().reset_index(name<span class="op">=</span><span class="st">'disaster_count'</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> merged_df.merge(disaster_counts, on<span class="op">=</span><span class="st">'Country'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
@@ -3273,9 +3273,9 @@ timestamp
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c846d69e" class="cell" data-execution_count="68">
+<div id="c846d69e" class="cell" data-execution_count="144">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>merged_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="68">
+<div class="cell-output cell-output-display" data-execution_count="144">
 <div>
 
 
@@ -3578,7 +3578,7 @@ timestamp
 </div>
 </div>
 </div>
-<div id="71b3c2c5" class="cell" data-execution_count="69">
+<div id="71b3c2c5" class="cell" data-execution_count="145">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.io <span class="im">as</span> pio</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>pio.renderers.default<span class="op">=</span><span class="st">"iframe"</span></span>
@@ -3597,7 +3597,7 @@ timestamp
 <span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_69.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_145.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -3624,7 +3624,7 @@ timestamp
 </ul>
 <section id="download-machine-learning-imports" class="level2">
 <h2 class="anchored" data-anchor-id="download-machine-learning-imports">Download machine learning imports</h2>
-<div id="60354ec5" class="cell" data-execution_count="70">
+<div id="60354ec5" class="cell" data-execution_count="146">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3634,7 +3634,7 @@ timestamp
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keras</span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>keras.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="70">
+<div class="cell-output cell-output-display" data-execution_count="146">
 <pre><code>'3.10.0'</code></pre>
 </div>
 </div>
@@ -3642,12 +3642,12 @@ timestamp
 <section id="choose-dataset-for-machine-learning" class="level2">
 <h2 class="anchored" data-anchor-id="choose-dataset-for-machine-learning">Choose dataset for machine learning</h2>
 <p>Our dataset contains meteorological data on the burned area of forest fires, in the northeast region of Portugal. We can try using FFMC, DMC, DC, and RH indexes to predict the month.</p>
-<div id="4dc4b1b2" class="cell" data-execution_count="71">
+<div id="4dc4b1b2" class="cell" data-execution_count="147">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/forest-fires/forestfires.csv"</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>fires <span class="op">=</span> pd.read_csv(url)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Focus on specific data and drop missing rows</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> fires[[<span class="st">"FFMC"</span>, <span class="st">"DMC"</span>, <span class="st">"DC"</span>, <span class="st">"RH"</span>, <span class="st">"temp"</span>]].dropna()</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> fires[[<span class="st">"FFMC"</span>, <span class="st">"DMC"</span>, <span class="st">"DC"</span>, <span class="st">"RH"</span>, <span class="st">"month"</span>]].dropna()</span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># FFMC index from the FWI system: 18.7 to 96.20 </span></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># DMC index from the FWI system: 1.1 to 291.3   </span></span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># DC index from the FWI system: 7.9 to 860.6    </span></span>
@@ -3656,7 +3656,7 @@ timestamp
 <span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Encode the "month" column as the target</span></span>
 <span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> LabelEncoder()</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> le.fit_transform(df[<span class="st">"temp"</span>])</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> le.fit_transform(df[<span class="st">"month"</span>])</span>
 <span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Predictor data</span></span>
 <span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">"FFMC"</span>, <span class="st">"DMC"</span>, <span class="st">"DC"</span>, <span class="st">"RH"</span>]]</span>
@@ -3669,29 +3669,29 @@ timestamp
 <section id="investigate-data" class="level2">
 <h2 class="anchored" data-anchor-id="investigate-data">Investigate data</h2>
 <p>Let’s look at the shape, as well as the first five rows of the predictor data and the target data.</p>
-<div id="faa0d374" class="cell" data-execution_count="72">
+<div id="faa0d374" class="cell" data-execution_count="148">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>X_train.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="72">
+<div class="cell-output cell-output-display" data-execution_count="148">
 <pre><code>(361, 4)</code></pre>
 </div>
 </div>
-<div id="ac9f9c5f" class="cell" data-execution_count="73">
+<div id="ac9f9c5f" class="cell" data-execution_count="149">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>X_train[:<span class="dv">5</span>] <span class="co"># first five rows of predictor data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="73">
-<pre><code>array([[ 85.4,  25.4, 349.7,  24. ],
-       [ 91.9, 111.7, 770.3,  45. ],
-       [ 87.6,  52.2, 103.8,  49. ],
-       [ 92.4, 124.1, 680.7,  42. ],
-       [ 91.9, 111.7, 770.3,  51. ]], dtype=float32)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="149">
+<pre><code>array([[ 93.3, 141.2, 713.9,  30. ],
+       [ 91.6, 108.4, 764. ,  34. ],
+       [ 91.4, 142.4, 601.4,  60. ],
+       [ 89.7, 287.2, 849.3,  45. ],
+       [ 85.6,  90.4, 609.6,  50. ]], dtype=float32)</code></pre>
 </div>
 </div>
-<div id="03c0e65f" class="cell" data-execution_count="74">
+<div id="03c0e65f" class="cell" data-execution_count="150">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>y_train[:<span class="dv">5</span>] <span class="co"># first five rows of target data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="74">
-<pre><code>array([  4, 101,  17, 128,  64])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="150">
+<pre><code>array([11, 11,  1, 11,  1])</code></pre>
 </div>
 </div>
-<div id="aac4ea96" class="cell" data-execution_count="75">
+<div id="aac4ea96" class="cell" data-execution_count="151">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras <span class="im">import</span> layers</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> keras.models.Sequential([</span>
@@ -3701,30 +3701,30 @@ timestamp
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    layers.Dense(<span class="bu">len</span>(np.unique(y))) </span>
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="57f30a7c" class="cell" data-execution_count="76">
+<div id="57f30a7c" class="cell" data-execution_count="152">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">Model: "sequential_1"</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">Model: "sequential_3"</span>
 </pre>
 </div>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
 ┃<span style="font-weight: bold"> Layer (type)                    </span>┃<span style="font-weight: bold"> Output Shape           </span>┃<span style="font-weight: bold">       Param # </span>┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ dense_3 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">500</span>)            │         <span style="color: #00af00; text-decoration-color: #00af00">2,500</span> │
+│ dense_6 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">500</span>)            │         <span style="color: #00af00; text-decoration-color: #00af00">2,500</span> │
 ├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dense_4 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">500</span>)            │       <span style="color: #00af00; text-decoration-color: #00af00">250,500</span> │
+│ dense_7 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">500</span>)            │       <span style="color: #00af00; text-decoration-color: #00af00">250,500</span> │
 ├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dense_5 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">192</span>)            │        <span style="color: #00af00; text-decoration-color: #00af00">96,192</span> │
+│ dense_8 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">12</span>)             │         <span style="color: #00af00; text-decoration-color: #00af00">6,012</span> │
 └─────────────────────────────────┴────────────────────────┴───────────────┘
 </pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold"> Total params: </span><span style="color: #00af00; text-decoration-color: #00af00">349,192</span> (1.33 MB)
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold"> Total params: </span><span style="color: #00af00; text-decoration-color: #00af00">259,012</span> (1011.77 KB)
 </pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold"> Trainable params: </span><span style="color: #00af00; text-decoration-color: #00af00">349,192</span> (1.33 MB)
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold"> Trainable params: </span><span style="color: #00af00; text-decoration-color: #00af00">259,012</span> (1011.77 KB)
 </pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -3735,637 +3735,107 @@ timestamp
 </section>
 <section id="train-the-data-and-make-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="train-the-data-and-make-predictions">Train the data and make predictions</h2>
-<div id="518d040f" class="cell" data-execution_count="77">
+<div id="518d040f" class="cell" data-execution_count="153">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>model(X_train[:<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="77">
-<pre><code>&lt;tf.Tensor: shape=(5, 192), dtype=float32, numpy=
-array([[ 1.38302698e+01,  7.11333334e-01, -2.89542198e+00,
-        -1.45340748e+01, -3.42299461e+00,  1.77270679e+01,
-        -8.16662216e+00,  9.82135868e+00,  1.53789062e+01,
-         1.34044390e+01, -3.72597909e+00, -1.38259277e+01,
-         9.21751595e+00,  1.04318695e+01, -1.46461849e+01,
-        -4.15215778e+00, -4.49560452e+00, -1.89968433e+01,
-         8.49436188e+00,  1.05364981e+01, -1.88125191e+01,
-         1.43567073e+00, -2.01233101e+01,  1.83705330e+00,
-         2.97748547e+01,  9.18271542e+00,  1.49572086e+01,
-         2.37416649e+00,  2.02550411e+00, -1.04000015e+01,
-        -1.16137238e+01,  1.56621714e+01, -1.22739401e+01,
-        -1.71203671e+01,  1.56080475e+01, -2.86340065e+01,
-         7.90883160e+00,  1.38838940e+01, -9.53083420e+00,
-         4.27169037e+00, -1.05403767e+01, -9.56229305e+00,
-        -7.55683661e+00,  3.29860210e+00,  1.50775509e+01,
-         1.22178974e+01, -6.43813753e+00, -5.22376060e+00,
-        -5.16564512e+00, -1.30088902e+00, -1.40243359e+01,
-         7.43953133e+00, -1.18877525e+01,  2.32243729e+01,
-         4.94418621e+00, -2.92338657e+00, -7.15158367e+00,
-        -3.25193882e+00, -1.47567844e+01,  5.12310791e+00,
-        -5.09687233e+00,  1.84435768e+01, -1.76387177e+01,
-        -2.03407574e+00,  1.12200441e+01,  1.23796737e+00,
-         1.12701311e+01, -1.08060408e+00,  1.55019283e+01,
-         1.02839632e+01, -1.47469730e+01, -6.32622576e+00,
-         3.04814219e+00, -1.87932167e+01,  2.07391911e+01,
-        -5.25234318e+00,  1.22935753e+01,  9.12548065e+00,
-        -7.64707804e+00, -1.32528381e+01, -8.28354931e+00,
-        -3.82506895e+00,  6.26927137e+00,  8.20620728e+00,
-        -8.92832565e+00, -1.07399120e+01, -9.22285974e-01,
-         2.38671284e+01,  8.38455582e+00,  1.26430063e+01,
-         1.56959190e+01, -1.43356848e+01,  2.59627304e+01,
-         1.92225418e+01, -1.17312145e+01,  6.68160820e+00,
-         6.84980965e+00,  1.11508808e+01, -1.42366285e+01,
-         9.80755138e+00,  1.85908756e+01, -6.18435574e+00,
-         3.56827211e+00,  7.99724436e+00,  1.52171288e+01,
-        -2.31601429e+01,  1.93612614e+01, -5.99614048e+00,
-         1.36581478e+01,  1.67713165e+01, -2.12001076e+01,
-        -4.12620468e+01, -7.66380072e-01, -1.96236935e+01,
-        -3.17259712e+01, -1.08925323e+01, -9.29710865e+00,
-        -7.76494026e+00,  1.25540686e+01,  8.43091011e+00,
-         1.09121799e+01, -1.60911083e+00, -1.54184513e+01,
-         2.30095463e+01, -6.80842781e+00, -5.56641483e+00,
-        -6.46404552e+00,  1.75610447e+01,  2.53835735e+01,
-        -1.52831717e+01,  9.69985199e+00,  5.63447666e+00,
-        -7.67695856e+00, -1.01911697e+01,  1.06991262e+01,
-         8.46541977e+00,  1.34739208e+00,  7.45521486e-01,
-         1.21633844e+01,  7.85794020e+00, -1.51050835e+01,
-         1.13588505e+01, -5.21241236e+00, -1.78311710e+01,
-        -1.46395369e+01,  1.07257652e+01,  1.60456681e+00,
-         1.23022823e+01, -2.75009842e+01, -6.60107231e+00,
-         1.57618027e+01, -2.84125471e+00, -2.83557892e+00,
-         1.82797356e+01,  2.20956135e+00,  5.97234774e+00,
-        -9.48127747e-01, -8.83693504e+00, -5.94029665e-01,
-         1.36467457e-01,  5.37828922e+00, -4.21309948e+00,
-        -8.22588539e+00, -1.43907821e+00, -3.11112881e+00,
-        -1.35240669e+01, -9.65560913e-01, -6.09449720e+00,
-        -9.79194164e+00, -1.26984491e+01,  1.07821388e+01,
-         2.99514465e+01,  1.19028263e+01, -2.05310040e+01,
-        -4.81360722e+00,  6.09474182e-02,  1.04277325e+01,
-        -1.45448017e+01, -1.01745377e+01,  2.43266201e+00,
-        -6.07525158e+00,  2.85333633e+00,  6.26870632e-01,
-         2.50015664e+00, -7.00340652e+00,  6.17874527e+00,
-        -2.43666840e+01,  4.20480967e-01, -1.69650173e+01,
-         3.72382212e+00, -3.19308662e+00, -1.62571468e+01],
-       [ 2.51088066e+01,  4.58830357e-01,  3.00933838e-01,
-        -3.34909019e+01, -1.10899220e+01,  3.94917679e+01,
-        -1.62365913e+01,  2.19555168e+01,  3.26171379e+01,
-         2.46189938e+01, -5.93489456e+00, -2.97887383e+01,
-         2.26324348e+01,  2.87365112e+01, -3.16624889e+01,
-        -9.17294788e+00, -7.35913849e+00, -4.60483589e+01,
-         2.26245384e+01,  9.54138756e+00, -4.59509888e+01,
-         6.84016991e+00, -4.25917397e+01,  6.11157417e+00,
-         6.47628632e+01,  1.76203671e+01,  3.25742950e+01,
-         5.29542828e+00,  7.67866325e+00, -3.10324879e+01,
-        -1.79058037e+01,  3.17178574e+01, -2.42381458e+01,
-        -3.18636322e+01,  3.62201843e+01, -6.21346054e+01,
-         1.42498665e+01,  2.29594383e+01, -2.34500523e+01,
-         5.55141640e+00, -2.15116768e+01, -2.52294083e+01,
-        -1.88451538e+01,  4.82528496e+00,  3.19352074e+01,
-         2.05328217e+01, -1.10771399e+01, -8.31977272e+00,
-        -8.38461494e+00, -6.37469101e+00, -2.95037899e+01,
-         2.00636444e+01, -2.18878899e+01,  4.72378006e+01,
-         7.76889992e+00, -6.57841587e+00, -2.41498432e+01,
-        -1.92836571e+00, -3.45718460e+01,  6.94884682e+00,
-        -1.15143394e+01,  4.22713623e+01, -3.69493904e+01,
-        -2.39332438e+00,  2.48398094e+01,  2.44256186e+00,
-         2.36708870e+01, -6.68774843e+00,  2.82111416e+01,
-         2.15609436e+01, -3.48537178e+01, -1.08173103e+01,
-         8.70915127e+00, -4.13734436e+01,  4.66354980e+01,
-        -6.05869150e+00,  2.35051727e+01,  1.26135015e+01,
-        -2.09785595e+01, -2.92049904e+01, -2.28990231e+01,
-        -7.85227156e+00,  1.47424555e+01,  1.13127995e+01,
-        -2.88801479e+01, -2.47330780e+01, -6.02207136e+00,
-         4.79425812e+01,  1.17428246e+01,  2.90232468e+01,
-         3.31934052e+01, -2.67102451e+01,  5.79588470e+01,
-         4.27483673e+01, -3.01536617e+01,  1.34333591e+01,
-         1.24760189e+01,  2.13728542e+01, -3.11616936e+01,
-         2.25827179e+01,  4.22902756e+01, -1.29004841e+01,
-         3.86436558e+00,  1.66427727e+01,  4.34260712e+01,
-        -4.56850281e+01,  4.89521713e+01, -2.13691940e+01,
-         2.56024246e+01,  3.94074860e+01, -4.22831802e+01,
-        -8.16113586e+01, -2.34822798e+00, -4.07112007e+01,
-        -6.73412323e+01, -2.69473515e+01, -3.48118362e+01,
-        -1.99042435e+01,  2.27824345e+01,  1.91747379e+01,
-         2.38998051e+01, -7.09918976e+00, -2.56781006e+01,
-         4.85328598e+01, -1.60771408e+01, -1.21157713e+01,
-        -9.06791973e+00,  3.56438065e+01,  4.97822647e+01,
-        -2.66074924e+01,  2.19545784e+01,  1.79749813e+01,
-        -1.70996647e+01, -2.11140633e+01,  2.59467964e+01,
-         1.47144661e+01, -2.56328964e+00, -5.16536999e+00,
-         1.74911327e+01,  1.30573902e+01, -3.14288445e+01,
-         1.86150799e+01, -8.87561035e+00, -3.70731087e+01,
-        -2.62559605e+01,  2.03241959e+01,  2.89938021e+00,
-         2.77554016e+01, -6.36693802e+01, -8.51951981e+00,
-         3.58969421e+01, -1.01029396e-01, -4.97074509e+00,
-         4.39848251e+01, -1.66734409e+00,  1.78835182e+01,
-        -2.04763412e-01, -1.48768291e+01, -1.49442291e+00,
-        -9.72815990e+00,  1.13725014e+01, -9.54783344e+00,
-        -2.35051689e+01, -8.32312965e+00, -4.03095055e+00,
-        -3.05360470e+01, -9.22883987e-01, -1.66096191e+01,
-        -2.33264141e+01, -2.07812233e+01,  3.18364983e+01,
-         6.62323303e+01,  2.56892262e+01, -4.00965118e+01,
-        -2.01378250e+00, -5.73296118e+00,  1.56634121e+01,
-        -3.46615715e+01, -2.47468109e+01,  4.78397036e+00,
-        -8.65863514e+00,  8.59616470e+00,  2.31168270e+00,
-         9.62801552e+00, -1.52449999e+01,  8.82559395e+00,
-        -5.23143463e+01,  1.51344395e+00, -3.66960907e+01,
-         1.33448772e+01, -6.57935619e+00, -3.22671776e+01],
-       [ 3.65680647e+00, -1.32693768e-01, -1.22101307e+00,
-        -8.88998795e+00,  1.01378953e+00,  7.42257309e+00,
-        -6.91540360e-01,  7.61868525e+00,  5.50041342e+00,
-         7.72644997e+00, -7.61189461e-01, -5.77790070e+00,
-         2.57666087e+00,  3.63394308e+00, -6.43032837e+00,
-        -4.48519802e+00, -3.29990268e+00, -7.17874813e+00,
-         1.18587983e+00,  7.44999886e-01, -6.19007826e+00,
-         2.86719799e-01, -7.73452759e+00, -1.35898209e+00,
-         8.45127583e+00,  5.64314461e+00,  9.29276466e+00,
-        -9.05148029e-01, -1.74917793e+00, -1.97955561e+00,
-        -6.20104218e+00,  4.05514288e+00, -4.73123169e+00,
-        -4.54956102e+00,  5.90281296e+00, -1.45041828e+01,
-         5.90895939e+00,  5.20894480e+00, -6.20547724e+00,
-         8.96717262e+00, -2.12779617e+00, -3.41851020e+00,
-         4.71601582e+00,  1.85182285e+00,  3.04469824e+00,
-         1.98112965e+00, -2.70236945e+00, -5.96542358e-02,
-        -1.07219124e+00, -3.53507900e+00, -5.70741796e+00,
-         1.22855783e+00, -6.21237564e+00,  1.20219278e+01,
-         9.91914272e-01, -4.54740906e+00, -1.77489650e+00,
-         1.88838959e-01, -3.18239403e+00,  4.50513363e-01,
-        -1.82566643e-01,  3.35787272e+00, -1.47951698e+01,
-        -3.44779229e+00,  1.33054829e+00,  1.64592910e+00,
-        -3.15350556e+00, -1.15196347e+00,  5.32460451e+00,
-         4.18726349e+00, -5.83010912e+00, -6.16952991e+00,
-         1.61318541e+00, -7.55166912e+00,  1.04652061e+01,
-         4.48830843e-01,  7.78570175e+00,  2.29860830e+00,
-        -8.23861313e+00, -1.17183142e+01, -2.92162061e+00,
-         1.30807734e+00,  3.73853803e+00,  3.74273109e+00,
-         2.41567755e+00, -2.42603302e-01,  3.06835103e+00,
-         1.45422363e+01,  6.64379501e+00,  5.77677155e+00,
-         9.87724400e+00, -5.84152603e+00,  8.25494576e+00,
-         4.29474449e+00, -9.66482282e-01,  3.31196952e+00,
-         4.21654582e-02,  3.62728381e+00, -2.21259356e+00,
-         8.31314087e+00,  4.49963951e+00, -5.70478868e+00,
-         1.19289017e+00,  3.94760084e+00,  4.71560621e+00,
-        -1.04571934e+01,  8.30411530e+00, -2.36664224e+00,
-         5.71374273e+00,  4.34622765e+00, -6.67368269e+00,
-        -1.55280266e+01,  1.50060821e+00, -7.57919455e+00,
-        -1.68375206e+01, -3.19617653e+00, -2.96239948e+00,
-        -8.18276644e-01,  3.46285152e+00, -1.65213013e+00,
-         4.26051092e+00,  6.53198659e-01, -7.38591385e+00,
-         9.59081078e+00, -1.85251260e+00, -5.05692387e+00,
-        -3.56139278e+00,  5.67317486e+00,  1.24299049e+01,
-        -8.61100197e+00,  5.49757051e+00,  1.90306592e+00,
-         2.14911938e-01, -2.89878416e+00,  1.70396948e+00,
-         1.70459306e+00, -8.99418831e-01,  1.09063244e+00,
-         3.86606288e+00,  3.34939051e+00, -2.39905715e+00,
-         5.27961397e+00, -1.95005631e+00, -1.30940180e+01,
-        -8.10021591e+00,  6.73069572e+00, -1.08395195e+00,
-         5.35927391e+00, -1.10402374e+01, -4.95384598e+00,
-         3.91370392e+00,  7.79341221e-01,  3.63014913e+00,
-         7.17275143e+00,  2.64366007e+00, -3.97576094e+00,
-        -4.60630655e-01, -1.05554485e+01, -6.15384626e+00,
-        -2.45071936e+00,  5.03543758e+00, -4.46820545e+00,
-        -6.48801684e-01,  7.41804004e-01, -1.77824879e+00,
-        -5.27320290e+00,  1.90740609e+00, -1.09858060e+00,
-        -1.15905416e+00, -9.93995190e+00,  4.21404362e+00,
-         1.37818680e+01,  2.55976105e+00, -6.55667877e+00,
-        -3.39413786e+00, -3.41992974e-01,  7.05707836e+00,
-        -7.17148209e+00,  3.20304251e+00,  4.29518890e+00,
-        -2.70349836e+00, -1.18962765e-01, -1.88424826e+00,
-         4.91527319e+00, -2.42755985e+00,  5.59039354e+00,
-        -1.11553259e+01,  4.12369823e+00, -9.71658421e+00,
-        -1.31214356e+00,  3.02745640e-01, -9.23369598e+00],
-       [ 2.13969383e+01,  5.26445508e-01,  2.06218719e-01,
-        -3.06118698e+01, -9.58755016e+00,  3.54646797e+01,
-        -1.30495272e+01,  2.08291054e+01,  2.90974445e+01,
-         2.14203987e+01, -4.42577934e+00, -2.62497044e+01,
-         1.90216026e+01,  2.43538437e+01, -2.67034779e+01,
-        -7.97275925e+00, -6.24011803e+00, -4.01896286e+01,
-         2.09700451e+01,  6.93240166e+00, -4.18850708e+01,
-         7.90675735e+00, -3.71799088e+01,  3.45795631e+00,
-         5.70636902e+01,  1.65060959e+01,  2.94689255e+01,
-         4.12962580e+00,  5.32075977e+00, -2.68794060e+01,
-        -1.57622013e+01,  2.91763496e+01, -2.13340263e+01,
-        -2.78575115e+01,  3.17147617e+01, -5.69034882e+01,
-         1.32437382e+01,  1.93545876e+01, -2.31377716e+01,
-         7.10072899e+00, -1.70640850e+01, -2.31631870e+01,
-        -1.49295464e+01,  5.57276249e+00,  2.66481743e+01,
-         1.81750050e+01, -9.96713829e+00, -7.31001854e+00,
-        -6.35822678e+00, -6.81634235e+00, -2.58484726e+01,
-         1.63096371e+01, -2.07129574e+01,  4.41522369e+01,
-         7.42539024e+00, -6.98178673e+00, -2.02624416e+01,
-        -1.34397888e+00, -3.14266281e+01,  6.19815540e+00,
-        -1.00261507e+01,  3.73799515e+01, -3.38054962e+01,
-        -3.68817377e+00,  2.04107628e+01,  2.69427752e+00,
-         1.99606915e+01, -6.28649330e+00,  2.41537800e+01,
-         2.01313210e+01, -3.16795845e+01, -1.06954107e+01,
-         9.43198395e+00, -3.73962135e+01,  4.22821121e+01,
-        -3.11958742e+00,  2.26418343e+01,  1.05492935e+01,
-        -2.04321880e+01, -2.83488503e+01, -2.16346931e+01,
-        -5.52658939e+00,  1.38181143e+01,  9.24610043e+00,
-        -2.41619415e+01, -2.09160538e+01, -4.28711939e+00,
-         4.30337830e+01,  1.16132488e+01,  2.48884926e+01,
-         3.10018959e+01, -2.32156448e+01,  5.14948196e+01,
-         3.69291878e+01, -2.62852898e+01,  1.07614470e+01,
-         1.06127663e+01,  1.88140049e+01, -2.71167927e+01,
-         2.22688217e+01,  3.60760880e+01, -1.26194029e+01,
-         2.95593452e+00,  1.41272564e+01,  3.93773346e+01,
-        -4.10381317e+01,  4.40081406e+01, -2.08063354e+01,
-         2.30796280e+01,  3.44766006e+01, -3.74321289e+01,
-        -7.24635849e+01, -1.17193568e+00, -3.49924164e+01,
-        -6.04742928e+01, -2.25592670e+01, -3.06166401e+01,
-        -1.69833450e+01,  1.89310246e+01,  1.60165234e+01,
-         2.13100643e+01, -6.08966732e+00, -2.32235603e+01,
-         4.31813126e+01, -1.43014908e+01, -1.22374468e+01,
-        -6.97804689e+00,  3.10041962e+01,  4.48353348e+01,
-        -2.30126286e+01,  2.04309368e+01,  1.71976471e+01,
-        -1.52504816e+01, -2.04106655e+01,  2.26241722e+01,
-         1.27447176e+01, -2.44084930e+00, -3.95013475e+00,
-         1.45425911e+01,  1.23066378e+01, -2.70112190e+01,
-         1.66155262e+01, -7.90560150e+00, -3.60016823e+01,
-        -2.34607658e+01,  1.72150917e+01,  2.28747559e+00,
-         2.38095036e+01, -5.66038551e+01, -8.44137764e+00,
-         3.14100914e+01, -3.41756821e-01, -2.15757322e+00,
-         3.86497192e+01, -1.35732174e+00,  1.34247847e+01,
-        -6.32467270e-01, -1.49079313e+01, -1.85682058e+00,
-        -1.07022896e+01,  1.14048119e+01, -8.56623650e+00,
-        -2.10172615e+01, -6.91731405e+00, -5.17959690e+00,
-        -2.74961758e+01, -5.84747314e-01, -1.50285673e+01,
-        -2.04632511e+01, -1.86391239e+01,  2.97201271e+01,
-         5.98369331e+01,  2.26962566e+01, -3.41519661e+01,
-        -1.55886841e+00, -4.96137047e+00,  1.41626492e+01,
-        -3.18024559e+01, -2.05278759e+01,  4.12243700e+00,
-        -7.16100407e+00,  8.65073681e+00,  2.90360594e+00,
-         9.33052254e+00, -1.34638844e+01,  8.43427563e+00,
-        -4.72507629e+01,  1.83870840e+00, -3.40018959e+01,
-         1.15845718e+01, -7.55780983e+00, -2.90076294e+01],
-       [ 2.52209663e+01,  5.89972734e-01,  1.96487427e-01,
-        -3.33574753e+01, -1.10793915e+01,  3.94560661e+01,
-        -1.60567989e+01,  2.22128296e+01,  3.24177399e+01,
-         2.49389534e+01, -6.12006378e+00, -2.99738770e+01,
-         2.25516167e+01,  2.87845001e+01, -3.18914394e+01,
-        -9.30905342e+00, -7.31657982e+00, -4.62314453e+01,
-         2.25246334e+01,  9.01775932e+00, -4.61294937e+01,
-         6.90210819e+00, -4.27360535e+01,  6.23623276e+00,
-         6.47415390e+01,  1.72547321e+01,  3.25716667e+01,
-         5.34131956e+00,  7.50673580e+00, -3.10301552e+01,
-        -1.77399826e+01,  3.13321266e+01, -2.44673481e+01,
-        -3.19266167e+01,  3.62428436e+01, -6.23397255e+01,
-         1.43085423e+01,  2.29060707e+01, -2.30921288e+01,
-         6.00469780e+00, -2.12081356e+01, -2.51069336e+01,
-        -1.90164757e+01,  4.56759071e+00,  3.17691555e+01,
-         2.06369362e+01, -1.14923944e+01, -8.06523323e+00,
-        -8.67551613e+00, -6.33781433e+00, -2.96399994e+01,
-         2.00607910e+01, -2.15176601e+01,  4.75245743e+01,
-         7.80735064e+00, -6.56396389e+00, -2.43403893e+01,
-        -2.09268951e+00, -3.45728836e+01,  7.30200386e+00,
-        -1.13138084e+01,  4.19561081e+01, -3.73713799e+01,
-        -2.63584852e+00,  2.46963387e+01,  2.50461960e+00,
-         2.33931561e+01, -6.68774557e+00,  2.83330688e+01,
-         2.12788849e+01, -3.47170563e+01, -1.11166601e+01,
-         8.56061935e+00, -4.09296722e+01,  4.69340820e+01,
-        -6.21883249e+00,  2.33582935e+01,  1.25256977e+01,
-        -2.07827969e+01, -2.92480221e+01, -2.28141975e+01,
-        -7.96539831e+00,  1.49450188e+01,  1.13246441e+01,
-        -2.88768959e+01, -2.47892380e+01, -5.76170969e+00,
-         4.80357590e+01,  1.17340832e+01,  2.92453194e+01,
-         3.32595673e+01, -2.64102516e+01,  5.82221222e+01,
-         4.26199265e+01, -3.01356964e+01,  1.35243092e+01,
-         1.25020990e+01,  2.13186798e+01, -3.13392658e+01,
-         2.27128086e+01,  4.25685730e+01, -1.30402279e+01,
-         3.83519411e+00,  1.65954208e+01,  4.31865845e+01,
-        -4.57271080e+01,  4.89150238e+01, -2.11721802e+01,
-         2.60372009e+01,  3.95222855e+01, -4.20487328e+01,
-        -8.16027832e+01, -2.69477844e+00, -4.05617065e+01,
-        -6.77806931e+01, -2.70612164e+01, -3.50417328e+01,
-        -1.95294094e+01,  2.30665359e+01,  1.87262917e+01,
-         2.41316071e+01, -6.88756037e+00, -2.56473694e+01,
-         4.87293243e+01, -1.60780392e+01, -1.21413965e+01,
-        -9.22510242e+00,  3.55592842e+01,  5.00384293e+01,
-        -2.66064091e+01,  2.20734692e+01,  1.78931084e+01,
-        -1.71347790e+01, -2.08246670e+01,  2.62337704e+01,
-         1.47693357e+01, -2.67063904e+00, -5.05792332e+00,
-         1.76344433e+01,  1.27795506e+01, -3.10819168e+01,
-         1.83948402e+01, -8.94873428e+00, -3.72568741e+01,
-        -2.64803429e+01,  2.04634399e+01,  2.67898989e+00,
-         2.76605530e+01, -6.37465973e+01, -8.53154278e+00,
-         3.60765152e+01, -1.99065208e-01, -5.20076275e+00,
-         4.39079742e+01, -1.68652630e+00,  1.81539383e+01,
-         9.40837860e-02, -1.50643730e+01, -1.79435444e+00,
-        -9.66221523e+00,  1.14127684e+01, -9.51057434e+00,
-        -2.35600586e+01, -8.38268280e+00, -4.20975113e+00,
-        -3.07225323e+01, -4.32291985e-01, -1.63423347e+01,
-        -2.31723728e+01, -2.09420586e+01,  3.15283775e+01,
-         6.64923477e+01,  2.57262230e+01, -3.98481598e+01,
-        -2.16771698e+00, -5.61320210e+00,  1.56137877e+01,
-        -3.48001823e+01, -2.45946217e+01,  4.84867239e+00,
-        -8.63402271e+00,  8.44960499e+00,  2.28365612e+00,
-         9.61729622e+00, -1.48685398e+01,  8.73892021e+00,
-        -5.23935852e+01,  1.72447348e+00, -3.65085526e+01,
-         1.32312155e+01, -6.40777779e+00, -3.23271332e+01]], dtype=float32)&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="153">
+<pre><code>&lt;tf.Tensor: shape=(5, 12), dtype=float32, numpy=
+array([[ 42.231293 , -57.23302  , -19.436283 ,  11.654123 ,  57.185387 ,
+        -30.60973  , -14.511181 ,   1.3403463,  21.98985  ,  35.708992 ,
+         35.96309  , -11.145385 ],
+       [ 43.58406  , -63.74549  , -18.29486  ,  11.017838 ,  58.415565 ,
+        -33.342224 , -17.90144  ,   2.7682953,  23.4479   ,  37.96327  ,
+         33.930916 , -11.333611 ],
+       [ 36.51568  , -44.60419  , -17.930983 ,  10.455878 ,  49.78942  ,
+        -22.441956 , -10.7569275,   0.6952715,  18.246555 ,  30.49959  ,
+         33.84427  , -10.2061615],
+       [ 55.14103  , -58.880413 , -32.353184 ,  13.848793 ,  73.23572  ,
+        -30.394426 , -11.173553 ,  -0.9273424,  31.675098 ,  41.884155 ,
+         55.789963 , -14.880316 ],
+       [ 34.95586  , -49.563198 , -14.744823 ,   9.123985 ,  47.298676 ,
+        -25.18306  , -13.881342 ,   1.8174648,  17.46812  ,  31.066544 ,
+         28.004725 ,  -9.360939 ]], dtype=float32)&gt;</code></pre>
 </div>
 </div>
 <p>We can apply the softmax layer to transform the data into probabilities.</p>
-<div id="b64cbeb7" class="cell" data-execution_count="78">
+<div id="b64cbeb7" class="cell" data-execution_count="154">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>softmax <span class="op">=</span> keras.layers.Softmax()</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>softmax(model(X_train[:<span class="dv">5</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="78">
-<pre><code>&lt;tf.Tensor: shape=(5, 192), dtype=float32, numpy=
-array([[5.32640492e-08, 1.06893986e-13, 2.90106921e-15, 2.55833312e-20,
-        1.71173384e-15, 2.62296544e-06, 1.49041006e-17, 9.66910330e-10,
-        2.50610270e-07, 3.47935085e-08, 1.26430742e-15, 5.19398403e-20,
-        5.28616984e-10, 1.78044313e-09, 2.28700237e-20, 8.25592849e-16,
-        5.85609463e-16, 2.94985940e-22, 2.56495214e-10, 1.97682448e-09,
-        3.54692108e-22, 2.20560969e-13, 9.56273787e-23, 3.29493485e-13,
-        4.47795600e-01, 5.10537723e-10, 1.64383394e-07, 5.63783178e-13,
-        3.97823484e-13, 1.59720790e-18, 4.74513554e-19, 3.32674375e-07,
-        2.45199676e-19, 1.92638450e-21, 3.15147361e-07, 1.92501336e-26,
-        1.42819367e-10, 5.61983100e-08, 3.80921966e-18, 3.76007298e-12,
-        1.38802778e-18, 3.69124799e-18, 2.74241343e-17, 1.42098627e-12,
-        1.85405199e-07, 1.06216067e-08, 8.39416202e-17, 2.82731048e-16,
-        2.99649367e-16, 1.42907909e-14, 4.25924119e-20, 8.93248184e-11,
-        3.60777461e-19, 6.40091021e-04, 7.36644513e-12, 2.82107394e-15,
-        4.11273770e-17, 2.03107532e-15, 2.04755474e-20, 8.80972205e-12,
-        3.20983003e-16, 5.36992729e-06, 1.14716794e-21, 6.86493522e-15,
-        3.91586363e-09, 1.80995084e-13, 4.11699252e-09, 1.78124693e-14,
-        2.83417506e-07, 1.53565194e-09, 2.06774312e-20, 9.38814923e-17,
-        1.10615434e-12, 3.61605004e-22, 5.33262428e-05, 2.74765047e-16,
-        1.14566232e-08, 4.82137164e-10, 2.50576499e-17, 9.21277125e-20,
-        1.32594207e-17, 1.14503354e-15, 2.77162789e-11, 1.92280525e-10,
-        6.95828467e-18, 1.13694476e-18, 2.08680288e-14, 1.21726992e-03,
-        2.29821717e-10, 1.62484621e-08, 3.44092967e-07, 3.11971944e-20,
-        9.89681110e-03, 1.17022291e-05, 4.21912286e-19, 4.18610736e-11,
-        4.95289712e-11, 3.65418673e-09, 3.44457071e-20, 9.53653490e-10,
-        6.22213565e-06, 1.08191399e-16, 1.86082443e-12, 1.56021224e-10,
-        2.13176733e-07, 4.58884451e-24, 1.34435431e-05, 1.30597366e-16,
-        4.48417943e-08, 1.00859074e-06, 3.25787942e-23, 6.31168761e-32,
-        2.43887755e-14, 1.57602140e-22, 8.74199439e-28, 9.76018529e-19,
-        4.81218360e-18, 2.22717751e-17, 1.48657859e-08, 2.40725717e-10,
-        2.87822188e-09, 1.05001711e-14, 1.05651886e-20, 5.16349450e-04,
-        5.79646086e-17, 2.00706720e-16, 8.17946762e-17, 2.22172116e-06,
-        5.54588251e-03, 1.20955939e-20, 8.56282212e-10, 1.46908354e-11,
-        2.43199885e-17, 1.96813999e-18, 2.32593012e-09, 2.49178095e-10,
-        2.01925011e-13, 1.10611593e-13, 1.00580806e-08, 1.35732869e-10,
-        1.44534109e-20, 4.49894655e-09, 2.85957952e-16, 9.46338242e-22,
-        2.30225949e-20, 2.38872100e-09, 2.61143429e-13, 1.15568133e-08,
-        5.97721757e-26, 7.13205381e-17, 3.67526525e-07, 3.06255054e-15,
-        3.07998396e-15, 4.55840609e-06, 4.78216587e-13, 2.05959694e-11,
-        2.03356517e-14, 7.62415679e-18, 2.89761467e-14, 6.01577571e-14,
-        1.13706605e-11, 7.76780776e-16, 1.40465260e-17, 1.24463309e-14,
-        2.33818172e-15, 7.02420386e-20, 1.99842093e-14, 1.18363563e-16,
-        2.93385123e-18, 1.60383160e-19, 2.52724974e-09, 5.34284651e-01,
-        7.75097853e-09, 6.36095277e-23, 4.26090739e-16, 5.57819714e-14,
-        1.77309267e-09, 2.53103680e-20, 2.00114780e-18, 5.97746245e-13,
-        1.20663536e-16, 9.10359570e-13, 9.82361707e-14, 6.39482824e-13,
-        4.76962168e-17, 2.53174356e-11, 1.37311969e-24, 7.99166302e-14,
-        2.25014493e-21, 2.17400186e-12, 2.15419812e-15, 4.56703945e-21],
-       [1.12271198e-18, 2.21268858e-29, 1.88949662e-29, 0.00000000e+00,
-        2.13481942e-34, 1.98020029e-12, 1.24220100e-36, 4.79525875e-20,
-        2.04689323e-15, 6.87933080e-19, 3.69966099e-32, 0.00000000e+00,
-        9.43612746e-20, 4.22435547e-17, 0.00000000e+00, 1.45174480e-33,
-        8.90469370e-33, 0.00000000e+00, 9.36190868e-20, 1.94726481e-25,
-        0.00000000e+00, 1.30707688e-26, 0.00000000e+00, 6.30774836e-27,
-        1.86984807e-01, 6.28175871e-22, 1.96105068e-15, 2.78886770e-27,
-        3.02311128e-26, 0.00000000e+00, 2.34023144e-37, 8.32803641e-16,
-        0.00000000e+00, 0.00000000e+00, 7.51412482e-14, 0.00000000e+00,
-        2.15918882e-23, 1.30860800e-19, 0.00000000e+00, 3.60247430e-27,
-        0.00000000e+00, 0.00000000e+00, 9.14757324e-38, 1.74280039e-27,
-        1.03499093e-15, 1.15596148e-20, 2.16227571e-34, 3.40738858e-33,
-        3.19345669e-33, 2.38318314e-32, 0.00000000e+00, 7.23073228e-21,
-        0.00000000e+00, 4.57897587e-09, 3.30858094e-26, 1.94394028e-32,
-        0.00000000e+00, 2.03316587e-30, 0.00000000e+00, 1.45712624e-26,
-        1.39648568e-34, 3.19059466e-11, 0.00000000e+00, 1.27715627e-30,
-        8.57915284e-19, 1.60858291e-28, 2.66555618e-19, 1.74260337e-32,
-        2.49802143e-17, 3.23184894e-20, 0.00000000e+00, 2.80385571e-34,
-        8.47205982e-26, 0.00000000e+00, 2.50721555e-09, 3.26885231e-32,
-        2.25849439e-19, 4.20365241e-24, 0.00000000e+00, 0.00000000e+00,
-        0.00000000e+00, 5.43818254e-33, 3.53361186e-23, 1.14482147e-24,
-        0.00000000e+00, 0.00000000e+00, 3.39078046e-32, 9.26511134e-09,
-        1.75993290e-24, 5.62714493e-17, 3.64220949e-15, 0.00000000e+00,
-        2.07424324e-04, 5.14081798e-11, 0.00000000e+00, 9.54300499e-24,
-        3.66369447e-24, 2.67772323e-20, 0.00000000e+00, 8.97846329e-20,
-        3.25151364e-11, 3.49175661e-35, 6.66690791e-28, 2.36328742e-22,
-        1.01240745e-10, 0.00000000e+00, 2.54278785e-08, 0.00000000e+00,
-        1.83926360e-18, 1.82014473e-12, 0.00000000e+00, 0.00000000e+00,
-        1.33607092e-30, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
-        0.00000000e+00, 3.17211625e-38, 1.09631908e-19, 2.97258501e-21,
-        3.35123462e-19, 1.15481726e-32, 0.00000000e+00, 1.67188130e-08,
-        1.45692997e-36, 7.65316101e-35, 1.61252295e-33, 4.22241282e-14,
-        5.83196744e-08, 0.00000000e+00, 4.79076095e-20, 8.95546706e-22,
-        5.24038318e-37, 0.00000000e+00, 2.59539043e-18, 3.43608310e-23,
-        1.07752668e-30, 7.98659720e-32, 5.52020830e-22, 6.55245262e-24,
-        0.00000000e+00, 1.69855480e-21, 1.95444560e-33, 0.00000000e+00,
-        0.00000000e+00, 9.38292618e-21, 2.54001824e-28, 1.58368923e-17,
-        0.00000000e+00, 2.79044469e-33, 5.43871250e-14, 1.26408457e-29,
-        9.70249452e-32, 1.77018664e-10, 2.63957651e-30, 8.17269844e-22,
-        1.13952468e-29, 4.83867633e-36, 3.13785277e-30, 8.33234569e-34,
-        1.21525334e-24, 9.97882940e-34, 0.00000000e+00, 3.39596938e-33,
-        2.48331504e-31, 0.00000000e+00, 5.55711776e-30, 8.55433566e-37,
-        0.00000000e+00, 1.31972440e-38, 9.37708248e-16, 8.12807679e-01,
-        2.00604430e-18, 0.00000000e+00, 1.86672020e-30, 4.52749261e-32,
-        8.87536992e-23, 0.00000000e+00, 0.00000000e+00, 1.67226051e-27,
-        2.42802711e-33, 7.56691897e-26, 1.41124912e-28, 2.12346638e-25,
-        3.34835591e-36, 9.51827304e-26, 0.00000000e+00, 6.35231700e-29,
-        0.00000000e+00, 8.73493374e-24, 1.94211694e-32, 0.00000000e+00],
-       [1.08383410e-05, 2.45021027e-07, 8.25187243e-08, 3.85442026e-11,
-        7.71107239e-07, 4.68181504e-04, 1.40119781e-07, 5.69619297e-04,
-        6.84906263e-05, 6.34433818e-04, 1.30692698e-07, 8.66006822e-10,
-        3.68011547e-06, 1.05933514e-05, 4.50999016e-10, 3.15452930e-09,
-        1.03205426e-08, 2.13373569e-10, 9.15909936e-07, 5.89360582e-07,
-        5.73475267e-10, 3.72694331e-07, 1.22396523e-10, 7.18841804e-08,
-        1.30970706e-03, 7.89984042e-05, 3.03828227e-03, 1.13169953e-07,
-        4.86601479e-08, 3.86475421e-08, 5.67222325e-10, 1.61420285e-05,
-        2.46651588e-09, 2.95789482e-09, 1.02421429e-04, 1.40522265e-13,
-        1.03052895e-04, 5.11737817e-05, 5.64712499e-10, 2.19394290e-03,
-        3.33228094e-08, 9.16624554e-09, 3.12587326e-05, 1.78265873e-06,
-        5.87661953e-06, 2.02873525e-06, 1.87589055e-08, 2.63587140e-07,
-        9.57601927e-08, 8.15766743e-09, 9.29247457e-10, 9.55845053e-07,
-        5.60830049e-10, 4.65466753e-02, 7.54422842e-07, 2.96426550e-09,
-        4.74246313e-08, 3.37942993e-07, 1.16074164e-08, 4.39023125e-07,
-        2.33100948e-07, 8.03780495e-06, 1.05043971e-13, 8.90173535e-09,
-        1.05847721e-06, 1.45094100e-06, 1.19476304e-08, 8.84179556e-08,
-        5.74483929e-05, 1.84220153e-05, 8.21954393e-10, 5.85381965e-10,
-        1.40420161e-06, 1.46954574e-10, 9.81325377e-03, 4.38284758e-07,
-        6.73161121e-04, 2.78679386e-06, 7.39345668e-11, 2.27841118e-12,
-        1.50656430e-08, 1.03495688e-06, 1.17613736e-05, 1.18107973e-05,
-        3.13290616e-06, 2.19518157e-07, 6.01727061e-06, 5.78688323e-01,
-        2.14879619e-04, 9.02925094e-05, 5.45085082e-03, 8.12623191e-10,
-        1.07623998e-03, 2.05123561e-05, 1.06437305e-07, 7.67718393e-06,
-        2.91839513e-07, 1.05230392e-05, 3.06136236e-08, 1.14073011e-03,
-        2.51767906e-05, 9.31694832e-10, 9.22353422e-07, 1.44961678e-05,
-        3.12459488e-05, 8.04137573e-12, 1.13048078e-03, 2.62429207e-08,
-        8.47771662e-05, 2.15960554e-05, 3.53580221e-10, 5.04772209e-14,
-        1.25469364e-06, 1.42964821e-10, 1.36266595e-14, 1.14485346e-08,
-        1.44636658e-08, 1.23440827e-07, 8.92748358e-06, 5.36192495e-08,
-        1.98220387e-05, 5.37665414e-07, 1.73448339e-10, 4.09324700e-03,
-        4.38829524e-08, 1.78089377e-09, 7.94580846e-09, 8.14067243e-05,
-        6.99956194e-02, 5.09472881e-11, 6.82961254e-05, 1.87638807e-06,
-        3.46870223e-07, 1.54136526e-08, 1.53764654e-06, 1.53860424e-06,
-        1.13820128e-07, 8.32697765e-07, 1.33610820e-05, 7.96990844e-06,
-        2.54058872e-08, 5.49210381e-05, 3.98045898e-08, 5.75668365e-13,
-        8.49087953e-11, 2.34388208e-04, 9.46405763e-08, 5.94750527e-05,
-        4.48866855e-12, 1.97425720e-09, 1.40130205e-05, 6.09951258e-07,
-        1.05532290e-05, 3.64685140e-04, 3.93512482e-06, 5.25025623e-09,
-        1.76515357e-07, 7.28884401e-12, 5.94634453e-10, 2.41266847e-08,
-        4.30223845e-05, 3.20859694e-09, 1.46238165e-07, 5.87480145e-07,
-        4.72659636e-08, 1.43452727e-09, 1.88454965e-06, 9.32662161e-08,
-        8.77932393e-08, 1.34885427e-11, 1.89220245e-05, 2.70533442e-01,
-        3.61844377e-06, 3.97468142e-10, 9.39239175e-09, 1.98749447e-07,
-        3.24849301e-04, 2.14929796e-10, 6.88486807e-06, 2.05214765e-05,
-        1.87377349e-08, 2.48408611e-07, 4.25121343e-08, 3.81511818e-05,
-        2.46920013e-08, 7.49391256e-05, 4.00068954e-12, 1.72874588e-05,
-        1.68644890e-11, 7.53312435e-08, 3.78715072e-07, 2.73330768e-11],
-       [1.90244659e-17, 1.64200088e-26, 1.19206482e-26, 0.00000000e+00,
-        6.65150140e-31, 2.44824525e-11, 2.08642621e-32, 1.07821595e-17,
-        4.20339118e-14, 1.94760635e-17, 1.16051158e-28, 3.86044751e-38,
-        1.76895697e-18, 3.65999204e-16, 2.45225886e-38, 3.34360434e-30,
-        1.89100305e-29, 0.00000000e+00, 1.24140727e-17, 9.94130086e-24,
-        0.00000000e+00, 2.63391237e-23, 0.00000000e+00, 3.07972850e-25,
-        5.87741025e-02, 1.42970556e-19, 6.09441358e-14, 6.02857365e-25,
-        1.98388460e-24, 2.05666025e-38, 1.38452994e-33, 4.54849679e-14,
-        5.26611461e-36, 0.00000000e+00, 5.75819340e-13, 0.00000000e+00,
-        5.47549622e-21, 2.46791859e-18, 8.67232096e-37, 1.17637786e-23,
-        3.76619757e-34, 8.45463944e-37, 3.18361559e-33, 2.55246517e-24,
-        3.62990506e-15, 7.58656919e-19, 4.55059207e-31, 6.48694658e-30,
-        1.68034108e-29, 1.06277366e-29, 5.76619801e-38, 1.17469418e-19,
-        9.79981674e-36, 1.45148690e-07, 1.62759155e-23, 9.00719593e-30,
-        1.53771005e-35, 2.52963368e-27, 0.00000000e+00, 4.77050695e-24,
-        4.28981664e-31, 1.66206077e-10, 0.00000000e+00, 2.42653234e-28,
-        7.09613515e-18, 1.43499580e-25, 4.52436445e-18, 1.80530278e-29,
-        2.99636290e-16, 5.36613777e-18, 0.00000000e+00, 2.19676502e-31,
-        1.21059491e-22, 0.00000000e+00, 2.23680541e-08, 4.28470446e-28,
-        6.60638516e-17, 3.70032790e-22, 1.29764101e-35, 0.00000000e+00,
-        3.89863313e-36, 3.85986153e-29, 9.72459297e-21, 1.00524299e-22,
-        3.11418226e-37, 7.99856034e-36, 1.33311402e-28, 4.74323585e-08,
-        1.07228275e-21, 6.24705327e-16, 2.82288082e-13, 8.02254447e-37,
-        2.24210671e-04, 1.05896771e-10, 3.72549462e-38, 4.57485859e-22,
-        3.94281188e-22, 1.43734026e-18, 1.62205650e-38, 4.54953109e-17,
-        4.51217744e-11, 3.20776686e-32, 1.86417693e-25, 1.32473460e-20,
-        1.22489641e-09, 0.00000000e+00, 1.25670354e-07, 8.92617131e-36,
-        1.02351762e-16, 9.11460057e-12, 0.00000000e+00, 0.00000000e+00,
-        3.00451851e-27, 0.00000000e+00, 0.00000000e+00, 1.54658634e-36,
-        0.00000000e+00, 4.08286978e-34, 1.61577387e-18, 8.76248126e-20,
-        1.74414556e-17, 2.19802473e-29, 7.95932236e-37, 5.49725669e-08,
-        5.96595599e-33, 4.69986122e-32, 9.04093206e-30, 2.82938169e-13,
-        2.87394698e-07, 9.82837739e-37, 7.24073294e-18, 2.85485129e-19,
-        2.30961167e-33, 1.32587211e-35, 6.49072745e-17, 3.32430115e-21,
-        8.44681288e-28, 1.86731992e-28, 2.00681481e-20, 2.14508592e-21,
-        1.80267266e-38, 1.59504307e-19, 3.57585118e-30, 0.00000000e+00,
-        6.27854580e-37, 2.90508985e-19, 9.55384635e-26, 2.12362118e-16,
-        0.00000000e+00, 2.09264551e-30, 4.24589861e-13, 6.89156745e-27,
-        1.12128980e-27, 5.91697913e-10, 2.49610285e-27, 6.56221605e-21,
-        5.15304589e-27, 3.25317547e-33, 1.51472541e-27, 2.18169941e-31,
-        8.70536711e-22, 1.84702080e-30, 7.22868902e-36, 9.60700199e-30,
-        5.46095510e-29, 0.00000000e+00, 5.40490052e-27, 2.88347350e-33,
-        1.25794699e-35, 7.79598070e-35, 7.83479117e-14, 9.41001058e-01,
-        6.97587086e-17, 0.00000000e+00, 2.04047964e-27, 6.79274408e-29,
-        1.37246033e-20, 0.00000000e+00, 1.17922818e-35, 5.98537957e-25,
-        7.52929673e-30, 5.54252852e-23, 1.76913287e-25, 1.09379402e-22,
-        1.37863315e-32, 4.46375176e-23, 0.00000000e+00, 6.09930797e-26,
-        0.00000000e+00, 1.04197161e-21, 5.06319083e-30, 0.00000000e+00],
-       [1.01493800e-18, 2.03861505e-29, 1.37545493e-29, 0.00000000e+00,
-        1.74338945e-34, 1.54406230e-12, 1.20152550e-36, 5.01213032e-20,
-        1.35506012e-15, 7.65531152e-19, 2.48429446e-32, 0.00000000e+00,
-        7.03324404e-20, 3.58148029e-17, 0.00000000e+00, 1.02386642e-33,
-        7.50865163e-33, 0.00000000e+00, 6.84601494e-20, 9.32130988e-26,
-        0.00000000e+00, 1.12372512e-26, 0.00000000e+00, 5.77396994e-27,
-        1.47912934e-01, 3.52165759e-22, 1.58054972e-15, 2.35949375e-27,
-        2.05706189e-26, 0.00000000e+00, 2.23221733e-37, 4.57596474e-16,
-        0.00000000e+00, 0.00000000e+00, 6.21126414e-14, 0.00000000e+00,
-        1.85026174e-23, 1.00252015e-19, 0.00000000e+00, 4.58058517e-27,
-        0.00000000e+00, 0.00000000e+00, 6.22822405e-38, 1.08840772e-27,
-        7.08406847e-16, 1.03662226e-20, 1.15353270e-34, 3.55162871e-33,
-        1.92923455e-33, 1.99818288e-32, 0.00000000e+00, 5.82644779e-21,
-        0.00000000e+00, 4.92916552e-09, 2.77844699e-26, 1.59374670e-32,
-        0.00000000e+00, 1.39402157e-30, 0.00000000e+00, 1.67622450e-26,
-        1.37908205e-34, 1.88113188e-11, 0.00000000e+00, 8.09800974e-31,
-        6.00615584e-19, 1.38310611e-28, 1.63167037e-19, 1.40819448e-32,
-        2.28038657e-17, 1.96976891e-20, 0.00000000e+00, 1.67961004e-34,
-        5.90123301e-26, 0.00000000e+00, 2.73102607e-09, 2.25064894e-32,
-        1.57576033e-19, 3.11138377e-24, 0.00000000e+00, 0.00000000e+00,
-        0.00000000e+00, 3.92449185e-33, 3.49665057e-23, 9.36147547e-25,
-        0.00000000e+00, 0.00000000e+00, 3.55495147e-32, 8.21822610e-09,
-        1.40981277e-24, 5.67797948e-17, 3.14455751e-15, 0.00000000e+00,
-        2.18101894e-04, 3.65352366e-11, 0.00000000e+00, 8.44588248e-24,
-        3.03882197e-24, 2.04973643e-20, 0.00000000e+00, 8.26341670e-20,
-        3.47063871e-11, 2.45365332e-35, 5.23258699e-28, 1.82143086e-22,
-        6.43885084e-11, 0.00000000e+00, 1.97987564e-08, 0.00000000e+00,
-        2.29575583e-18, 1.64977027e-12, 0.00000000e+00, 0.00000000e+00,
-        7.63458754e-31, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
-        0.00000000e+00, 3.72904355e-38, 1.17701584e-19, 1.53404522e-21,
-        3.41457598e-19, 1.15314681e-32, 0.00000000e+00, 1.64433267e-08,
-        1.17627406e-36, 6.02798152e-35, 1.11352679e-33, 3.13555131e-14,
-        6.08873023e-08, 0.00000000e+00, 4.36013266e-20, 6.66793351e-22,
-        4.08857727e-37, 0.00000000e+00, 2.79444482e-18, 2.93328619e-23,
-        7.82112486e-31, 7.18596741e-32, 5.14819815e-22, 4.01051796e-24,
-        0.00000000e+00, 1.10126194e-21, 1.46799784e-33, 0.00000000e+00,
-        0.00000000e+00, 8.71509335e-21, 1.64658187e-28, 1.16396133e-17,
-        0.00000000e+00, 2.22798516e-33, 5.25950031e-14, 9.26103877e-30,
-        6.22947824e-32, 1.32465858e-10, 2.09249881e-30, 8.65502339e-22,
-        1.24157767e-29, 3.24145939e-36, 1.87859664e-30, 7.19226724e-34,
-        1.02238809e-24, 8.36995324e-34, 0.00000000e+00, 2.58559295e-33,
-        1.67818440e-31, 0.00000000e+00, 7.33452879e-30, 9.03078611e-37,
-        0.00000000e+00, 0.00000000e+00, 5.56818178e-16, 8.51868808e-01,
-        1.68216928e-18, 0.00000000e+00, 1.29325895e-30, 4.12409909e-32,
-        6.82488376e-23, 0.00000000e+00, 0.00000000e+00, 1.44166401e-27,
-        2.01095951e-33, 5.28116122e-26, 1.10889642e-28, 1.69766047e-25,
-        3.94265713e-36, 7.05307716e-26, 0.00000000e+00, 6.33930614e-29,
-        0.00000000e+00, 6.30024314e-24, 1.86316501e-32, 0.00000000e+00]],
+<div class="cell-output cell-output-display" data-execution_count="154">
+<pre><code>&lt;tf.Tensor: shape=(5, 12), dtype=float32, numpy=
+array([[3.20272306e-07, 0.00000000e+00, 5.29212149e-34, 1.68276147e-20,
+        9.99999642e-01, 0.00000000e+00, 7.28748781e-32, 5.58222628e-25,
+        5.18527842e-16, 4.70890771e-10, 6.07117967e-10, 2.11019423e-30],
+       [3.62042158e-07, 0.00000000e+00, 4.84267122e-34, 2.60272400e-21,
+        9.99999642e-01, 0.00000000e+00, 7.17707122e-34, 6.80295304e-25,
+        6.51231170e-16, 1.31123357e-09, 2.32515344e-11, 5.10878402e-31],
+       [1.71904014e-06, 0.00000000e+00, 3.88508707e-30, 8.27292365e-18,
+        9.99998212e-01, 4.26885035e-32, 5.07053905e-27, 4.77178150e-22,
+        2.00035318e-14, 4.19306900e-09, 1.18879662e-07, 8.79526137e-27],
+       [1.38540477e-08, 0.00000000e+00, 0.00000000e+00, 1.61653947e-26,
+        1.00000000e+00, 0.00000000e+00, 2.19542843e-37, 6.18572972e-33,
+        8.92179741e-19, 2.42208512e-14, 2.65097029e-08, 0.00000000e+00],
+       [4.36095343e-06, 0.00000000e+00, 1.13461569e-27, 2.63597149e-17,
+        9.99995470e-01, 3.32338290e-32, 2.69063545e-27, 1.76913108e-20,
+        1.10854326e-13, 8.92221550e-08, 4.17581791e-09, 2.47195235e-25]],
       dtype=float32)&gt;</code></pre>
 </div>
 </div>
 </section>
 <section id="compile-the-model-by-specifying-the-loss-function-and-optimization-algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="compile-the-model-by-specifying-the-loss-function-and-optimization-algorithm">Compile the model, by specifying the loss function and optimization algorithm</h2>
-<div id="f0e99a72" class="cell" data-execution_count="79">
+<div id="f0e99a72" class="cell" data-execution_count="155">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> keras.losses.SparseCategoricalCrossentropy(from_logits<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(optimizer<span class="op">=</span> <span class="st">"adam"</span>, loss <span class="op">=</span> loss_fn, metrics<span class="op">=</span>[<span class="st">"accuracy"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="1984cc3f" class="cell" data-execution_count="80">
+<div id="1984cc3f" class="cell" data-execution_count="156">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model.fit(X_train, y_train, epochs <span class="op">=</span> <span class="dv">20</span>,  verbose<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 1/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 1s 3ms/step - accuracy: 0.0018 - loss: 47.4373      
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.2434 - loss: 34.1651      
 Epoch 2/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 4ms/step - accuracy: 0.0260 - loss: 25.6889 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.6165 - loss: 16.5051 
 Epoch 3/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 4ms/step - accuracy: 0.0061 - loss: 15.5883     
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.5924 - loss: 9.1298 
 Epoch 4/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 4ms/step - accuracy: 0.0217 - loss: 9.6063     
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.5212 - loss: 4.4254 
 Epoch 5/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 4ms/step - accuracy: 0.0561 - loss: 6.9719 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.5135 - loss: 5.0484 
 Epoch 6/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 4ms/step - accuracy: 0.0304 - loss: 5.8803 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.6460 - loss: 3.5812 
 Epoch 7/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 5ms/step - accuracy: 0.0338 - loss: 5.5448 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7405 - loss: 1.7344 
 Epoch 8/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0283 - loss: 5.0781 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.6929 - loss: 1.1567 
 Epoch 9/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0322 - loss: 5.1369     
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.6363 - loss: 1.9620 
 Epoch 10/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 4ms/step - accuracy: 0.0569 - loss: 4.7918 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.6804 - loss: 2.6098 
 Epoch 11/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 5ms/step - accuracy: 0.0399 - loss: 4.6229     
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.6227 - loss: 3.8614 
 Epoch 12/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - accuracy: 0.0325 - loss: 4.6184     
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.6377 - loss: 3.2357 
 Epoch 13/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - accuracy: 0.0778 - loss: 4.5146 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.7501 - loss: 1.1757 
 Epoch 14/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0843 - loss: 4.4745 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.7331 - loss: 1.1214 
 Epoch 15/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0677 - loss: 4.5079 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.7907 - loss: 0.9560 
 Epoch 16/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0574 - loss: 4.4724 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.8358 - loss: 0.8908 
 Epoch 17/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0566 - loss: 4.4860 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.7178 - loss: 0.9575 
 Epoch 18/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0694 - loss: 4.4227 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.8355 - loss: 0.7106 
 Epoch 19/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0699 - loss: 4.4764 
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.7838 - loss: 0.9411 
 Epoch 20/20
-12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.0822 - loss: 4.3473 </code></pre>
+12/12 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.6905 - loss: 1.7983 </code></pre>
 </div>
 </div>
 </section>
 <section id="plot-the-progress-of-the-training-over-time" class="level2">
 <h2 class="anchored" data-anchor-id="plot-the-progress-of-the-training-over-time">Plot the progress of the training over time</h2>
-<div id="32efb25d" class="cell" data-execution_count="81">
+<div id="32efb25d" class="cell" data-execution_count="157">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>plt.plot(history.history[<span class="st">"accuracy"</span>])</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>plt.gca().<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"epoch"</span>, ylabel<span class="op">=</span><span class="st">"training accuracy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4380,622 +3850,90 @@ Epoch 20/20
 </section>
 <section id="evaluate-the-model-on-our-test-data" class="level2">
 <h2 class="anchored" data-anchor-id="evaluate-the-model-on-our-test-data">Evaluate the model on our test data</h2>
-<div id="d0257d01" class="cell" data-execution_count="82">
+<div id="d0257d01" class="cell" data-execution_count="158">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>model.evaluate(X_test, y_test, verbose<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>5/5 - 0s - 21ms/step - accuracy: 0.0128 - loss: 7.0890</code></pre>
+<pre><code>5/5 - 0s - 20ms/step - accuracy: 0.6218 - loss: 3.3451</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="82">
-<pre><code>[7.088959693908691, 0.012820512987673283]</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="158">
+<pre><code>[3.3451032638549805, 0.6217948794364929]</code></pre>
 </div>
 </div>
 </section>
 <section id="prediction-probabilities" class="level2">
 <h2 class="anchored" data-anchor-id="prediction-probabilities">Prediction Probabilities</h2>
-<div id="bf4779c8" class="cell" data-execution_count="83">
+<div id="bf4779c8" class="cell" data-execution_count="159">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>model(X_train[:<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="83">
-<pre><code>&lt;tf.Tensor: shape=(5, 192), dtype=float32, numpy=
-array([[ 1.88089228e+00, -4.38901901e+00,  1.40551078e+00,
-         1.24405473e-01,  1.66641414e+00, -4.31010389e+00,
-        -6.53177127e-02, -1.45379102e+00, -7.96739161e-02,
-        -1.63452458e+00, -2.42977455e-01,  8.86669531e-02,
-        -1.71563101e+00, -1.92660868e+00, -1.65767109e+00,
-        -1.70478985e-01, -2.21541971e-01,  6.25666559e-01,
-        -5.97399282e+00,  1.01908541e+00, -4.62034559e+00,
-         1.34698927e-01, -1.19010293e+00,  1.34104669e+00,
-        -1.78610647e+00, -1.33718491e-01, -4.03092909e+00,
-        -5.09286337e-02,  3.24783474e-01,  6.21287346e-01,
-        -2.92955446e+00, -4.78755921e-01, -5.17596054e+00,
-        -9.14385080e-01,  4.44617361e-01,  8.72991502e-01,
-        -5.01271534e+00,  7.09908426e-01,  6.05033100e-01,
-        -1.21041393e+00, -6.23309374e+00,  7.14748263e-01,
-         8.33608925e-01, -6.98260725e-01,  2.77894557e-01,
-        -4.89716053e+00, -1.23418307e+00, -8.68014395e-01,
-        -9.05286252e-01, -5.86617112e-01, -2.47621012e+00,
-        -4.83745635e-01, -8.07042897e-01, -2.95300871e-01,
-        -5.29736996e+00,  4.46268827e-01, -8.06261599e-02,
-         2.60866374e-01,  2.86005497e-01, -1.79659843e-01,
-         1.67340245e-02,  8.64878297e-01, -2.56925523e-01,
-        -3.49404007e-01,  2.14880854e-02, -9.79684412e-01,
-        -4.27463837e-03,  3.47649045e-02,  4.78376001e-01,
-         9.61911440e-01,  9.65927914e-02,  5.05615592e-01,
-        -8.23839188e-01, -4.11554873e-01,  9.18080330e-01,
-        -3.58058453e-01, -4.80446726e-01,  4.81627792e-01,
-         5.11879444e-01,  1.18775330e-02,  5.74591272e-02,
-        -5.01191318e-01, -1.27736640e+00,  1.08832526e+00,
-        -5.82626700e-01, -8.74139130e-01,  3.23271096e-01,
-         5.33253491e-01, -3.54856342e-01, -3.29187304e-01,
-        -3.41685683e-01,  5.98094225e-01,  1.43140197e+00,
-         9.80755612e-02,  6.04470730e-01,  8.81221354e-01,
-         4.12571669e-01,  1.78854465e+00,  4.69197720e-01,
-        -6.98639095e-01, -1.30310512e+00,  1.37321368e-01,
-         5.47151640e-02,  4.07585591e-01, -5.37414849e-01,
-         1.22287071e+00, -2.53379464e-01,  7.89637923e-01,
-        -9.33424234e-01, -2.04350978e-01,  7.30998695e-01,
-         3.75927612e-03,  4.81958091e-02, -9.08848047e-02,
-         8.40888560e-01, -1.99812710e-01,  9.00375724e-01,
-         7.99172297e-02,  2.39540726e-01, -6.09640896e-01,
-        -1.64767456e+00, -2.06420377e-01,  5.40691376e-01,
-         7.13177919e-02, -1.80665813e-02,  7.18880534e-01,
-         2.62907535e-01,  1.53723049e+00,  6.17048800e-01,
-        -9.39005792e-01, -1.19282615e+00,  4.07355011e-01,
-        -3.65977973e-01,  1.35860002e+00,  6.38287246e-01,
-         5.60946584e-01, -5.15226603e-01,  8.63155782e-01,
-         4.09691483e-02, -5.15112340e-01,  2.93662578e-01,
-        -1.44572824e-01, -4.39484537e-01,  1.86820999e-01,
-         1.53726995e+00,  5.76334715e-01, -1.11832589e-01,
-         1.17635787e+00,  1.51541519e+00,  4.52186644e-01,
-        -7.91260123e-01, -3.08304334e+00, -1.50650287e+00,
-         9.17726874e-01,  7.77472675e-01,  1.07468474e+00,
-        -1.50454730e-01, -5.15012836e+00, -3.93781483e-01,
-        -5.96974707e+00, -9.59578037e-01,  8.75287652e-01,
-        -8.02692622e-02, -5.66506433e+00,  1.03913319e+00,
-         1.31668627e-01,  2.02870831e-01, -3.97413105e-01,
-        -5.19579887e+00, -1.27333567e-01, -6.37788868e+00,
-        -2.99878669e+00,  6.76560938e-01,  6.64443970e-01,
-         1.09939742e+00, -1.43884450e-01,  3.97981137e-01,
-         1.16216756e-01,  1.09519625e+00, -8.65455866e-02,
-        -6.73449039e-02, -7.60551810e-01, -4.47121382e+00,
-        -6.04802549e-01, -1.68815687e-01, -4.97999954e+00,
-         1.64253473e+00, -5.17428493e+00, -9.84423757e-02,
-         3.39216232e-01, -5.44264126e+00, -1.99398786e-01],
-       [ 1.22199833e+00, -3.70019913e+00,  5.21630764e-01,
-         2.54149735e-02,  1.25457120e+00, -3.17157507e+00,
-        -1.66651458e-01, -2.05454874e+00, -3.90665591e-01,
-        -1.71305203e+00, -7.47877181e-01, -6.46504536e-02,
-        -2.17123818e+00, -2.29421234e+00, -1.08045876e+00,
-        -6.62003160e-01, -1.67331553e+00,  6.09261215e-01,
-        -4.97078657e+00,  1.19085265e-02, -3.44266081e+00,
-        -9.03349090e-03, -8.13750565e-01,  7.93053925e-01,
-        -3.25581849e-01, -1.38022244e+00, -3.86462259e+00,
-        -8.90927374e-01,  6.81346714e-01,  1.72941923e-01,
-        -3.29868007e+00, -2.10191035e+00, -4.24814606e+00,
-        -1.61560595e+00,  5.47533203e-03,  7.17771649e-01,
-        -5.06947613e+00,  3.56539071e-01,  1.36167333e-02,
-        -1.52970481e+00, -4.52463818e+00,  9.57068503e-01,
-         7.46329188e-01, -1.50426471e+00, -4.53451246e-01,
-        -4.20458841e+00, -1.92897010e+00, -8.31484377e-01,
-        -9.61933792e-01, -1.69916177e+00, -2.01363730e+00,
-        -2.20979333e-01, -1.27876103e+00, -8.39148939e-01,
-        -3.95333624e+00,  5.20561099e-01, -2.35669583e-01,
-        -1.10523872e-01, -4.40053612e-01, -8.77265751e-01,
-        -8.51029307e-02,  7.10718215e-01, -9.49514031e-01,
-        -8.09316814e-01,  2.54808426e-01, -1.54204500e+00,
-         7.34740198e-01,  2.67500579e-01,  8.72870505e-01,
-         1.05072224e+00, -7.89667130e-01,  4.48227346e-01,
-        -6.21296227e-01, -6.20651022e-02,  1.04101920e+00,
-         4.05845076e-01,  5.47310889e-01,  1.12548637e+00,
-        -1.57469571e-01, -4.19874698e-01, -7.80469179e-01,
-         7.19501495e-01, -7.62541294e-01,  1.52600455e+00,
-        -4.25176412e-01, -9.04982209e-01, -1.07113451e-01,
-         1.16379797e+00, -7.51600921e-01, -2.01789618e-01,
-        -7.53772736e-01,  8.36573422e-01,  1.30626690e+00,
-         4.97399658e-01,  1.64545268e-01,  4.22854811e-01,
-        -4.70384479e-01,  1.41511178e+00,  1.02541924e+00,
-        -6.25948489e-01, -9.67655003e-01,  8.01053941e-01,
-         4.55171287e-01,  4.15867805e-01, -6.17840052e-01,
-         9.29845393e-01,  1.62995115e-01,  7.91756988e-01,
-        -1.11833559e-02, -1.68186933e-01, -1.18178762e-02,
-         6.86898589e-01, -2.88494974e-01,  4.98251319e-01,
-         5.81732631e-01, -6.08800016e-02,  4.36316311e-01,
-        -4.19970602e-02, -5.19888818e-01,  2.63452172e-01,
-        -7.30413437e-01,  4.05933678e-01,  5.97652137e-01,
-        -4.47192788e-01,  7.27513283e-02,  3.46204519e-01,
-         4.70458597e-01,  1.20768464e+00,  9.56333816e-01,
-        -5.74646652e-01, -8.99544895e-01, -2.92234063e-01,
-        -2.26779699e-01,  8.58743370e-01,  1.04270840e+00,
-         2.40061507e-01, -1.80434763e-01,  1.34809852e+00,
-        -1.44028850e-02, -5.28249204e-01, -3.90501648e-01,
-         6.60730243e-01,  4.32040244e-01,  7.34250426e-01,
-         1.08640563e+00,  6.97273791e-01, -1.59875065e-01,
-         3.39632809e-01,  9.89641845e-01,  7.06912100e-01,
-        -3.69745046e-01, -2.49982357e+00, -8.24915886e-01,
-         9.43107367e-01,  8.90717626e-01,  6.13545656e-01,
-         4.31278110e-01, -3.56103349e+00,  1.80941477e-01,
-        -4.61120844e+00, -5.88164032e-01,  1.01328909e+00,
-        -5.48571572e-02, -3.93284225e+00,  9.26403046e-01,
-         1.05579883e-01, -1.22379586e-01, -6.42891705e-01,
-        -3.91554761e+00,  4.42710280e-01, -4.56735802e+00,
-        -1.39511395e+00,  9.21808302e-01,  4.23377126e-01,
-         8.24736118e-01, -2.64880240e-01,  2.82531619e-01,
-         7.62917340e-01,  1.10707736e+00, -2.22643495e-01,
-         1.09746367e-01, -3.05084020e-01, -3.03773999e+00,
-        -6.84372902e-01,  3.26866925e-01, -3.71878290e+00,
-         1.23965561e+00, -4.48427534e+00,  7.50683784e-01,
-         2.52251595e-01, -3.48716497e+00,  1.98213622e-01],
-       [-8.25882339e+00, -1.57710686e+01, -1.64020097e+00,
-        -7.15557861e+00, -3.03252077e+00, -1.41417770e+01,
-        -2.58146358e+00,  3.38725758e+00, -3.42672753e+00,
-        -3.72343588e+00, -2.57193565e+00, -3.16645265e+00,
-         9.63948548e-01,  6.78272486e-01, -9.91721988e-01,
-        -2.96055841e+00, -2.08521557e+00,  2.68695593e+00,
-        -2.08776798e+01, -6.53144312e+00, -1.83778381e+01,
-        -1.72130930e+00, -5.79696465e+00, -5.97295523e+00,
-        -1.30758314e+01,  2.35931206e+00, -1.28993111e+01,
-         3.60598230e+00, -9.01275635e+00, -1.35996437e+00,
-        -1.05526757e+00,  2.82977366e+00, -2.16806660e+01,
-         2.72604078e-01,  6.48232326e-02, -1.17872496e+01,
-        -1.30348749e+01,  1.20579123e+00, -3.48660827e+00,
-        -1.19820130e+00, -1.95675583e+01, -1.03328800e+01,
-        -4.62505865e+00,  1.23858213e+00,  4.90593463e-01,
-        -1.19706497e+01,  3.88984978e-02, -1.80903125e+00,
-        -2.20364690e+00, -3.41669112e-01, -2.05433086e-01,
-        -6.63806009e+00,  1.36078089e-01, -4.63166714e+00,
-        -1.83328629e+01,  3.01227897e-01, -2.09358573e+00,
-        -3.60837030e+00,  7.06557572e-01,  2.37172127e+00,
-         1.71314764e+00, -3.72663069e+00, -1.97858822e+00,
-        -6.78073406e+00, -1.58965838e+00,  9.98869002e-01,
-        -9.63912964e+00, -1.28994617e+01,  5.11083782e-01,
-        -7.11606312e+00, -8.27351379e+00, -5.20117044e+00,
-        -6.52243900e+00, -7.71010923e+00, -6.72904921e+00,
-        -1.01444139e+01,  1.05682470e-01, -2.47577596e+00,
-        -1.54537559e+00,  1.91164446e+00, -4.67038341e-02,
-        -1.78126013e+00, -8.10589600e+00, -6.06111813e+00,
-        -4.52666330e+00, -7.93529570e-01, -6.43653488e+00,
-        -7.59161115e-01, -7.89622498e+00, -4.66733789e+00,
-        -6.05738115e+00, -7.70008087e+00, -4.92124367e+00,
-        -3.16122234e-01, -6.02475691e+00, -9.83260822e+00,
-        -2.55666494e+00, -5.91651261e-01, -4.93136501e+00,
-        -4.03488398e+00, -7.49945021e+00, -3.23402548e+00,
-        -3.38980699e+00, -7.09611082e+00, -1.02613382e+01,
-        -5.87148571e+00, -8.37801838e+00, -5.45219564e+00,
-        -4.43613529e+00, -7.94906282e+00, -1.01041698e+01,
-        -6.22074604e+00, -4.66673708e+00, -7.91921186e+00,
-         8.71100783e-01, -5.63249588e+00, -9.57289886e+00,
-        -3.59014106e+00, -3.59101486e+00, -7.64072847e+00,
-        -5.71348190e+00, -9.48814201e+00, -9.19774723e+00,
-        -5.33893061e+00, -9.16692829e+00, -1.21839571e+01,
-        -6.98818445e+00, -4.36419249e+00, -3.42434382e+00,
-        -7.87313747e+00, -5.20578909e+00, -6.45816040e+00,
-        -6.32080603e+00, -8.09582329e+00, -1.16935158e+01,
-        -1.17794113e+01, -5.11286259e+00, -2.99193716e+00,
-        -9.21538544e+00, -7.50269079e+00, -5.55815554e+00,
-        -6.16766691e+00, -8.19671440e+00, -1.46990566e+01,
-        -6.48642349e+00, -4.35270643e+00, -1.02964411e+01,
-        -1.77747798e+00, -2.40125060e+00, -8.99963665e+00,
-        -4.29596901e+00, -1.01001472e+01, -1.01689892e+01,
-        -5.89929581e+00, -6.27951336e+00, -1.26129971e+01,
-        -7.88001299e+00, -1.97435036e+01, -7.89161539e+00,
-        -1.85124893e+01, -7.72701311e+00, -9.40032673e+00,
-        -3.62450004e+00, -1.95092297e+01, -5.22463894e+00,
-        -4.73408508e+00, -4.12600327e+00, -8.84430408e+00,
-        -1.67988319e+01, -1.09424191e+01, -1.98794155e+01,
-        -7.55210161e+00, -4.48270369e+00, -7.35570717e+00,
-        -4.91733742e+00, -8.09002209e+00, -8.41813469e+00,
-        -1.22265053e+01, -5.33331203e+00, -5.43551683e+00,
-        -6.09130430e+00, -1.17987032e+01, -2.06960659e+01,
-        -7.66637421e+00, -5.26079464e+00, -1.69360733e+01,
-        -7.97275496e+00, -1.76506748e+01, -1.20178690e+01,
-        -8.37331676e+00, -1.90385628e+01, -1.07870016e+01],
-       [ 9.28623855e-01, -3.56634998e+00,  3.24513167e-01,
-         1.55798867e-02,  1.02411866e+00, -2.80930734e+00,
-        -1.85206607e-01, -1.96116805e+00, -3.55664313e-01,
-        -1.59975624e+00, -6.24716759e-01, -1.81697786e-01,
-        -1.88439178e+00, -1.86157596e+00, -8.47244859e-01,
-        -5.43753684e-01, -1.60456204e+00,  5.42651892e-01,
-        -4.51234055e+00, -1.50329858e-01, -3.41170883e+00,
-         5.78190107e-03, -6.00687087e-01,  6.84450746e-01,
-        -3.19892645e-01, -1.22586906e+00, -3.38467717e+00,
-        -8.02932739e-01,  4.98348445e-01,  1.56337142e-01,
-        -2.88058329e+00, -1.96883595e+00, -4.06633091e+00,
-        -1.44542301e+00, -1.93547867e-02,  4.98535782e-01,
-        -4.35450506e+00,  9.42165256e-02, -1.75340757e-01,
-        -1.24344838e+00, -4.12023067e+00,  9.37828898e-01,
-         7.05588639e-01, -1.49816144e+00, -5.47297955e-01,
-        -3.87384272e+00, -1.58496630e+00, -6.17920995e-01,
-        -9.74040806e-01, -1.56587124e+00, -1.64537406e+00,
-        -2.33159751e-01, -1.16611099e+00, -8.78158629e-01,
-        -3.63768697e+00,  5.28233886e-01, -2.16868341e-01,
-        -1.52885705e-01, -5.95946312e-01, -9.63448465e-01,
-        -1.28487051e-02,  4.89941567e-01, -9.44873691e-01,
-        -7.06004798e-01,  9.72940773e-02, -1.53212166e+00,
-         5.21868408e-01,  1.12637982e-01,  8.98563623e-01,
-         1.01266265e+00, -8.60966802e-01,  2.42272452e-01,
-        -4.54229951e-01, -1.53034180e-03,  9.14207995e-01,
-         5.18400550e-01,  6.61885798e-01,  9.31247115e-01,
-        -1.07899800e-01, -3.68569076e-01, -6.20488703e-01,
-         6.12849772e-01, -6.65160179e-01,  1.28655541e+00,
-        -2.54457086e-01, -7.82605529e-01, -1.91428751e-01,
-         1.08947957e+00, -5.38011372e-01, -3.02791819e-02,
-        -7.59902179e-01,  9.28479195e-01,  1.12957084e+00,
-         5.23699403e-01, -2.36806870e-02,  3.19389075e-01,
-        -6.23934627e-01,  1.04981852e+00,  9.57921922e-01,
-        -4.50313240e-01, -1.02893305e+00,  6.37187600e-01,
-         4.33116078e-01,  5.06114602e-01, -6.02140069e-01,
-         8.62298369e-01,  1.43384799e-01,  5.27248919e-01,
-         1.15964331e-01,  4.04491723e-02, -1.29017159e-01,
-         5.49960434e-01, -2.45721877e-01,  6.58366382e-01,
-         3.66119474e-01,  1.26313850e-01,  2.00221688e-01,
-         1.45351831e-02, -5.70939302e-01,  3.76129538e-01,
-        -4.19663221e-01,  3.78322184e-01,  6.52484357e-01,
-        -5.45519590e-01,  2.22284228e-01,  4.31335568e-01,
-         4.28686768e-01,  1.03873324e+00,  6.39670134e-01,
-        -5.84799528e-01, -7.47397244e-01, -3.72784495e-01,
-        -1.57708943e-01,  4.82506156e-01,  8.12501669e-01,
-         1.37346536e-01,  1.17350379e-02,  1.30691230e+00,
-        -9.04234350e-02, -3.74189615e-01, -4.28352505e-01,
-         5.64324081e-01,  3.99245858e-01,  7.48268545e-01,
-         9.03442085e-01,  7.93882668e-01, -3.10977191e-01,
-         2.57136732e-01,  8.79830956e-01,  5.05274594e-01,
-        -1.59707636e-01, -2.12489104e+00, -5.57058036e-01,
-         8.79904389e-01,  7.23918736e-01,  5.18931746e-01,
-         4.41271633e-01, -3.36989164e+00,  1.22436993e-01,
-        -4.38908243e+00, -4.77748036e-01,  7.77725220e-01,
-        -4.04737666e-02, -3.71880221e+00,  7.28888214e-01,
-         6.48734719e-02, -1.56833395e-01, -5.16818047e-01,
-        -3.63619685e+00,  5.65069139e-01, -4.22928762e+00,
-        -1.13230610e+00,  7.70026088e-01,  4.39914823e-01,
-         8.21218908e-01, -3.95144336e-02,  3.72422963e-01,
-         8.13229322e-01,  7.99306035e-01, -1.06313370e-01,
-         2.07889766e-01, -1.26414001e-01, -2.76840615e+00,
-        -3.48262638e-01,  1.42740399e-01, -3.57393837e+00,
-         9.42596018e-01, -4.21965361e+00,  7.06989944e-01,
-         2.73348451e-01, -3.12376785e+00,  2.11790875e-01],
-       [ 1.23508501e+00, -3.69953084e+00,  5.54158568e-01,
-         4.84255813e-02,  1.23645198e+00, -3.26065373e+00,
-        -2.05933899e-01, -2.01985693e+00, -3.73070776e-01,
-        -1.73848724e+00, -7.61719227e-01, -4.44712341e-02,
-        -2.16032505e+00, -2.31971335e+00, -1.13062334e+00,
-        -6.75219238e-01, -1.66281176e+00,  5.77124238e-01,
-        -5.05320406e+00,  2.77482979e-02, -3.49196863e+00,
-        -6.73189759e-02, -8.10126245e-01,  8.24423075e-01,
-        -3.35707366e-01, -1.37576687e+00, -3.93935490e+00,
-        -8.83879066e-01,  6.77546620e-01,  1.74619079e-01,
-        -3.29609108e+00, -2.06363153e+00, -4.31665325e+00,
-        -1.62169111e+00, -1.91762038e-02,  7.68608630e-01,
-        -5.12666321e+00,  3.96296412e-01,  5.03528006e-02,
-        -1.57646418e+00, -4.60582876e+00,  9.27658916e-01,
-         7.28674114e-01, -1.47342408e+00, -4.50080782e-01,
-        -4.26700211e+00, -1.97929382e+00, -8.21102321e-01,
-        -9.51420724e-01, -1.70215857e+00, -2.08897972e+00,
-        -2.07565844e-01, -1.28683400e+00, -8.10806513e-01,
-        -4.01904392e+00,  5.03674269e-01, -2.75038987e-01,
-        -1.18813597e-01, -4.57073122e-01, -8.53999019e-01,
-        -1.06041238e-01,  7.23601341e-01, -9.55486119e-01,
-        -7.70700753e-01,  2.89910018e-01, -1.50939846e+00,
-         7.63465643e-01,  2.82726854e-01,  8.76874506e-01,
-         1.02002168e+00, -7.74185419e-01,  4.72682714e-01,
-        -6.14400744e-01, -3.52621339e-02,  1.07145405e+00,
-         3.90128672e-01,  5.26143014e-01,  1.13510787e+00,
-        -1.36011869e-01, -4.04585540e-01, -7.32867897e-01,
-         6.75107419e-01, -7.94813275e-01,  1.52916491e+00,
-        -4.42018956e-01, -9.51317847e-01, -8.25772062e-02,
-         1.16630936e+00, -7.91061640e-01, -2.45171800e-01,
-        -7.16132104e-01,  7.88837790e-01,  1.32107687e+00,
-         4.89991337e-01,  2.07709864e-01,  4.25109595e-01,
-        -4.54705268e-01,  1.40894556e+00,  1.03710043e+00,
-        -6.25915349e-01, -9.32470977e-01,  8.06236267e-01,
-         4.44442928e-01,  4.06191558e-01, -6.13542736e-01,
-         9.27675009e-01,  1.63637578e-01,  8.08244646e-01,
-        -1.90337654e-03, -2.16852099e-01,  4.58149053e-02,
-         6.70818686e-01, -2.86890596e-01,  4.31880713e-01,
-         6.11319542e-01, -1.02176115e-01,  5.02924085e-01,
-        -3.81205492e-02, -5.10343790e-01,  2.45038167e-01,
-        -7.87266493e-01,  3.85360926e-01,  6.00189745e-01,
-        -3.93513292e-01,  4.87437434e-02,  3.14238250e-01,
-         4.51298684e-01,  1.23979580e+00,  9.81217325e-01,
-        -5.80319524e-01, -8.97161126e-01, -2.46111795e-01,
-        -2.66535193e-01,  8.99214745e-01,  1.03134346e+00,
-         2.17934087e-01, -1.91222578e-01,  1.32832372e+00,
-         6.89296424e-03, -5.33054113e-01, -3.49575788e-01,
-         6.28240883e-01,  4.01475251e-01,  6.95874512e-01,
-         1.09685373e+00,  6.57848120e-01, -1.00798011e-01,
-         3.60078007e-01,  1.03222394e+00,  6.77040637e-01,
-        -3.87932897e-01, -2.58698440e+00, -8.48325431e-01,
-         9.38568532e-01,  8.79948974e-01,  6.27735734e-01,
-         3.85535747e-01, -3.63388824e+00,  1.55595779e-01,
-        -4.63489342e+00, -6.00691855e-01,  1.00872254e+00,
-        -2.42283083e-02, -4.01695490e+00,  9.58546877e-01,
-         8.38425234e-02, -1.37073055e-01, -6.32776678e-01,
-        -3.95366406e+00,  4.11131889e-01, -4.67654991e+00,
-        -1.44383419e+00,  9.47798967e-01,  3.93594742e-01,
-         7.88396835e-01, -3.14538866e-01,  2.66294450e-01,
-         7.37076044e-01,  1.10098493e+00, -2.29802623e-01,
-         8.52932781e-02, -3.36749732e-01, -3.13180971e+00,
-        -7.33023643e-01,  3.34452778e-01, -3.74052286e+00,
-         1.26100659e+00, -4.54535007e+00,  6.99925900e-01,
-         2.37897977e-01, -3.58137226e+00,  1.70258895e-01]], dtype=float32)&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="159">
+<pre><code>&lt;tf.Tensor: shape=(5, 12), dtype=float32, numpy=
+array([[  59.137196,   77.40177 ,   57.148186,   63.81654 , -190.25858 ,
+          73.79172 ,   56.78232 ,   21.58711 ,   30.569883,  -31.501852,
+          45.33556 ,   90.51578 ],
+       [  60.877666,   72.99407 ,   63.311672,   68.24581 , -208.17204 ,
+          70.8057  ,   52.5222  ,   16.234116,   31.925774,  -33.092915,
+          61.714054,   98.89455 ],
+       [  52.503895,   70.10928 ,   49.15378 ,   55.77522 , -154.76253 ,
+          71.33311 ,   57.450928,   25.45481 ,   30.249817,  -28.144045,
+          26.624651,   65.653   ],
+       [  74.70765 ,  113.69686 ,   56.976463,   73.875534, -218.57251 ,
+         103.44394 ,   81.750786,   42.11496 ,   36.228024,  -38.626827,
+          24.670424,  116.86606 ],
+       [  50.41137 ,   59.24165 ,   53.028492,   56.359577, -163.05801 ,
+          61.232952,   47.11843 ,   15.995877,   28.476118,  -27.557047,
+          44.78984 ,   70.02054 ]], dtype=float32)&gt;</code></pre>
 </div>
 </div>
-<div id="c353518e" class="cell" data-execution_count="84">
+<div id="c353518e" class="cell" data-execution_count="160">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>prob_model <span class="op">=</span> keras.models.Sequential([</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    model,</span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    layers.Softmax()</span>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a4aa63a6" class="cell" data-execution_count="85">
+<div id="a4aa63a6" class="cell" data-execution_count="161">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>prob_model(X_train[:<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="85">
-<pre><code>&lt;tf.Tensor: shape=(5, 192), dtype=float32, numpy=
-array([[2.71107573e-02, 5.13043015e-05, 1.68533437e-02, 4.68068197e-03,
-        2.18773633e-02, 5.55170227e-05, 3.87180410e-03, 9.65844141e-04,
-        3.81661695e-03, 8.06149328e-04, 3.24158021e-03, 4.51635476e-03,
-        7.43346754e-04, 6.01956388e-04, 7.87704193e-04, 3.48531804e-03,
-        3.31181521e-03, 7.72687839e-03, 1.05149784e-05, 1.14515349e-02,
-        4.07089537e-05, 4.72911075e-03, 1.25726068e-03, 1.58011857e-02,
-        6.92762376e-04, 3.61582427e-03, 7.33956404e-05, 3.92791862e-03,
-        5.71915880e-03, 7.69311422e-03, 2.20795977e-04, 2.56070448e-03,
-        2.33555129e-05, 1.65641110e-03, 6.44726306e-03, 9.89500340e-03,
-        2.74970371e-05, 8.40600859e-03, 7.56907975e-03, 1.23198214e-03,
-        8.11488371e-06, 8.44679121e-03, 9.51288547e-03, 2.05603126e-03,
-        5.45718381e-03, 3.08653143e-05, 1.20304432e-03, 1.73502881e-03,
-        1.67155114e-03, 2.29887851e-03, 3.47437046e-04, 2.54795933e-03,
-        1.84410764e-03, 3.07633006e-03, 2.06853074e-05, 6.45791879e-03,
-        3.81298433e-03, 5.36504481e-03, 5.50162699e-03, 3.45346634e-03,
-        4.20288974e-03, 9.81504750e-03, 3.19667975e-03, 2.91431323e-03,
-        4.22291830e-03, 1.55170448e-03, 4.11551353e-03, 4.27935924e-03,
-        6.66862959e-03, 1.08151697e-02, 4.55229310e-03, 6.85277674e-03,
-        1.81339192e-03, 2.73870048e-03, 1.03513682e-02, 2.88920058e-03,
-        2.55637825e-03, 6.69034990e-03, 6.89583644e-03, 4.18252824e-03,
-        4.37758584e-03, 2.50389357e-03, 1.15219865e-03, 1.22725321e-02,
-        2.30806973e-03, 1.72443478e-03, 5.71051566e-03, 7.04481406e-03,
-        2.89846747e-03, 2.97383079e-03, 2.93689384e-03, 7.51673989e-03,
-        1.72953941e-02, 4.55904799e-03, 7.56482361e-03, 9.97677352e-03,
-        6.24393113e-03, 2.47192681e-02, 6.60770293e-03, 2.05525337e-03,
-        1.12292089e-03, 4.74152900e-03, 4.36559040e-03, 6.21287618e-03,
-        2.41481722e-03, 1.40399802e-02, 3.20803607e-03, 9.10365675e-03,
-        1.62517268e-03, 3.36924056e-03, 8.58517643e-03, 4.14871052e-03,
-        4.33722278e-03, 3.77406832e-03, 9.58238728e-03, 3.38456593e-03,
-        1.01697138e-02, 4.47701057e-03, 5.25184302e-03, 2.24655401e-03,
-        7.95617874e-04, 3.36227519e-03, 7.09740864e-03, 4.43867594e-03,
-        4.05914243e-03, 8.48176796e-03, 5.37600694e-03, 1.92261022e-02,
-        7.66057521e-03, 1.61612697e-03, 1.25384156e-03, 6.21144380e-03,
-        2.86640972e-03, 1.60809979e-02, 7.82501418e-03, 7.24263350e-03,
-        2.46899645e-03, 9.79815610e-03, 4.30599134e-03, 2.46927841e-03,
-        5.54391509e-03, 3.57678952e-03, 2.66326731e-03, 4.98213898e-03,
-        1.92268603e-02, 7.35494634e-03, 3.69583210e-03, 1.34018967e-02,
-        1.88112203e-02, 6.49624877e-03, 1.87344337e-03, 1.89378945e-04,
-        9.16251331e-04, 1.03477091e-02, 8.99358094e-03, 1.21062649e-02,
-        3.55581241e-03, 2.39666988e-05, 2.78781145e-03, 1.05597182e-05,
-        1.58321927e-03, 9.91774909e-03, 3.81434569e-03, 1.43210318e-05,
-        1.16834287e-02, 4.71480191e-03, 5.06274682e-03, 2.77770567e-03,
-        2.28967438e-05, 3.63898440e-03, 7.02099169e-06, 2.06026991e-04,
-        8.13031197e-03, 8.03239085e-03, 1.24091702e-02, 3.57925217e-03,
-        6.15349086e-03, 4.64250939e-03, 1.23571465e-02, 3.79048008e-03,
-        3.86396307e-03, 1.93186605e-03, 4.72560059e-05, 2.25744979e-03,
-        3.49112041e-03, 2.84115013e-05, 2.13611331e-02, 2.33946794e-05,
-        3.74565297e-03, 5.80230076e-03, 1.78883984e-05, 3.38596711e-03],
-       [1.48905963e-02, 1.08449807e-04, 7.39173405e-03, 4.50031087e-03,
-        1.53836114e-02, 1.83995639e-04, 3.71389091e-03, 5.62245259e-04,
-        2.96852761e-03, 7.91108294e-04, 2.07685446e-03, 4.11270605e-03,
-        5.00320399e-04, 4.42426594e-04, 1.48925011e-03, 2.26308359e-03,
-        8.23177048e-04, 8.06870311e-03, 3.04382647e-05, 4.43993649e-03,
-        1.40306074e-04, 4.34792228e-03, 1.94445369e-03, 9.69669875e-03,
-        3.16815637e-03, 1.10352435e-03, 9.20069797e-05, 1.80003175e-03,
-        8.67181644e-03, 5.21570118e-03, 1.62034092e-04, 5.36237145e-04,
-        6.26986948e-05, 8.72079690e-04, 4.41146502e-03, 8.99351016e-03,
-        2.75777838e-05, 6.26682956e-03, 4.44752723e-03, 9.50304093e-04,
-        4.75531706e-05, 1.14249550e-02, 9.25404578e-03, 9.74790193e-04,
-        2.78787687e-03, 6.54900796e-05, 6.37476041e-04, 1.91027508e-03,
-        1.67665002e-03, 8.02173687e-04, 5.85724483e-04, 3.51750595e-03,
-        1.22136669e-03, 1.89568952e-03, 8.41962901e-05, 7.38383131e-03,
-        3.46621056e-03, 3.92830418e-03, 2.82547926e-03, 1.82479178e-03,
-        4.02944488e-03, 8.93029850e-03, 1.69760338e-03, 1.95309380e-03,
-        5.66065731e-03, 9.38649348e-04, 9.14741866e-03, 5.73296146e-03,
-        1.05023813e-02, 1.25466520e-02, 1.99185126e-03, 6.86859060e-03,
-        2.35710782e-03, 4.12335247e-03, 1.24254990e-02, 6.58356631e-03,
-        7.58401304e-03, 1.35206468e-02, 3.74814891e-03, 2.88307341e-03,
-        2.01025675e-03, 9.00908094e-03, 2.04662117e-03, 2.01808903e-02,
-        2.86782882e-03, 1.77490909e-03, 3.94172361e-03, 1.40486956e-02,
-        2.06913496e-03, 3.58565780e-03, 2.06464622e-03, 1.01280110e-02,
-        1.61997937e-02, 7.21477671e-03, 5.17209060e-03, 6.69650920e-03,
-        2.74106651e-03, 1.80625971e-02, 1.22331660e-02, 2.34616757e-03,
-        1.66708510e-03, 9.77458339e-03, 6.91645173e-03, 6.64988393e-03,
-        2.36526853e-03, 1.11181289e-02, 5.16407844e-03, 9.68413055e-03,
-        4.33858484e-03, 3.70819308e-03, 4.33583278e-03, 8.72009527e-03,
-        3.28785926e-03, 7.22092343e-03, 7.84961227e-03, 4.12824191e-03,
-        6.78726379e-03, 4.20693541e-03, 2.60867574e-03, 5.70979901e-03,
-        2.11344264e-03, 6.58414979e-03, 7.97557458e-03, 2.80537945e-03,
-        4.71846201e-03, 6.20239880e-03, 7.02299830e-03, 1.46789746e-02,
-        1.14165656e-02, 2.46967073e-03, 1.78458623e-03, 3.27558839e-03,
-        3.49716237e-03, 1.03550563e-02, 1.24465069e-02, 5.57779241e-03,
-        3.66305257e-03, 1.68918297e-02, 4.32463922e-03, 2.58695707e-03,
-        2.96901399e-03, 8.49486515e-03, 6.75830292e-03, 9.14293993e-03,
-        1.30024431e-02, 8.81103892e-03, 3.73914349e-03, 6.16177171e-03,
-        1.18032331e-02, 8.89637321e-03, 3.03128478e-03, 3.60201317e-04,
-        1.92286388e-03, 1.12665584e-02, 1.06915021e-02, 8.10334738e-03,
-        6.75315456e-03, 1.24642975e-04, 5.25759114e-03, 4.36096561e-05,
-        2.43651192e-03, 1.20856725e-02, 4.15318040e-03, 8.59395659e-05,
-        1.10799214e-02, 4.87593282e-03, 3.88200604e-03, 2.30675074e-03,
-        8.74388134e-05, 6.83080079e-03, 4.55644877e-05, 1.08721317e-03,
-        1.10291289e-02, 6.70000864e-03, 1.00088306e-02, 3.36642517e-03,
-        5.81978448e-03, 9.40883346e-03, 1.32740233e-02, 3.51165724e-03,
-        4.89629060e-03, 3.23376642e-03, 2.10344559e-04, 2.21302127e-03,
-        6.08361093e-03, 1.06453066e-04, 1.51558593e-02, 4.95118366e-05,
-        9.29443073e-03, 5.64620225e-03, 1.34198781e-04, 5.34919044e-03],
-       [1.52834571e-06, 8.35016334e-10, 1.14459672e-03, 4.60632646e-06,
-        2.84430251e-04, 4.25880042e-09, 4.46547347e-04, 1.74602345e-01,
-        1.91766987e-04, 1.42532910e-04, 4.50822263e-04, 2.48776749e-04,
-        1.54746324e-02, 1.16292797e-02, 2.18918966e-03, 3.05652968e-04,
-        7.33474793e-04, 8.66788104e-02, 5.05733693e-12, 8.59831016e-06,
-        6.16012241e-11, 1.05542585e-03, 1.79222807e-05, 1.50300812e-05,
-        1.23657697e-08, 6.24624528e-02, 1.47531045e-08, 2.17290640e-01,
-        7.19105572e-07, 1.51480874e-03, 2.05440377e-03, 9.99856964e-02,
-        2.26563234e-12, 7.75127625e-03, 6.29702117e-03, 4.48585418e-08,
-        1.28827429e-08, 1.97083950e-02, 1.80620977e-04, 1.78078155e-03,
-        1.87456457e-11, 1.92074737e-07, 5.78555992e-05, 2.03653648e-02,
-        9.63928457e-03, 3.73418558e-08, 6.13587070e-03, 9.66786582e-04,
-        6.51554903e-04, 4.19370411e-03, 4.80578514e-03, 7.72876228e-06,
-        6.76208781e-03, 5.74744881e-05, 6.44349990e-11, 7.97635317e-03,
-        7.27361301e-04, 1.59914372e-04, 1.19629102e-02, 6.32423833e-02,
-        3.27335708e-02, 1.42078279e-04, 8.16005166e-04, 6.70111694e-06,
-        1.20393489e-03, 1.60245597e-02, 3.84381252e-07, 1.47508814e-08,
-        9.83883534e-03, 4.79198752e-06, 1.50605786e-06, 3.25194487e-05,
-        8.67607559e-06, 2.64560435e-06, 7.05657339e-06, 2.31910079e-07,
-        6.55964110e-03, 4.96325782e-04, 1.25844672e-03, 3.99208181e-02,
-        5.63247921e-03, 9.94011527e-04, 1.78089010e-06, 1.37617117e-05,
-        6.38378042e-05, 2.66905385e-03, 9.45434476e-06, 2.76237982e-03,
-        2.19632238e-06, 5.54604921e-05, 1.38132418e-05, 2.67227028e-06,
-        4.30243235e-05, 4.30222042e-03, 1.42713197e-05, 3.16763504e-07,
-        4.57759481e-04, 3.26611777e-03, 4.25910148e-05, 1.04389052e-04,
-        3.26597569e-06, 2.32521648e-04, 1.98979455e-04, 4.88856131e-06,
-        2.06319385e-07, 1.66352293e-05, 1.35661139e-06, 2.53002218e-05,
-        6.98865406e-05, 2.08328493e-06, 2.41433668e-07, 1.17313211e-05,
-        5.54938197e-05, 2.14641068e-06, 1.41025325e-02, 2.11261886e-05,
-        4.10701091e-07, 1.62856260e-04, 1.62713986e-04, 2.83567601e-06,
-        1.94827098e-05, 4.47028583e-07, 5.97656651e-07, 2.83344434e-05,
-        6.16362570e-07, 3.01687493e-08, 5.44568911e-06, 7.50996842e-05,
-        1.92224747e-04, 2.24761766e-06, 3.23696004e-05, 9.25208406e-06,
-        1.06143070e-05, 1.79891924e-06, 4.92667169e-08, 4.52115785e-08,
-        3.55217708e-05, 2.96210870e-04, 5.87208035e-07, 3.25540941e-06,
-        2.27565561e-05, 1.23708378e-05, 1.62627941e-06, 2.43929210e-09,
-        8.99425322e-06, 7.59672548e-05, 1.99202617e-07, 9.97778261e-04,
-        5.34728111e-04, 7.28601492e-07, 8.04020601e-05, 2.42406799e-07,
-        2.26280505e-07, 1.61789885e-05, 1.10617702e-05, 1.96439132e-08,
-        2.23221832e-06, 1.57212975e-11, 2.20646871e-06, 5.38407478e-11,
-        2.60125944e-06, 4.88059300e-07, 1.57355738e-04, 1.98715714e-11,
-        3.17651393e-05, 5.18795241e-05, 9.52976916e-05, 8.51040397e-07,
-        2.98774117e-10, 1.04412102e-07, 1.37234252e-11, 3.09846610e-06,
-        6.67066779e-05, 3.77085644e-06, 4.31927147e-05, 1.80938366e-06,
-        1.30326748e-06, 2.89120745e-08, 2.84940779e-05, 2.57257379e-05,
-        1.33525118e-05, 4.43476793e-08, 6.06451087e-12, 2.76387891e-06,
-        3.06371621e-05, 2.60459265e-10, 2.03450759e-06, 1.27465413e-10,
-        3.56195500e-08, 1.36300469e-06, 3.18156126e-11, 1.21968398e-07],
-       [1.18675465e-02, 1.32500820e-04, 6.48632972e-03, 4.76245675e-03,
-        1.30567113e-02, 2.82486784e-04, 3.89610394e-03, 6.59690646e-04,
-        3.28550162e-03, 9.46889690e-04, 2.51046219e-03, 3.90979880e-03,
-        7.12334062e-04, 7.28773477e-04, 2.00960622e-03, 2.72217160e-03,
-        9.42350249e-04, 8.06743465e-03, 5.14493731e-05, 4.03438509e-03,
-        1.54660127e-04, 4.71602147e-03, 2.57151853e-03, 9.29646660e-03,
-        3.40515701e-03, 1.37618429e-03, 1.58897907e-04, 2.10065837e-03,
-        7.71782175e-03, 5.48227876e-03, 2.63053022e-04, 6.54651492e-04,
-        8.03673393e-05, 1.10490643e-03, 4.59895376e-03, 7.71926716e-03,
-        6.02458567e-05, 5.15207835e-03, 3.93473264e-03, 1.35220331e-03,
-        7.61502379e-05, 1.19772926e-02, 9.49506648e-03, 1.04814535e-03,
-        2.71254056e-03, 9.74262948e-05, 9.60998295e-04, 2.52758083e-03,
-        1.77028903e-03, 9.79524804e-04, 9.04665270e-04, 3.71368206e-03,
-        1.46092905e-03, 1.94843207e-03, 1.23377918e-04, 7.95195345e-03,
-        3.77467927e-03, 4.02408652e-03, 2.58373842e-03, 1.78914028e-03,
-        4.62897262e-03, 7.65321078e-03, 1.82268373e-03, 2.31446582e-03,
-        5.16795833e-03, 1.01314764e-03, 7.90149625e-03, 5.24786673e-03,
-        1.15161147e-02, 1.29079875e-02, 1.98221882e-03, 5.97423594e-03,
-        2.97711208e-03, 4.68166312e-03, 1.16976937e-02, 7.87414238e-03,
-        9.08904150e-03, 1.18987197e-02, 4.20924742e-03, 3.24337557e-03,
-        2.52109906e-03, 8.65410175e-03, 2.41095619e-03, 1.69749558e-02,
-        3.63542698e-03, 2.14379607e-03, 3.87193705e-03, 1.39386170e-02,
-        2.73784809e-03, 4.54898644e-03, 2.19302438e-03, 1.18658300e-02,
-        1.45087875e-02, 7.91597646e-03, 4.57910215e-03, 6.45317836e-03,
-        2.51242681e-03, 1.33966170e-02, 1.22203855e-02, 2.98879552e-03,
-        1.67573267e-03, 8.86730850e-03, 7.23043876e-03, 7.77799264e-03,
-        2.56778486e-03, 1.11059621e-02, 5.41172829e-03, 7.94412475e-03,
-        5.26535185e-03, 4.88238037e-03, 4.12129145e-03, 8.12661182e-03,
-        3.66732199e-03, 9.05710924e-03, 6.76189503e-03, 5.32012898e-03,
-        5.72822290e-03, 4.75748396e-03, 2.64916453e-03, 6.82992116e-03,
-        3.08182044e-03, 6.84491359e-03, 9.00399126e-03, 2.71736877e-03,
-        5.85600641e-03, 7.21757673e-03, 7.19848368e-03, 1.32489316e-02,
-        8.88934918e-03, 2.61269975e-03, 2.22061994e-03, 3.22973216e-03,
-        4.00472386e-03, 7.59651652e-03, 1.05664656e-02, 5.37914876e-03,
-        4.74418094e-03, 1.73240546e-02, 4.28345613e-03, 3.22519708e-03,
-        3.05515761e-03, 8.24418198e-03, 6.98964344e-03, 9.90908593e-03,
-        1.15724318e-02, 1.03715491e-02, 3.43565107e-03, 6.06370158e-03,
-        1.13023948e-02, 7.77146174e-03, 3.99672799e-03, 5.60062355e-04,
-        2.68619508e-03, 1.13032246e-02, 9.67071671e-03, 7.87832588e-03,
-        7.28964899e-03, 1.61264703e-04, 5.29954350e-03, 5.81983149e-05,
-        2.90791318e-03, 1.02053173e-02, 4.50284733e-03, 1.13765229e-04,
-        9.71889403e-03, 5.00309700e-03, 4.00823215e-03, 2.79649161e-03,
-        1.23561898e-04, 8.25032685e-03, 6.82823447e-05, 1.51115982e-03,
-        1.01270471e-02, 7.27976440e-03, 1.06589776e-02, 4.50716913e-03,
-        6.80465298e-03, 1.05741573e-02, 1.04279500e-02, 4.21593059e-03,
-        5.77231636e-03, 4.13203379e-03, 2.94280355e-04, 3.30990995e-03,
-        5.40824188e-03, 1.31499153e-04, 1.20345261e-02, 6.89433582e-05,
-        9.50838067e-03, 6.16280548e-03, 2.06266908e-04, 5.79487905e-03],
-       [1.51104433e-02, 1.08692780e-04, 7.64811831e-03, 4.61229961e-03,
-        1.51311122e-02, 1.68578670e-04, 3.57643724e-03, 5.83007175e-04,
-        3.02596553e-03, 7.72451458e-04, 2.05152202e-03, 4.20313142e-03,
-        5.06604905e-04, 4.31964290e-04, 1.41861045e-03, 2.23687966e-03,
-        8.33175844e-04, 7.82579463e-03, 2.80742406e-05, 4.51790961e-03,
-        1.33765439e-04, 4.10818774e-03, 1.95457903e-03, 1.00214127e-02,
-        3.14116501e-03, 1.11019332e-03, 8.55158432e-05, 1.81561091e-03,
-        8.65249429e-03, 5.23266196e-03, 1.62709344e-04, 5.58036787e-04,
-        5.86391870e-05, 8.68150673e-04, 4.31080582e-03, 9.47739650e-03,
-        2.60858560e-05, 6.53124368e-03, 4.62119747e-03, 9.08315938e-04,
-        4.39137584e-05, 1.11112706e-02, 9.10637900e-03, 1.00690068e-03,
-        2.80168303e-03, 6.16241814e-05, 6.07141934e-04, 1.93324278e-03,
-        1.69703132e-03, 8.01029499e-04, 5.44069393e-04, 3.57060530e-03,
-        1.21344929e-03, 1.95324956e-03, 7.89656187e-05, 7.27159251e-03,
-        3.33763380e-03, 3.90199316e-03, 2.78216088e-03, 1.87068002e-03,
-        3.95215070e-03, 9.06030182e-03, 1.69014605e-03, 2.03317823e-03,
-        5.87209221e-03, 9.71321948e-04, 9.42877959e-03, 5.83006395e-03,
-        1.05610797e-02, 1.21864257e-02, 2.02610553e-03, 7.04969093e-03,
-        2.37714546e-03, 4.24201740e-03, 1.28296018e-02, 6.49108598e-03,
-        7.43682496e-03, 1.36728063e-02, 3.83545924e-03, 2.93209055e-03,
-        2.11157324e-03, 8.63141567e-03, 1.98473968e-03, 2.02765688e-02,
-        2.82436074e-03, 1.69720559e-03, 4.04598005e-03, 1.41061442e-02,
-        1.99219957e-03, 3.43882316e-03, 2.14720936e-03, 9.67106875e-03,
-        1.64673217e-02, 7.17277313e-03, 5.40871220e-03, 6.72216760e-03,
-        2.78875651e-03, 1.79797597e-02, 1.23963431e-02, 2.34993035e-03,
-        1.72949629e-03, 9.84080322e-03, 6.85339374e-03, 6.59619272e-03,
-        2.37918599e-03, 1.11114495e-02, 5.17551322e-03, 9.86058731e-03,
-        4.38591233e-03, 3.53760179e-03, 4.60027438e-03, 8.59447662e-03,
-        3.29831056e-03, 6.76783873e-03, 8.09802860e-03, 3.96745559e-03,
-        7.26613961e-03, 4.22990927e-03, 2.63783126e-03, 5.61442506e-03,
-        1.99977448e-03, 6.46021171e-03, 8.00839812e-03, 2.96473526e-03,
-        4.61376784e-03, 6.01670239e-03, 6.90054102e-03, 1.51817929e-02,
-        1.17225964e-02, 2.45955773e-03, 1.79165520e-03, 3.43559240e-03,
-        3.36613762e-03, 1.07996725e-02, 1.23251826e-02, 5.46429586e-03,
-        3.62944067e-03, 1.65870916e-02, 4.42466233e-03, 2.57860054e-03,
-        3.09790275e-03, 8.23622383e-03, 6.56515639e-03, 8.81253835e-03,
-        1.31596429e-02, 8.48372094e-03, 3.97292711e-03, 6.29892573e-03,
-        1.23360390e-02, 8.64811800e-03, 2.98132608e-03, 3.30653798e-04,
-        1.88132387e-03, 1.12331528e-02, 1.05936006e-02, 8.23206455e-03,
-        6.46134047e-03, 1.16067073e-04, 5.13406051e-03, 4.26557926e-05,
-        2.40995758e-03, 1.20495046e-02, 4.28908225e-03, 7.91307539e-05,
-        1.14598302e-02, 4.77858074e-03, 3.83139122e-03, 2.33386224e-03,
-        8.43008675e-05, 6.62886072e-03, 4.09154018e-05, 1.03713991e-03,
-        1.13373213e-02, 6.51362259e-03, 9.66680516e-03, 3.20836739e-03,
-        5.73504483e-03, 9.18321218e-03, 1.32141206e-02, 3.49208317e-03,
-        4.78551816e-03, 3.13789258e-03, 1.91760410e-04, 2.11124448e-03,
-        6.13956433e-03, 1.04327351e-04, 1.55072510e-02, 4.66515594e-05,
-        8.84831417e-03, 5.57448016e-03, 1.22325335e-04, 5.20989625e-03]],
+<div class="cell-output cell-output-display" data-execution_count="161">
+<pre><code>&lt;tf.Tensor: shape=(5, 12), dtype=float32, numpy=
+array([[2.3575129e-14, 2.0167806e-06, 3.2258049e-15, 2.5390280e-12,
+        0.0000000e+00, 5.4554693e-08, 2.2374009e-15, 1.1605402e-30,
+        9.2433390e-27, 0.0000000e+00, 2.3904512e-20, 9.9999797e-01],
+       [3.0865887e-17, 5.6437376e-12, 3.5200921e-16, 4.8912907e-14,
+        0.0000000e+00, 6.3265929e-13, 7.2568216e-21, 1.2619176e-36,
+        8.2381834e-30, 0.0000000e+00, 7.1238919e-17, 1.0000000e+00],
+       [5.1222844e-09, 2.2666624e-01, 1.7969175e-10, 1.3495276e-07,
+        0.0000000e+00, 7.7070230e-01, 7.2099590e-07, 9.1663390e-21,
+        1.1082570e-18, 0.0000000e+00, 2.9529091e-20, 2.6305555e-03],
+       [4.7092488e-19, 4.0341433e-02, 9.3841614e-27, 2.0491259e-19,
+        0.0000000e+00, 1.4222104e-06, 5.3919645e-16, 3.2970567e-33,
+        9.1509086e-36, 0.0000000e+00, 0.0000000e+00, 9.5965719e-01],
+       [3.0462832e-09, 2.0831105e-05, 4.1722682e-08, 1.1669282e-06,
+        0.0000000e+00, 1.5258926e-04, 1.1315282e-10, 3.4459704e-24,
+        9.0659336e-19, 0.0000000e+00, 1.1024818e-11, 9.9982542e-01]],
       dtype=float32)&gt;</code></pre>
 </div>
 </div>
-<div id="4f904c82" class="cell" data-execution_count="86">
+<div id="4f904c82" class="cell" data-execution_count="162">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> prob_model.predict(X_test).argmax(axis <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>5/5 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step </code></pre>
+<pre><code>5/5 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="86">
-<pre><code>array([137, 137,  83,  83,  21, 137,  83,  15, 148, 137,  97,  83, 137,
-        83, 137,  83, 137,  78, 137,  83,   6,  14,  52, 137,  83,  97,
-        78,   7,  83, 137, 137,  83,   0,  15,  68,  83, 137,  97, 137,
-        83,  91,  91, 137, 137, 137,  83,  34,  91,  83,  83,  83,  97,
-        97,  83, 137,  83,  14, 137,  83, 137,   0, 137, 137, 137,  97,
-        37,  91, 137,  29,  97,  83,  83,  34,  83,  97,   0, 137,  83,
-       137,  83,  34, 137, 137,  97, 137, 137, 137,  68,  83,  97, 137,
-        83, 137,  97,  83,  78,  97, 137,  27,  97,  34,  97, 137,  34,
-        78, 137,  83, 137,  83,  83,  83,  97,  68,  97, 137,  52, 137,
-        91,  83,  83, 137,  83,  81,  97,  91,  83, 137, 148,  78,  97,
-       137, 137,  97, 148,  65,  83, 137,  83, 137, 137, 137,  83,  83,
-       137,   8,   0, 137, 137,  83,  83,  83, 137,  83, 137,   0, 137])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="162">
+<pre><code>array([ 3,  1,  6,  5,  3, 11, 11,  7, 11, 11, 11, 11,  7,  6,  5, 11, 11,
+        1, 11,  5,  5,  2, 11, 11, 11, 11,  1, 11, 11,  5,  5,  5,  1, 11,
+       11,  7,  5, 11,  3, 11, 11,  7,  1, 11,  6, 11, 11, 11,  5,  5,  5,
+        3, 11, 11, 11,  3,  5,  7, 11, 11, 11, 11,  7, 11,  5,  5, 11,  3,
+        5, 11,  7,  1,  5,  7, 11,  5,  5,  1, 11,  1, 11,  3,  6, 11, 11,
+        7,  8, 11, 11,  3,  5,  1,  8, 11,  5, 11, 11,  5, 11, 11, 11, 11,
+        5, 11,  5, 11,  5, 11,  5,  8, 11, 11,  1, 11,  5,  7,  8,  7, 11,
+        5, 11,  1,  3,  3,  3,  1,  5, 11,  1,  5,  1,  7,  5, 11, 11, 11,
+       11,  5, 11, 11, 11,  5, 11, 11,  3, 11,  6,  1, 11,  5, 11, 11, 11,
+       11, 11,  7])</code></pre>
 </div>
 </div>
-<div id="8fb5c597" class="cell" data-execution_count="87">
+<div id="8fb5c597" class="cell" data-execution_count="163">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>[le.classes_[predictions[i]] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="87">
-<pre><code>[23.4, 23.4, 17.8, 17.8, 10.2, 23.4, 17.8, 8.8, 24.6, 23.4]</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="163">
+<pre><code>['feb', 'aug', 'jun', 'jul', 'feb', 'sep', 'sep', 'mar', 'sep', 'sep']</code></pre>
 </div>
 </div>
 
