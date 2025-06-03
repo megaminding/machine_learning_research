@@ -3643,6 +3643,7 @@ timestamp
 <h2 class="anchored" data-anchor-id="choose-dataset-for-machine-learning">Choose dataset for machine learning</h2>
 <p>Our dataset is multi-spectral values of pixels in 3x3 neighbourhoods in a satellite image, and the classification associated with the central pixel in each neighbourhood. We are using machine learning and 36 data variables to predict the seven types of classes which are:</p>
 <p>1 red soil 2 cotton crop 3 grey soil 4 damp grey soil 5 soil with vegetation stubble 6 mixture class (all types present) 7 very damp grey soil</p>
+<p>The link to the dataset is: https://archive.ics.uci.edu/dataset/146/statlog+landsat+satellite.</p>
 <div id="4dc4b1b2" class="cell" data-execution_count="331">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/statlog/satimage/sat.trn"</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>col_names <span class="op">=</span> [<span class="ss">f"feature_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">36</span>)] <span class="op">+</span> [<span class="st">"label"</span>]</span>
@@ -3916,8 +3917,129 @@ array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
 <pre><code>[7, 1, 7, 1, 3, 7, 1, 1, 1, 7]</code></pre>
 </div>
 </div>
+</section>
+</section>
+<section id="week-seven-goals" class="level1">
+<h1>Week seven goals</h1>
+<ul>
+<li>Practice data structure and algorithm concepts related to machine learning</li>
+<li>Learn the fundamentals for GO for the first time and practice coding data structures and algorithms in it</li>
+<li>Find out what is binary search and how it’s useful in supporting several machine learning tasks, like optimization and search</li>
+<li>Learn about decision trees and how to traverse them</li>
+<li>Apply BFS and DFS, understand the differences between them</li>
+<li>Discover Optimization &amp; Search in Trees</li>
+</ul>
+<section id="binary-search" class="level2">
+<h2 class="anchored" data-anchor-id="binary-search">Binary Search</h2>
+<p>Let’s learn what binary search is and how it’s useful in supporting several machine learning tasks, like optimization and search.</p>
+<p>Let’s practice this problem using Go: https://leetcode.com/problems/binary-search/</p>
+<p>Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.</p>
+<div id="1579135e" class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>func search(nums []<span class="bu">int</span>, target <span class="bu">int</span>) <span class="bu">int</span> {</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    l <span class="op">:=</span> <span class="dv">0</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    r <span class="op">:=</span> <span class="bu">len</span>(nums) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    var mid <span class="bu">int</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="op">&lt;=</span> r {</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> (r <span class="op">+</span> l) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nums[mid] <span class="op">&lt;</span> target {</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>            l <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> <span class="cf">if</span> nums[mid] <span class="op">&gt;</span> target {</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>            r <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> mid</span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For this problem, we are technique where we are dividing the list by half until we are able to reach the target number. We find the middle number using mid = (r + l) / 2, and then we compare whether this middle number is bigger or smaller than the target number. If it’s the same, we return the index.</p>
+</section>
+<section id="decision-trees" class="level2">
+<h2 class="anchored" data-anchor-id="decision-trees">Decision Trees</h2>
+<p>Decision trees are a core component of many ML models, such as Random Forests (multiple decision trees to reduce variance) and Gradient Boosted Trees (ensemble of decision trees, where each tree is sequentially trained to correct the errors of the previous trees).</p>
+<section id="tree-traversal" class="level3">
+<h3 class="anchored" data-anchor-id="tree-traversal">Tree Traversal</h3>
+<p>Tree traverals are important in decision trees, because the type of traversal can help make navigating the tree more efficient. For example, depth-first-search is best at finding the shortest path in an unweighted graph. However, breath-for-search is best at detecting cycles and performing topological sorting.</p>
+</section>
+<section id="dfs" class="level3">
+<h3 class="anchored" data-anchor-id="dfs">DFS</h3>
+<p>Let’s practice Binary Tree Inorder Traversal: https://leetcode.com/problems/binary-tree-inorder-traversal/description/</p>
+<p>Given the root of a binary tree, return the inorder traversal of its nodes’ values.</p>
+<div id="433e751c" class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="op">/**</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> Definition <span class="cf">for</span> a binary tree node.</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> <span class="bu">type</span> TreeNode struct {</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Val <span class="bu">int</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Left <span class="op">*</span>TreeNode</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Right <span class="op">*</span>TreeNode</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> }</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a> <span class="op">*/</span></span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>func inorderTraversal(root <span class="op">*</span>TreeNode) []<span class="bu">int</span> {</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>    ans <span class="op">:=</span> []<span class="bu">int</span>{}</span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>    var inorder func(<span class="op">*</span>TreeNode)</span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a>    inorder <span class="op">=</span> func(root <span class="op">*</span>TreeNode){</span>
+<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> root <span class="op">==</span> nil{</span>
+<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span></span>
+<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>        inorder(root.Left)</span>
+<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a>        ans <span class="op">=</span> append(ans, root.Val)</span>
+<span id="cb71-21"><a href="#cb71-21" aria-hidden="true" tabindex="-1"></a>        inorder(root.Right)</span>
+<span id="cb71-22"><a href="#cb71-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb71-23"><a href="#cb71-23" aria-hidden="true" tabindex="-1"></a>    inorder(root)</span>
+<span id="cb71-24"><a href="#cb71-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-25"><a href="#cb71-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ans<span class="op">;</span></span>
+<span id="cb71-26"><a href="#cb71-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To perform inorder traversal, we use a recursion function to travel down the left side, then print the current value, and then travel down the right side. We keep performing this until we’ve hit every node.</p>
+</section>
+<section id="bfs" class="level3">
+<h3 class="anchored" data-anchor-id="bfs">BFS</h3>
+<p>Now let’s try Binary Tree Level Order Traversal: https://leetcode.com/problems/binary-tree-level-order-traversal/description/</p>
+<p>Given the root of a binary tree, return the level order traversal of its nodes’ values. (i.e., from left to right, level by level).</p>
+<div id="d2d77acf" class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="op">/**</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> Definition <span class="cf">for</span> a binary tree node.</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> <span class="bu">type</span> TreeNode struct {</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Val <span class="bu">int</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Left <span class="op">*</span>TreeNode</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Right <span class="op">*</span>TreeNode</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> }</span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a> <span class="op">*/</span></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>func levelOrder(root <span class="op">*</span>TreeNode) [][]<span class="bu">int</span> {</span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> root <span class="op">==</span> nil{</span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [][] <span class="bu">int</span>{}</span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a>        var ans [][] <span class="bu">int</span></span>
+<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a>        q <span class="op">:=</span>[]<span class="op">*</span>TreeNode{root}</span>
+<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="bu">len</span>(q) <span class="op">&gt;</span> <span class="dv">0</span>{</span>
+<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a>            qlen<span class="op">:=</span> <span class="bu">len</span>(q)</span>
+<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a>            var temp []<span class="bu">int</span></span>
+<span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="op">:=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> qlen<span class="op">;</span> i<span class="op">++</span> {</span>
+<span id="cb72-20"><a href="#cb72-20" aria-hidden="true" tabindex="-1"></a>                node <span class="op">:=</span> q[<span class="dv">0</span>]</span>
+<span id="cb72-21"><a href="#cb72-21" aria-hidden="true" tabindex="-1"></a>                temp <span class="op">=</span> append(temp, node.Val)</span>
+<span id="cb72-22"><a href="#cb72-22" aria-hidden="true" tabindex="-1"></a>                q <span class="op">=</span> q[<span class="dv">1</span>:]</span>
+<span id="cb72-23"><a href="#cb72-23" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb72-24"><a href="#cb72-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> node.Left <span class="op">!=</span> nil{</span>
+<span id="cb72-25"><a href="#cb72-25" aria-hidden="true" tabindex="-1"></a>                    q <span class="op">=</span> append(q, node.Left)</span>
+<span id="cb72-26"><a href="#cb72-26" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb72-27"><a href="#cb72-27" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb72-28"><a href="#cb72-28" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> node.Right <span class="op">!=</span> nil{</span>
+<span id="cb72-29"><a href="#cb72-29" aria-hidden="true" tabindex="-1"></a>                    q <span class="op">=</span> append(q, node.Right)</span>
+<span id="cb72-30"><a href="#cb72-30" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb72-31"><a href="#cb72-31" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb72-32"><a href="#cb72-32" aria-hidden="true" tabindex="-1"></a>            ans <span class="op">=</span> append(ans, temp)</span>
+<span id="cb72-33"><a href="#cb72-33" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb72-34"><a href="#cb72-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ans</span>
+<span id="cb72-35"><a href="#cb72-35" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To perform BFS, we use the data structure called a queue. This is helpful in traveling through the nodes level by level. While there is something in a queue, we keep track of the length and then pop at the first index to access the node. With this node, we store the value and then add the left and right nodes to the queue. Then we add it to the final answer array.</p>
 
 
+</section>
 </section>
 </section>
 
@@ -4012,7 +4134,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/megaminding\.github\.io\/machine_learning_research\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
