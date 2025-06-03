@@ -3929,12 +3929,41 @@ array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
 <li>Apply BFS and DFS, understand the differences between them</li>
 <li>Discover Optimization &amp; Search in Trees</li>
 </ul>
+<section id="learning-go-as-a-coding-language" class="level2">
+<h2 class="anchored" data-anchor-id="learning-go-as-a-coding-language">Learning Go as a Coding Language</h2>
+<ul>
+<li>high-level general purpose programming language</li>
+<li>simple syntax</li>
+<li>designed at Google</li>
+<li>built-in support for concurrency -&gt; handling multiple tasks simultaneously</li>
+<li>used for building cloud-based applications, microservices, and network infrastructure</li>
+<li>can be used to create command-line tools</li>
+<li>fast build times and tools for monitoring and error -&gt; good for DevOps and SRE roles</li>
+</ul>
+</section>
 <section id="binary-search" class="level2">
 <h2 class="anchored" data-anchor-id="binary-search">Binary Search</h2>
 <p>Let’s learn what binary search is and how it’s useful in supporting several machine learning tasks, like optimization and search.</p>
 <p>Let’s practice this problem using Go: https://leetcode.com/problems/binary-search/</p>
 <p>Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.</p>
-<p>func search(nums []int, target int) int { l := 0 r := len(nums) - 1 var mid int for l &lt;= r { mid = (r + l) / 2 if nums[mid] &lt; target { l = mid + 1 } else if nums[mid] &gt; target { r = mid - 1 } else { return mid } } return -1 }</p>
+<div id="1579135e" class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>func search(nums []<span class="bu">int</span>, target <span class="bu">int</span>) <span class="bu">int</span> {</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    l <span class="op">:=</span> <span class="dv">0</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    r <span class="op">:=</span> <span class="bu">len</span>(nums) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    var mid <span class="bu">int</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="op">&lt;=</span> r {</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> (r <span class="op">+</span> l) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nums[mid] <span class="op">&lt;</span> target {</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>            l <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> <span class="cf">if</span> nums[mid] <span class="op">&gt;</span> target {</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>            r <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> mid</span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>For this problem, we are technique where we are dividing the list by half until we are able to reach the target number. We find the middle number using mid = (r + l) / 2, and then we compare whether this middle number is bigger or smaller than the target number. If it’s the same, we return the index.</p>
 </section>
 <section id="decision-trees" class="level2">
@@ -3948,42 +3977,110 @@ array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
 <h3 class="anchored" data-anchor-id="dfs">DFS</h3>
 <p>Let’s practice Binary Tree Inorder Traversal: https://leetcode.com/problems/binary-tree-inorder-traversal/description/</p>
 <p>Given the root of a binary tree, return the inorder traversal of its nodes’ values.</p>
-<p>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left <em>TreeNode </em> Right <em>TreeNode </em> } <em>/ func inorderTraversal(root </em>TreeNode) []int { ans := []int{} var inorder func(*TreeNode)</p>
-<pre><code>inorder = func(root *TreeNode){
-    if root == nil{
-        return
-    }
-    inorder(root.Left)
-    ans = append(ans, root.Val)
-    inorder(root.Right)
-}
-inorder(root)
-
-return ans;</code></pre>
-<p>}</p>
+<div id="433e751c" class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="op">/**</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> Definition <span class="cf">for</span> a binary tree node.</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> <span class="bu">type</span> TreeNode struct {</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Val <span class="bu">int</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Left <span class="op">*</span>TreeNode</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Right <span class="op">*</span>TreeNode</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> }</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a> <span class="op">*/</span></span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>func inorderTraversal(root <span class="op">*</span>TreeNode) []<span class="bu">int</span> {</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>    ans <span class="op">:=</span> []<span class="bu">int</span>{}</span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>    var inorder func(<span class="op">*</span>TreeNode)</span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a>    inorder <span class="op">=</span> func(root <span class="op">*</span>TreeNode){</span>
+<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> root <span class="op">==</span> nil{</span>
+<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span></span>
+<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>        inorder(root.Left)</span>
+<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a>        ans <span class="op">=</span> append(ans, root.Val)</span>
+<span id="cb71-21"><a href="#cb71-21" aria-hidden="true" tabindex="-1"></a>        inorder(root.Right)</span>
+<span id="cb71-22"><a href="#cb71-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb71-23"><a href="#cb71-23" aria-hidden="true" tabindex="-1"></a>    inorder(root)</span>
+<span id="cb71-24"><a href="#cb71-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-25"><a href="#cb71-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ans<span class="op">;</span></span>
+<span id="cb71-26"><a href="#cb71-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>To perform inorder traversal, we use a recursion function to travel down the left side, then print the current value, and then travel down the right side. We keep performing this until we’ve hit every node.</p>
 </section>
 <section id="bfs" class="level3">
 <h3 class="anchored" data-anchor-id="bfs">BFS</h3>
 <p>Now let’s try Binary Tree Level Order Traversal: https://leetcode.com/problems/binary-tree-level-order-traversal/description/</p>
 <p>Given the root of a binary tree, return the level order traversal of its nodes’ values. (i.e., from left to right, level by level).</p>
-<p>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left <em>TreeNode </em> Right <em>TreeNode </em> } <em>/ func levelOrder(root </em>TreeNode) [][]int { if root == nil{ return [][] int{} } var ans [][] int q :=[]*TreeNode{root} for len(q) &gt; 0{ qlen:= len(q) var temp []int for i :=0; i &lt; qlen; i++ { node := q[0] temp = append(temp, node.Val) q = q[1:]</p>
-<pre><code>            if node.Left != nil{
-                q = append(q, node.Left)
-            }
-            
-            if node.Right != nil{
-                q = append(q, node.Right)
-            }
-        }
-        ans = append(ans, temp)
-    }
-    return ans</code></pre>
-<p>}</p>
+<div id="d2d77acf" class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="op">/**</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> Definition <span class="cf">for</span> a binary tree node.</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> <span class="bu">type</span> TreeNode struct {</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Val <span class="bu">int</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Left <span class="op">*</span>TreeNode</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Right <span class="op">*</span>TreeNode</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> }</span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a> <span class="op">*/</span></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>func levelOrder(root <span class="op">*</span>TreeNode) [][]<span class="bu">int</span> {</span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> root <span class="op">==</span> nil{</span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [][] <span class="bu">int</span>{}</span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a>        var ans [][] <span class="bu">int</span></span>
+<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a>        q <span class="op">:=</span>[]<span class="op">*</span>TreeNode{root}</span>
+<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="bu">len</span>(q) <span class="op">&gt;</span> <span class="dv">0</span>{</span>
+<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a>            qlen<span class="op">:=</span> <span class="bu">len</span>(q)</span>
+<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a>            var temp []<span class="bu">int</span></span>
+<span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="op">:=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> qlen<span class="op">;</span> i<span class="op">++</span> {</span>
+<span id="cb72-20"><a href="#cb72-20" aria-hidden="true" tabindex="-1"></a>                node <span class="op">:=</span> q[<span class="dv">0</span>]</span>
+<span id="cb72-21"><a href="#cb72-21" aria-hidden="true" tabindex="-1"></a>                temp <span class="op">=</span> append(temp, node.Val)</span>
+<span id="cb72-22"><a href="#cb72-22" aria-hidden="true" tabindex="-1"></a>                q <span class="op">=</span> q[<span class="dv">1</span>:]</span>
+<span id="cb72-23"><a href="#cb72-23" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb72-24"><a href="#cb72-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> node.Left <span class="op">!=</span> nil{</span>
+<span id="cb72-25"><a href="#cb72-25" aria-hidden="true" tabindex="-1"></a>                    q <span class="op">=</span> append(q, node.Left)</span>
+<span id="cb72-26"><a href="#cb72-26" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb72-27"><a href="#cb72-27" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb72-28"><a href="#cb72-28" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> node.Right <span class="op">!=</span> nil{</span>
+<span id="cb72-29"><a href="#cb72-29" aria-hidden="true" tabindex="-1"></a>                    q <span class="op">=</span> append(q, node.Right)</span>
+<span id="cb72-30"><a href="#cb72-30" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb72-31"><a href="#cb72-31" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb72-32"><a href="#cb72-32" aria-hidden="true" tabindex="-1"></a>            ans <span class="op">=</span> append(ans, temp)</span>
+<span id="cb72-33"><a href="#cb72-33" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb72-34"><a href="#cb72-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ans</span>
+<span id="cb72-35"><a href="#cb72-35" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>To perform BFS, we use the data structure called a queue. This is helpful in traveling through the nodes level by level. While there is something in a queue, we keep track of the length and then pop at the first index to access the node. With this node, we store the value and then add the left and right nodes to the queue. Then we add it to the final answer array.</p>
-
-
 </section>
+</section>
+<section id="binary-search-tree" class="level2">
+<h2 class="anchored" data-anchor-id="binary-search-tree">Binary Search Tree</h2>
+<p>Binary Search Trees are helpful for machine learning applications, specifically decision trees and for efficient data handling. They provide useful for lookups, insertions, and deletions when processing and optimizing large datasets.</p>
+<p>Let’s try this problem 700. Search in a Binary Search Tree: https://leetcode.com/problems/search-in-a-binary-search-tree/description/</p>
+<p>You are given the root of a binary search tree (BST) and an integer val.</p>
+<p>Find the node in the BST that the node’s value equals val and return the subtree rooted with that node. If such a node does not exist, return null.</p>
+<div id="4a678bd3" class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="op">/**</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> Definition <span class="cf">for</span> a binary tree node.</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> <span class="bu">type</span> TreeNode struct {</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Val <span class="bu">int</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Left <span class="op">*</span>TreeNode</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Right <span class="op">*</span>TreeNode</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> }</span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a> <span class="op">*/</span></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>func searchBST(root <span class="op">*</span>TreeNode, val <span class="bu">int</span>) <span class="op">*</span>TreeNode {</span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> root <span class="op">==</span> nil{</span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nil</span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> val <span class="op">==</span> root.Val{</span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> root</span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> val <span class="op">&gt;</span> root.Val{</span>
+<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> searchBST(root.Right, val)</span>
+<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> searchBST(root.Left, val)</span>
+<span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For this problem, we are able to use the concept of how values that are smaller than the node are on the left, whereas values that are bigger are on the right. We can keep recursively calling the function with either the left or right node, depending on whether it’s smaller or bigger.</p>
+
+
 </section>
 </section>
 
