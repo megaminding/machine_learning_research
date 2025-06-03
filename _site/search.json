@@ -271,5 +271,19 @@
     "title": "mlresearch",
     "section": "",
     "text": "Environmental Data Project\n\n\n\n\n\n\n\n\n\n\n\nApr 21, 2025\n\n\nMegan Tieu\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#learning-go-as-a-coding-language",
+    "href": "posts/Environmental Machine Learning Project/index.html#learning-go-as-a-coding-language",
+    "title": "Environmental Data Project",
+    "section": "Learning Go as a Coding Language",
+    "text": "Learning Go as a Coding Language\n\nhigh-level general purpose programming language\nsimple syntax\ndesigned at Google\nbuilt-in support for concurrency -&gt; handling multiple tasks simultaneously\nused for building cloud-based applications, microservices, and network infrastructure\ncan be used to create command-line tools\nfast build times and tools for monitoring and error -&gt; good for DevOps and SRE roles"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#binary-search-tree",
+    "href": "posts/Environmental Machine Learning Project/index.html#binary-search-tree",
+    "title": "Environmental Data Project",
+    "section": "Binary Search Tree",
+    "text": "Binary Search Tree\nBinary Search Trees are helpful for machine learning applications, specifically decision trees and for efficient data handling. They provide useful for lookups, insertions, and deletions when processing and optimizing large datasets.\nLet’s try this problem 700. Search in a Binary Search Tree: https://leetcode.com/problems/search-in-a-binary-search-tree/description/\nYou are given the root of a binary search tree (BST) and an integer val.\nFind the node in the BST that the node’s value equals val and return the subtree rooted with that node. If such a node does not exist, return null.\n\n/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc searchBST(root *TreeNode, val int) *TreeNode {\n    if root == nil{\n        return nil\n    }\n    if val == root.Val{\n        return root\n    } else if val &gt; root.Val{\n        return searchBST(root.Right, val)\n    }\n    return searchBST(root.Left, val)\n}\n\nFor this problem, we are able to use the concept of how values that are smaller than the node are on the left, whereas values that are bigger are on the right. We can keep recursively calling the function with either the left or right node, depending on whether it’s smaller or bigger."
   }
 ]

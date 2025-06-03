@@ -3929,6 +3929,18 @@ array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
 <li>Apply BFS and DFS, understand the differences between them</li>
 <li>Discover Optimization &amp; Search in Trees</li>
 </ul>
+<section id="learning-go-as-a-coding-language" class="level2">
+<h2 class="anchored" data-anchor-id="learning-go-as-a-coding-language">Learning Go as a Coding Language</h2>
+<ul>
+<li>high-level general purpose programming language</li>
+<li>simple syntax</li>
+<li>designed at Google</li>
+<li>built-in support for concurrency -&gt; handling multiple tasks simultaneously</li>
+<li>used for building cloud-based applications, microservices, and network infrastructure</li>
+<li>can be used to create command-line tools</li>
+<li>fast build times and tools for monitoring and error -&gt; good for DevOps and SRE roles</li>
+</ul>
+</section>
 <section id="binary-search" class="level2">
 <h2 class="anchored" data-anchor-id="binary-search">Binary Search</h2>
 <p>Let’s learn what binary search is and how it’s useful in supporting several machine learning tasks, like optimization and search.</p>
@@ -4037,9 +4049,38 @@ array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
 <span id="cb72-35"><a href="#cb72-35" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To perform BFS, we use the data structure called a queue. This is helpful in traveling through the nodes level by level. While there is something in a queue, we keep track of the length and then pop at the first index to access the node. With this node, we store the value and then add the left and right nodes to the queue. Then we add it to the final answer array.</p>
-
-
 </section>
+</section>
+<section id="binary-search-tree" class="level2">
+<h2 class="anchored" data-anchor-id="binary-search-tree">Binary Search Tree</h2>
+<p>Binary Search Trees are helpful for machine learning applications, specifically decision trees and for efficient data handling. They provide useful for lookups, insertions, and deletions when processing and optimizing large datasets.</p>
+<p>Let’s try this problem 700. Search in a Binary Search Tree: https://leetcode.com/problems/search-in-a-binary-search-tree/description/</p>
+<p>You are given the root of a binary search tree (BST) and an integer val.</p>
+<p>Find the node in the BST that the node’s value equals val and return the subtree rooted with that node. If such a node does not exist, return null.</p>
+<div id="4a678bd3" class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="op">/**</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> Definition <span class="cf">for</span> a binary tree node.</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> <span class="bu">type</span> TreeNode struct {</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Val <span class="bu">int</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Left <span class="op">*</span>TreeNode</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span>     Right <span class="op">*</span>TreeNode</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a> <span class="op">*</span> }</span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a> <span class="op">*/</span></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>func searchBST(root <span class="op">*</span>TreeNode, val <span class="bu">int</span>) <span class="op">*</span>TreeNode {</span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> root <span class="op">==</span> nil{</span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nil</span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> val <span class="op">==</span> root.Val{</span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> root</span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> val <span class="op">&gt;</span> root.Val{</span>
+<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> searchBST(root.Right, val)</span>
+<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> searchBST(root.Left, val)</span>
+<span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For this problem, we are able to use the concept of how values that are smaller than the node are on the left, whereas values that are bigger are on the right. We can keep recursively calling the function with either the left or right node, depending on whether it’s smaller or bigger.</p>
+
+
 </section>
 </section>
 
