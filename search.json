@@ -280,6 +280,62 @@
     "text": "Binary Search Tree\nBinary Search Trees are helpful for machine learning applications, specifically decision trees and for efficient data handling. They provide useful for lookups, insertions, and deletions when processing and optimizing large datasets.\nLet’s try this problem 700. Search in a Binary Search Tree: https://leetcode.com/problems/search-in-a-binary-search-tree/description/\nYou are given the root of a binary search tree (BST) and an integer val.\nFind the node in the BST that the node’s value equals val and return the subtree rooted with that node. If such a node does not exist, return null.\n\n/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc searchBST(root *TreeNode, val int) *TreeNode {\n    if root == nil{\n        return nil\n    }\n    if val == root.Val{\n        return root\n    } else if val &gt; root.Val{\n        return searchBST(root.Right, val)\n    }\n    return searchBST(root.Left, val)\n}\n\nFor this problem, we are able to use the concept of how values that are smaller than the node are on the left, whereas values that are bigger are on the right. We can keep recursively calling the function with either the left or right node, depending on whether it’s smaller or bigger."
   },
   {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#dataset-1",
+    "href": "posts/Environmental Machine Learning Project/index.html#dataset-1",
+    "title": "Environmental Data Project",
+    "section": "Dataset",
+    "text": "Dataset\nWe’ll be using the UCI Machine Learning Dataset on Air Quality.\n“It contains the responses of a gas multisensor device deployed on the field in an Italian city. Hourly responses averages are recorded along with gas concentrations references from a certified analyzer.\nThe dataset contains 9358 instances of hourly averaged responses from an array of 5 metal oxide chemical sensors embedded in an Air Quality Chemical Multisensor Device. The device was located on the field in a significantly polluted area, at road level,within an Italian city. Data were recorded from March 2004 to February 2005 (one year)representing the longest freely available recordings of on field deployed air quality chemical sensor devices responses. Ground Truth hourly averaged concentrations for CO, Non Metanic Hydrocarbons, Benzene, Total Nitrogen Oxides (NOx) and Nitrogen Dioxide (NO2) and were provided by a co-located reference certified analyzer. Evidences of cross-sensitivities as well as both concept and sensor drifts are present as described in De Vito et al., Sens. And Act. B, Vol. 129,2,2008 (citation required) eventually affecting sensors concentration estimation capabilities. Missing values are tagged with -200 value. This dataset can be used exclusively for research purposes. Commercial purposes are fully excluded.”"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#add-imports",
+    "href": "posts/Environmental Machine Learning Project/index.html#add-imports",
+    "title": "Environmental Data Project",
+    "section": "Add Imports",
+    "text": "Add Imports\n\nimport pandas as pd\nimport numpy as np\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error, r2_score\nfrom sklearn.model_selection import train_test_split\nimport matplotlib.pyplot as plt"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#load-data-and-prepare-and-clean-it",
+    "href": "posts/Environmental Machine Learning Project/index.html#load-data-and-prepare-and-clean-it",
+    "title": "Environmental Data Project",
+    "section": "Load Data and Prepare and Clean It",
+    "text": "Load Data and Prepare and Clean It\n\ndf = pd.read_csv('AirQualityUCI.csv', sep=';', decimal=',', na_values=-200)\ndf = df.loc[:, ~df.columns.str.contains('^Unnamed')] \n\ndf['Datetime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'], format='%d/%m/%Y %H.%M.%S', errors='coerce')\ndf.dropna(subset=['Datetime'], inplace=True)\ndf.set_index('Datetime', inplace=True)\ndf.drop(columns=['Date', 'Time'], inplace=True)\n\ndf = df.interpolate(method='linear').dropna()"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#create-lag-features",
+    "href": "posts/Environmental Machine Learning Project/index.html#create-lag-features",
+    "title": "Environmental Data Project",
+    "section": "Create lag features",
+    "text": "Create lag features\nInvestigate data by breaking it down into little bits of data that get captured overtime. This will allow us to see how the data fluctuates to best predict future data.\n\ntarget_col = 'CO(GT)'\nlag_hours = 24\n\nfor lag in range(1, lag_hours + 1):\n    df[f'{target_col}_lag_{lag}'] = df[target_col].shift(lag)\n\ndf.dropna(inplace=True)"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#split-into-training-and-test-data",
+    "href": "posts/Environmental Machine Learning Project/index.html#split-into-training-and-test-data",
+    "title": "Environmental Data Project",
+    "section": "Split into training and test data",
+    "text": "Split into training and test data\n\nX = df[[f'{target_col}_lag_{i}' for i in range(1, lag_hours + 1)]]\ny = df[target_col]\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#train-random-forest-model",
+    "href": "posts/Environmental Machine Learning Project/index.html#train-random-forest-model",
+    "title": "Environmental Data Project",
+    "section": "Train random forest model",
+    "text": "Train random forest model\nWe’re building 100 decision trees and setting a random seed.\n\nmodel = RandomForestRegressor(n_estimators=100, random_state=50)\nmodel.fit(X_train, y_train)\ny_pred = model.predict(X_test)"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#evaluate",
+    "href": "posts/Environmental Machine Learning Project/index.html#evaluate",
+    "title": "Environmental Data Project",
+    "section": "Evaluate",
+    "text": "Evaluate\nLet’s figure out the coefficient of determination, the mean absoluate error, the root mean squared error, and the mean absoluate percentage error.\n\nr2 = r2_score(y_test, y_pred)\nmae = mean_absolute_error(y_test, y_pred)\nrmse = np.sqrt(mean_squared_error(y_test, y_pred))\nmape = mean_absolute_percentage_error(y_test, y_pred)\n\nprint(f\"R² Score: {r2:.4f}\")\nprint(f\"MAE: {mae:.4f}\")\nprint(f\"RMSE: {rmse:.4f}\")\nprint(f\"MAPE: {mape:.2%}\")\nprint(f\"Approximate Accuracy: {100 - mape * 100:.2f}%\")\n\nR² Score: 0.8152\nMAE: 0.3883\nRMSE: 0.5942\nMAPE: 29.66%\nApproximate Accuracy: 70.34%\n\n\nBased on the evaluation, the random forest model isn’t too bad since it’s able to achieve 70% accuracy."
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#plot-accuracy-by-comparing-predictions-with-real-data",
+    "href": "posts/Environmental Machine Learning Project/index.html#plot-accuracy-by-comparing-predictions-with-real-data",
+    "title": "Environmental Data Project",
+    "section": "Plot accuracy by comparing predictions with real data",
+    "text": "Plot accuracy by comparing predictions with real data\nThe orange line represents the predicted data and the blue line represents the actual data.\n\nplt.figure(figsize=(12, 5))\nplt.plot(y_test.values, label='Actual CO(GT)')\nplt.plot(y_pred, label='Predicted CO(GT)')\nplt.title('Random Forest: CO(GT) Prediction')\nplt.xlabel('Time Step')\nplt.ylabel('CO (mg/m³)')\nplt.legend()\nplt.show()"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "mlresearch",
