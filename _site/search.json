@@ -252,6 +252,13 @@
     "text": "Prediction Probabilities\n\nmodel(X_train[:5])\n\n&lt;tf.Tensor: shape=(5, 6), dtype=float32, numpy=\narray([[ -4.61132  ,  -5.4756303,   3.9168983,   2.9974535,  -5.0337152,\n          2.8182533],\n       [ 11.904403 ,  -9.574733 ,  -0.4442518,  -3.9789078,  -3.848419 ,\n        -11.430846 ],\n       [ -5.5762663,  -4.828492 ,   1.9301039,   2.1198177,  -4.007193 ,\n          5.0956087],\n       [ -5.1913986,  -5.278966 ,   3.028898 ,   2.4791439,  -4.607054 ,\n          3.698829 ],\n       [ -5.188107 ,  -4.5503697,   1.3234905,   1.383246 ,  -3.5140615,\n          2.3614984]], dtype=float32)&gt;\n\n\n\nprob_model = keras.models.Sequential([\n    model,\n    layers.Softmax()\n])\n\n\nprob_model(X_train[:5])\n\n&lt;tf.Tensor: shape=(5, 6), dtype=float32, numpy=\narray([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,\n        7.48396196e-05, 1.92396849e-01],\n       [9.99995470e-01, 4.69599970e-10, 4.33556215e-06, 1.26463163e-07,\n        1.44090194e-07, 7.33885314e-11],\n       [2.12075811e-05, 4.47966231e-05, 3.85892391e-02, 4.66506742e-02,\n        1.01842896e-04, 9.14592266e-01],\n       [7.61949705e-05, 6.98065705e-05, 2.83110261e-01, 1.63380593e-01,\n        1.36679591e-04, 5.53226471e-01],\n       [3.03448236e-04, 5.74183068e-04, 2.04190478e-01, 2.16763899e-01,\n        1.61850255e-03, 5.76549470e-01]], dtype=float32)&gt;\n\n\n\npredictions = prob_model.predict(X_test).argmax(axis = 1)\npredictions\n\n42/42 ━━━━━━━━━━━━━━━━━━━━ 0s 995us/step\n\n\narray([5, 0, 5, ..., 2, 0, 0])\n\n\n\n[le.classes_[predictions[i]] for i in range(10)]\n\n[7, 1, 7, 1, 3, 7, 1, 1, 1, 7]"
   },
   {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#learning-go-as-a-coding-language",
+    "href": "posts/Environmental Machine Learning Project/index.html#learning-go-as-a-coding-language",
+    "title": "Environmental Data Project",
+    "section": "Learning Go as a Coding Language",
+    "text": "Learning Go as a Coding Language\n\nhigh-level general purpose programming language\nsimple syntax\ndesigned at Google\nbuilt-in support for concurrency -&gt; handling multiple tasks simultaneously\nused for building cloud-based applications, microservices, and network infrastructure\ncan be used to create command-line tools\nfast build times and tools for monitoring and error -&gt; good for DevOps and SRE roles"
+  },
+  {
     "objectID": "posts/Environmental Machine Learning Project/index.html#binary-search",
     "href": "posts/Environmental Machine Learning Project/index.html#binary-search",
     "title": "Environmental Data Project",
@@ -266,6 +273,13 @@
     "text": "Decision Trees\nDecision trees are a core component of many ML models, such as Random Forests (multiple decision trees to reduce variance) and Gradient Boosted Trees (ensemble of decision trees, where each tree is sequentially trained to correct the errors of the previous trees).\n\nTree Traversal\nTree traverals are important in decision trees, because the type of traversal can help make navigating the tree more efficient. For example, depth-first-search is best at finding the shortest path in an unweighted graph. However, breath-for-search is best at detecting cycles and performing topological sorting.\n\n\nDFS\nLet’s practice Binary Tree Inorder Traversal: https://leetcode.com/problems/binary-tree-inorder-traversal/description/\nGiven the root of a binary tree, return the inorder traversal of its nodes’ values.\n\n/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\n\nfunc inorderTraversal(root *TreeNode) []int {\n\n    ans := []int{}\n    var inorder func(*TreeNode)\n\n    inorder = func(root *TreeNode){\n        if root == nil{\n            return\n        }\n        inorder(root.Left)\n        ans = append(ans, root.Val)\n        inorder(root.Right)\n    }\n    inorder(root)\n\n    return ans;\n}\n\nTo perform inorder traversal, we use a recursion function to travel down the left side, then print the current value, and then travel down the right side. We keep performing this until we’ve hit every node.\n\n\nBFS\nNow let’s try Binary Tree Level Order Traversal: https://leetcode.com/problems/binary-tree-level-order-traversal/description/\nGiven the root of a binary tree, return the level order traversal of its nodes’ values. (i.e., from left to right, level by level).\n\n/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\n \nfunc levelOrder(root *TreeNode) [][]int {\n    if root == nil{\n        return [][] int{}\n    }\n        var ans [][] int\n        q :=[]*TreeNode{root}\n        for len(q) &gt; 0{\n            qlen:= len(q)\n            var temp []int\n            for i :=0; i &lt; qlen; i++ {\n                node := q[0]\n                temp = append(temp, node.Val)\n                q = q[1:]\n                \n                if node.Left != nil{\n                    q = append(q, node.Left)\n                }\n                \n                if node.Right != nil{\n                    q = append(q, node.Right)\n                }\n            }\n            ans = append(ans, temp)\n        }\n        return ans\n}\n\nTo perform BFS, we use the data structure called a queue. This is helpful in traveling through the nodes level by level. While there is something in a queue, we keep track of the length and then pop at the first index to access the node. With this node, we store the value and then add the left and right nodes to the queue. Then we add it to the final answer array."
   },
   {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#binary-search-tree",
+    "href": "posts/Environmental Machine Learning Project/index.html#binary-search-tree",
+    "title": "Environmental Data Project",
+    "section": "Binary Search Tree",
+    "text": "Binary Search Tree\nBinary Search Trees are helpful for machine learning applications, specifically decision trees and for efficient data handling. They provide useful for lookups, insertions, and deletions when processing and optimizing large datasets.\nLet’s try this problem 700. Search in a Binary Search Tree: https://leetcode.com/problems/search-in-a-binary-search-tree/description/\nYou are given the root of a binary search tree (BST) and an integer val.\nFind the node in the BST that the node’s value equals val and return the subtree rooted with that node. If such a node does not exist, return null.\n\n/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc searchBST(root *TreeNode, val int) *TreeNode {\n    if root == nil{\n        return nil\n    }\n    if val == root.Val{\n        return root\n    } else if val &gt; root.Val{\n        return searchBST(root.Right, val)\n    }\n    return searchBST(root.Left, val)\n}\n\nFor this problem, we are able to use the concept of how values that are smaller than the node are on the left, whereas values that are bigger are on the right. We can keep recursively calling the function with either the left or right node, depending on whether it’s smaller or bigger."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "mlresearch",
@@ -273,17 +287,59 @@
     "text": "Environmental Data Project\n\n\n\n\n\n\n\n\n\n\n\nApr 21, 2025\n\n\nMegan Tieu\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/Environmental Machine Learning Project/index.html#learning-go-as-a-coding-language",
-    "href": "posts/Environmental Machine Learning Project/index.html#learning-go-as-a-coding-language",
+    "objectID": "posts/Environmental Machine Learning Project/index.html#add-imports",
+    "href": "posts/Environmental Machine Learning Project/index.html#add-imports",
     "title": "Environmental Data Project",
-    "section": "Learning Go as a Coding Language",
-    "text": "Learning Go as a Coding Language\n\nhigh-level general purpose programming language\nsimple syntax\ndesigned at Google\nbuilt-in support for concurrency -&gt; handling multiple tasks simultaneously\nused for building cloud-based applications, microservices, and network infrastructure\ncan be used to create command-line tools\nfast build times and tools for monitoring and error -&gt; good for DevOps and SRE roles"
+    "section": "Add Imports",
+    "text": "Add Imports\n\nimport pandas as pd\nimport numpy as np\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error, r2_score\nfrom sklearn.model_selection import train_test_split\nimport matplotlib.pyplot as plt"
   },
   {
-    "objectID": "posts/Environmental Machine Learning Project/index.html#binary-search-tree",
-    "href": "posts/Environmental Machine Learning Project/index.html#binary-search-tree",
+    "objectID": "posts/Environmental Machine Learning Project/index.html#load-data-and-prepare-and-clean-it",
+    "href": "posts/Environmental Machine Learning Project/index.html#load-data-and-prepare-and-clean-it",
     "title": "Environmental Data Project",
-    "section": "Binary Search Tree",
-    "text": "Binary Search Tree\nBinary Search Trees are helpful for machine learning applications, specifically decision trees and for efficient data handling. They provide useful for lookups, insertions, and deletions when processing and optimizing large datasets.\nLet’s try this problem 700. Search in a Binary Search Tree: https://leetcode.com/problems/search-in-a-binary-search-tree/description/\nYou are given the root of a binary search tree (BST) and an integer val.\nFind the node in the BST that the node’s value equals val and return the subtree rooted with that node. If such a node does not exist, return null.\n\n/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc searchBST(root *TreeNode, val int) *TreeNode {\n    if root == nil{\n        return nil\n    }\n    if val == root.Val{\n        return root\n    } else if val &gt; root.Val{\n        return searchBST(root.Right, val)\n    }\n    return searchBST(root.Left, val)\n}\n\nFor this problem, we are able to use the concept of how values that are smaller than the node are on the left, whereas values that are bigger are on the right. We can keep recursively calling the function with either the left or right node, depending on whether it’s smaller or bigger."
+    "section": "Load Data and Prepare and Clean It",
+    "text": "Load Data and Prepare and Clean It\n\ndf = pd.read_csv('AirQualityUCI.csv', sep=';', decimal=',', na_values=-200)\ndf = df.loc[:, ~df.columns.str.contains('^Unnamed')] \n\ndf['Datetime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'], format='%d/%m/%Y %H.%M.%S', errors='coerce')\ndf.dropna(subset=['Datetime'], inplace=True)\ndf.set_index('Datetime', inplace=True)\ndf.drop(columns=['Date', 'Time'], inplace=True)\n\ndf = df.interpolate(method='linear').dropna()"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#create-lag-features",
+    "href": "posts/Environmental Machine Learning Project/index.html#create-lag-features",
+    "title": "Environmental Data Project",
+    "section": "Create lag features",
+    "text": "Create lag features\nInvestigate data by breaking it down into little bits of data that get captured overtime. This will allow us to see how the data fluctuates to best predict future data.\n\ntarget_col = 'CO(GT)'\nlag_hours = 24\n\nfor lag in range(1, lag_hours + 1):\n    df[f'{target_col}_lag_{lag}'] = df[target_col].shift(lag)\n\ndf.dropna(inplace=True)"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#split-into-training-and-test-data",
+    "href": "posts/Environmental Machine Learning Project/index.html#split-into-training-and-test-data",
+    "title": "Environmental Data Project",
+    "section": "Split into training and test data",
+    "text": "Split into training and test data\n\nX = df[[f'{target_col}_lag_{i}' for i in range(1, lag_hours + 1)]]\ny = df[target_col]\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#train-random-forest-model",
+    "href": "posts/Environmental Machine Learning Project/index.html#train-random-forest-model",
+    "title": "Environmental Data Project",
+    "section": "Train random forest model",
+    "text": "Train random forest model\nWe’re building 100 decision trees and setting a random seed.\n\nmodel = RandomForestRegressor(n_estimators=100, random_state=50)\nmodel.fit(X_train, y_train)\ny_pred = model.predict(X_test)"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#evaluate",
+    "href": "posts/Environmental Machine Learning Project/index.html#evaluate",
+    "title": "Environmental Data Project",
+    "section": "Evaluate",
+    "text": "Evaluate\nLet’s figure out the coefficient of determination, the mean absoluate error, the root mean squared error, and the mean absoluate percentage error.\n\nr2 = r2_score(y_test, y_pred)\nmae = mean_absolute_error(y_test, y_pred)\nrmse = np.sqrt(mean_squared_error(y_test, y_pred))\nmape = mean_absolute_percentage_error(y_test, y_pred)\n\nprint(f\"R² Score: {r2:.4f}\")\nprint(f\"MAE: {mae:.4f}\")\nprint(f\"RMSE: {rmse:.4f}\")\nprint(f\"MAPE: {mape:.2%}\")\nprint(f\"Approximate Accuracy: {100 - mape * 100:.2f}%\")\n\nR² Score: 0.8152\nMAE: 0.3883\nRMSE: 0.5942\nMAPE: 29.66%\nApproximate Accuracy: 70.34%\n\n\nBased on the evaluation, the random forest model isn’t too bad since it’s able to achieve 70% accuracy."
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#plot-accuracy-by-comparing-predictions-with-real-data",
+    "href": "posts/Environmental Machine Learning Project/index.html#plot-accuracy-by-comparing-predictions-with-real-data",
+    "title": "Environmental Data Project",
+    "section": "Plot accuracy by comparing predictions with real data",
+    "text": "Plot accuracy by comparing predictions with real data\nThe orange line represents the predicted data and the blue line represents the actual data.\n\nplt.figure(figsize=(12, 5))\nplt.plot(y_test.values, label='Actual CO(GT)')\nplt.plot(y_pred, label='Predicted CO(GT)')\nplt.title('Random Forest: CO(GT) Prediction')\nplt.xlabel('Time Step')\nplt.ylabel('CO (mg/m³)')\nplt.legend()\nplt.show()"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#dataset-1",
+    "href": "posts/Environmental Machine Learning Project/index.html#dataset-1",
+    "title": "Environmental Data Project",
+    "section": "Dataset",
+    "text": "Dataset\nWe’ll be using the UCI Machine Learning Dataset on Air Quality. “It contains the responses of a gas multisensor device deployed on the field in an Italian city. Hourly responses averages are recorded along with gas concentrations references from a certified analyzer.\nThe dataset contains 9358 instances of hourly averaged responses from an array of 5 metal oxide chemical sensors embedded in an Air Quality Chemical Multisensor Device. The device was located on the field in a significantly polluted area, at road level,within an Italian city. Data were recorded from March 2004 to February 2005 (one year)representing the longest freely available recordings of on field deployed air quality chemical sensor devices responses. Ground Truth hourly averaged concentrations for CO, Non Metanic Hydrocarbons, Benzene, Total Nitrogen Oxides (NOx) and Nitrogen Dioxide (NO2) and were provided by a co-located reference certified analyzer. Evidences of cross-sensitivities as well as both concept and sensor drifts are present as described in De Vito et al., Sens. And Act. B, Vol. 129,2,2008 (citation required) eventually affecting sensors concentration estimation capabilities. Missing values are tagged with -200 value. This dataset can be used exclusively for research purposes. Commercial purposes are fully excluded.”"
   }
 ]
