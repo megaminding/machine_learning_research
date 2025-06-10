@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Configured parameters to obtain custom dataset</li>
 <li><img src="Screenshot 2025-04-21 at 6.21.45 PM.png" alt="User submitting message 'Happy Valentines Day' by user Megan Elizabeth Tieu" height="300"></li>
 </ul>
-<div id="7f5b976d" class="cell" data-execution_count="302">
+<div id="7f5b976d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_excel(<span class="st">"emdat.xlsx"</span>, engine<span class="op">=</span><span class="st">"openpyxl"</span>)  </span>
@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Let’s inspect the data</p>
-<div id="23ec5554" class="cell" data-execution_count="303">
+<div id="23ec5554" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.info()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -330,7 +330,7 @@ Data columns (total 46 columns):
 dtypes: float64(20), int64(2), object(24)
 memory usage: 5.7+ MB</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="303">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -565,9 +565,9 @@ memory usage: 5.7+ MB</code></pre>
 <section id="data-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
 <p>Get rid of columns where the data is irrelevant or there’s not enough of it for it to be interesting.</p>
-<div id="d58243f1" class="cell" data-execution_count="304">
+<div id="d58243f1" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="304">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>Reconstruction Costs, Adjusted ('000 US$)    16176
 Reconstruction Costs ('000 US$)              16176
 AID Contribution ('000 US$)                  15720
@@ -617,10 +617,10 @@ Last Update                                      0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="ed57a53d" class="cell" data-execution_count="305">
+<div id="ed57a53d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[ <span class="st">'DisNo.'</span>, <span class="st">'External IDs'</span>,<span class="st">'Event Name'</span>, <span class="st">'Origin'</span>,<span class="st">'Associated Types'</span>,<span class="st">'Appeal'</span>,<span class="st">'Declaration'</span>,<span class="st">'OFDA/BHA Response'</span>,<span class="st">'AID Contribution (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,  <span class="st">'Reconstruction Costs (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Reconstruction Costs, Adjusted (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Insured Damage (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'Insured Damage, Adjusted (</span><span class="ch">\'</span><span class="st">000 US$)'</span>,<span class="st">'River Basin'</span>,<span class="st">'Admin Units'</span>,<span class="st">'Entry Date'</span>,<span class="st">'Last Update'</span>   ], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="305">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -924,10 +924,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Let’s also get rid of data points if it’s missing important variables we care about.</p>
-<div id="d4cdccc8" class="cell" data-execution_count="306">
+<div id="d4cdccc8" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">'Country'</span>, <span class="st">'Disaster Type'</span>, <span class="st">'Start Year'</span>])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="306">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -1231,10 +1231,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Get rid of duplicates</p>
-<div id="828ef5f4" class="cell" data-execution_count="307">
+<div id="828ef5f4" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="307">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -1600,14 +1600,14 @@ dtype: int64</code></pre>
 <ul>
 <li>We’ll need to investigate variables on countries, when it occured, and type of disaster</li>
 </ul>
-<div id="3bf7a7e7" class="cell" data-execution_count="308">
+<div id="3bf7a7e7" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>disaster_count_by_country_df <span class="op">=</span> df.groupby([<span class="st">'Country'</span>]).agg(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    disaster_count<span class="op">=</span>(<span class="st">'Disaster Type'</span>, <span class="st">'count'</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>).reset_index().sort_values(by<span class="op">=</span><span class="st">'disaster_count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>disaster_count_by_country_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="308">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -1682,7 +1682,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="10198729" class="cell" data-execution_count="309">
+<div id="10198729" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.io <span class="im">as</span> pio</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pio.renderers.default<span class="op">=</span><span class="st">"iframe"</span></span>
@@ -1701,7 +1701,7 @@ dtype: int64</code></pre>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_309.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_9.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1727,11 +1727,11 @@ dtype: int64</code></pre>
 <li><p>We’ll need to investigate variables on time, when it occured, and type of disaster</p></li>
 <li><p>Let’s consider limitations with this dataset since it starts in 2000</p></li>
 </ul>
-<div id="f7004063" class="cell" data-execution_count="310">
+<div id="f7004063" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>disaster_counts <span class="op">=</span> df.groupby([<span class="st">'Start Year'</span>, <span class="st">'Disaster Type'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>disaster_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="310">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -1818,7 +1818,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="8d88bce6" class="cell" data-execution_count="311">
+<div id="8d88bce6" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.line(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    disaster_counts,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Start Year'</span>,</span>
@@ -1830,7 +1830,7 @@ dtype: int64</code></pre>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_311.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_11.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1840,14 +1840,14 @@ dtype: int64</code></pre>
 </section>
 <section id="visualization-to-explore-relationship-between-total-deaths-and-occurence-count-for-each-disaster-subtype" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-to-explore-relationship-between-total-deaths-and-occurence-count-for-each-disaster-subtype">Visualization to explore relationship between total deaths and occurence count for each disaster subtype</h2>
-<div id="42a0ec1f" class="cell" data-execution_count="312">
+<div id="42a0ec1f" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>scatter_data <span class="op">=</span> df.groupby(<span class="st">'Disaster Subtype'</span>).agg(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    total_deaths<span class="op">=</span>(<span class="st">'Total Deaths'</span>, <span class="st">'sum'</span>),</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    occurrence_count<span class="op">=</span>(<span class="st">'Disaster Subtype'</span>, <span class="st">'count'</span>)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>scatter_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="312">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
 
@@ -1934,7 +1934,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="4edfa032" class="cell" data-execution_count="313">
+<div id="4edfa032" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    scatter_data,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Disaster Subtype'</span>,</span>
@@ -1952,7 +1952,7 @@ dtype: int64</code></pre>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_313.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_13.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -1962,7 +1962,7 @@ dtype: int64</code></pre>
 </section>
 <section id="map-visualization-on-devastating-disasters-around-the-world" class="level2">
 <h2 class="anchored" data-anchor-id="map-visualization-on-devastating-disasters-around-the-world">Map Visualization on Devastating Disasters Around the World</h2>
-<div id="21d67e2c" class="cell" data-execution_count="314">
+<div id="21d67e2c" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>map_df <span class="op">=</span> df[(df[<span class="st">'Latitude'</span>].notna()) <span class="op">&amp;</span> (df[<span class="st">'Longitude'</span>].notna())]</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>map_df[<span class="st">'Total Deaths'</span>] <span class="op">=</span> map_df[<span class="st">'Total Deaths'</span>].fillna(<span class="dv">0</span>)</span>
@@ -1971,7 +1971,7 @@ dtype: int64</code></pre>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>map_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/h6/1nj6sx2s1nxdyfr36bhcxvlc0000gn/T/ipykernel_2016/904054904.py:3: SettingWithCopyWarning:
+<pre><code>/var/folders/h6/1nj6sx2s1nxdyfr36bhcxvlc0000gn/T/ipykernel_50407/904054904.py:3: SettingWithCopyWarning:
 
 
 A value is trying to be set on a copy of a slice from a DataFrame.
@@ -1980,7 +1980,7 @@ Try using .loc[row_indexer,col_indexer] = value instead
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="314">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -2283,7 +2283,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<div id="fd5d35f0" class="cell" data-execution_count="315">
+<div id="fd5d35f0" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter_geo(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    map_df,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="st">'Latitude'</span>,</span>
@@ -2304,7 +2304,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_315.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_15.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -2338,7 +2338,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <ul>
 <li><img src="Screenshot 2025-05-12 at 10.00.38 PM.png" alt="Image of a description of OpenWeather scale for Air Quality Index levels:" height="300"></li>
 </ul>
-<div id="01080ce5" class="cell" data-execution_count="316">
+<div id="01080ce5" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"dc622205c25e4f765124ba4c03f370ba"</span></span>
@@ -2358,15 +2358,15 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Air Quality Index (AQI):"</span>, data[<span class="st">'list'</span>][<span class="dv">0</span>][<span class="st">'main'</span>][<span class="st">'aqi'</span>])</span>
 <span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Components (μg/m³):"</span>, data[<span class="st">'list'</span>][<span class="dv">0</span>][<span class="st">'components'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Air Quality Index (AQI): 2
-Components (μg/m³): {'co': 171.31, 'no': 1.28, 'no2': 17.65, 'o3': 82.99, 'so2': 7.58, 'pm2_5': 4.91, 'pm10': 7.89, 'nh3': 0.52}</code></pre>
+<pre><code>Air Quality Index (AQI): 1
+Components (μg/m³): {'co': 173.01, 'no': 3.6, 'no2': 25.53, 'o3': 50.95, 'so2': 5.56, 'pm2_5': 8.36, 'pm10': 9.88, 'nh3': 0.31}</code></pre>
 </div>
 </div>
 </section>
 <section id="air-quality-history" class="level2">
 <h2 class="anchored" data-anchor-id="air-quality-history">Air Quality History</h2>
 <p>The above code is testing the usage of the API. I looked up the coordinates of Tokyo and plugged that in to obtain the Air Quality Index. I received a value of 2. Now let’s trying using the API to obtain the Air Quality History.</p>
-<div id="eec7bf9f" class="cell" data-execution_count="317">
+<div id="eec7bf9f" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
@@ -2439,7 +2439,7 @@ timestamp
 </section>
 <section id="categorizing-air-quality" class="level2">
 <h2 class="anchored" data-anchor-id="categorizing-air-quality">Categorizing Air Quality</h2>
-<div id="47e91a23" class="cell" data-execution_count="318">
+<div id="47e91a23" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> categorize_aqi(aqi):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> aqi <span class="op">==</span> <span class="dv">1</span>:</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Excellent"</span></span>
@@ -2491,7 +2491,7 @@ timestamp
 <section id="line-graph-on-air-quality" class="level2">
 <h2 class="anchored" data-anchor-id="line-graph-on-air-quality">Line graph on Air Quality</h2>
 <p>After, we can visualize the data over the 5 day period!</p>
-<div id="92d002f1" class="cell" data-execution_count="319">
+<div id="92d002f1" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AQI_Plot(df, start, end, location):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> px.line(df, x<span class="op">=</span>df.index, y<span class="op">=</span><span class="st">"aqi"</span>, title<span class="op">=</span><span class="ss">f"Air Quality Index (AQI) in </span><span class="sc">{</span>location<span class="sc">}</span><span class="ss"> from </span><span class="sc">{</span>start<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>end<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>              labels<span class="op">=</span>{<span class="st">"AQI"</span>: <span class="st">"AQI"</span>, <span class="st">"timestamp"</span>: <span class="st">"Date"</span>})</span>
@@ -2502,11 +2502,11 @@ timestamp
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    fig.show()</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>AQI_Plot(df, <span class="st">"2025-01-01"</span> ,<span class="st">"2025-01-06"</span>, <span class="st">"Tokyo"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_319.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_19.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <p>However, if we wanted to incorporate the risk levels onto the visualization, we can add some color identification by specifying the color discrete map. The downside is that it is no longer continuous and a little harder to understand since the levels change so dramatically.</p>
-<div id="56ee38b8" class="cell" data-execution_count="320">
+<div id="56ee38b8" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AQI_Color_Plot(df, start, end, location):</span>
@@ -2528,11 +2528,11 @@ timestamp
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    fig.show()</span>
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>AQI_Color_Plot(df, <span class="st">"2025-01-01"</span> ,<span class="st">"2025-01-06"</span>, <span class="st">"Tokyo"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_320.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_20.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <p>Now let’s wrap everything into a function so that the parameters can be easily changed based on user input.</p>
-<div id="6239a4f3" class="cell" data-execution_count="321">
+<div id="6239a4f3" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_df(lat, lon, start, end, location):</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    API_KEY <span class="op">=</span> <span class="st">"dc622205c25e4f765124ba4c03f370ba"</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    LAT <span class="op">=</span> lat</span>
@@ -2587,7 +2587,7 @@ timestamp
 <section id="example-usage-of-our-function-for-the-specific-location-los-angeles" class="level2">
 <h2 class="anchored" data-anchor-id="example-usage-of-our-function-for-the-specific-location-los-angeles">Example usage of our function for the specific location Los Angeles</h2>
 <p>Here we are using the coordinates of Los Angeles and observing the air quality between Jan.&nbsp;5 and Jan.&nbsp;10, 2025, which was during the wildfires in the Palisades and Eaton Canyon.</p>
-<div id="c59ab3af" class="cell" data-execution_count="322">
+<div id="c59ab3af" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>lat <span class="op">=</span> <span class="fl">34.0549</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>lon <span class="op">=</span> <span class="fl">118.2426</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>start_date <span class="op">=</span> <span class="st">"2025-01-05"</span> </span>
@@ -2628,7 +2628,7 @@ timestamp
 [121 rows x 10 columns]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_322.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_22.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>None</code></pre>
@@ -2669,10 +2669,10 @@ timestamp
 <ul>
 <li><img src="Screenshot 2025-05-19 at 10.04.00 PM.png" alt="Image of a description of OpenWeather scale for Air Quality Index levels:" height="300"></li>
 </ul>
-<div id="942ce93b" class="cell" data-execution_count="323">
+<div id="942ce93b" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_pop <span class="op">=</span> pd.read_csv(<span class="st">'world_population.csv'</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="323">
+<div class="cell-output cell-output-display" data-execution_count="23">
 <div>
 
 
@@ -2931,17 +2931,17 @@ timestamp
 <section id="create-and-use-sql-databases-for-data-manipulation" class="level2">
 <h2 class="anchored" data-anchor-id="create-and-use-sql-databases-for-data-manipulation">Create and Use SQL Databases for Data Manipulation</h2>
 <p>So now, we have two seperate databases. One on EMDAT data and the other one containing information of different countries. Because our goal is to apply some normalization techniques to account for differences in country size, we want to use SQL to merge the two databases. Our first step is to import SQL and then start a connection. With this connection, we can convert the two df’s into sql.</p>
-<div id="a9fa969b" class="cell" data-execution_count="324">
+<div id="a9fa969b" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"pop.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="23198543" class="cell" data-execution_count="325">
+<div id="23198543" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sqlite3.<span class="ex">connect</span>(<span class="st">"pop.sqlite"</span>) <span class="im">as</span> conn:</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    df_pop.to_sql(<span class="st">"pop"</span>, conn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    map_df.to_sql(<span class="st">"emdat"</span>, conn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="85aef0aa" class="cell" data-execution_count="326">
+<div id="85aef0aa" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sqlite3.<span class="ex">connect</span>(<span class="st">"pop.sqlite"</span>) <span class="im">as</span> conn:</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    merged_df <span class="op">=</span> pd.read_sql_query(<span class="st">"""</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT </span></span>
@@ -2956,7 +2956,7 @@ timestamp
 <span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>, conn)</span>
 <span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>merged_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="326">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <div>
 
 
@@ -3263,7 +3263,7 @@ timestamp
 <section id="visualization" class="level2">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
 <p>Now we can create the new visualization, but this time, the deaths are normalized by the country size.</p>
-<div id="cb728242" class="cell" data-execution_count="327">
+<div id="cb728242" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>disaster_counts <span class="op">=</span> merged_df.groupby(<span class="st">'Country'</span>).size().reset_index(name<span class="op">=</span><span class="st">'disaster_count'</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> merged_df.merge(disaster_counts, on<span class="op">=</span><span class="st">'Country'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
@@ -3273,9 +3273,9 @@ timestamp
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c846d69e" class="cell" data-execution_count="328">
+<div id="c846d69e" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>merged_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="328">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 
 
@@ -3578,7 +3578,7 @@ timestamp
 </div>
 </div>
 </div>
-<div id="71b3c2c5" class="cell" data-execution_count="329">
+<div id="71b3c2c5" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.io <span class="im">as</span> pio</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>pio.renderers.default<span class="op">=</span><span class="st">"iframe"</span></span>
@@ -3597,7 +3597,7 @@ timestamp
 <span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_329.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_29.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 </section>
@@ -3624,7 +3624,7 @@ timestamp
 </ul>
 <section id="download-machine-learning-imports" class="level2">
 <h2 class="anchored" data-anchor-id="download-machine-learning-imports">Download machine learning imports</h2>
-<div id="60354ec5" class="cell" data-execution_count="330">
+<div id="60354ec5" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3634,7 +3634,7 @@ timestamp
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keras</span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>keras.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="330">
+<div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>'3.10.0'</code></pre>
 </div>
 </div>
@@ -3644,7 +3644,7 @@ timestamp
 <p>Our dataset is multi-spectral values of pixels in 3x3 neighbourhoods in a satellite image, and the classification associated with the central pixel in each neighbourhood. We are using machine learning and 36 data variables to predict the seven types of classes which are:</p>
 <p>1 red soil 2 cotton crop 3 grey soil 4 damp grey soil 5 soil with vegetation stubble 6 mixture class (all types present) 7 very damp grey soil</p>
 <p>The link to the dataset is: https://archive.ics.uci.edu/dataset/146/statlog+landsat+satellite.</p>
-<div id="4dc4b1b2" class="cell" data-execution_count="331">
+<div id="4dc4b1b2" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/statlog/satimage/sat.trn"</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>col_names <span class="op">=</span> [<span class="ss">f"feature_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">36</span>)] <span class="op">+</span> [<span class="st">"label"</span>]</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url, sep<span class="op">=</span><span class="st">'</span><span class="ch">\\</span><span class="st">s+'</span>, header<span class="op">=</span><span class="va">None</span>, names<span class="op">=</span>col_names)</span>
@@ -3664,44 +3664,44 @@ timestamp
 <section id="investigate-data" class="level2">
 <h2 class="anchored" data-anchor-id="investigate-data">Investigate data</h2>
 <p>Let’s look at the shape, as well as the first five rows of the predictor data and the target data.</p>
-<div id="faa0d374" class="cell" data-execution_count="332">
+<div id="faa0d374" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>X_train.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="332">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>(3104, 36)</code></pre>
 </div>
 </div>
-<div id="ac9f9c5f" class="cell" data-execution_count="333">
+<div id="ac9f9c5f" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>X_train[:<span class="dv">5</span>] <span class="co"># first five rows of predictor data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="333">
-<pre><code>array([[ 79.,  95., 100.,  75.,  75.,  87.,  93.,  71.,  75.,  83.,  85.,
-         71.,  86., 100., 112.,  85.,  86., 100., 112.,  85.,  82.,  96.,
-        100.,  81.,  83., 103., 105.,  79.,  83., 103., 105.,  83.,  87.,
-        103., 105.,  83.],
-       [ 67., 112., 124.,  98.,  63., 112., 124.,  98.,  63., 108., 124.,
-        101.,  63., 111., 124.,  97.,  63., 120., 124., 101.,  63., 115.,
-        124., 101.,  64., 115., 125.,  98.,  64., 115., 125., 102.,  64.,
-        115., 125.,  98.],
-       [ 76.,  87.,  91.,  67.,  71.,  87.,  87.,  70.,  76.,  91.,  91.,
-         78.,  75.,  83.,  81.,  62.,  71.,  79.,  85.,  67.,  71.,  83.,
-         81.,  67.,  74.,  87.,  84.,  66.,  78.,  87.,  84.,  70.,  74.,
-         79.,  84.,  63.],
-       [ 82.,  96., 100.,  81.,  78.,  91.,  96.,  78.,  78.,  91.,  96.,
-         78.,  79.,  91., 101.,  75.,  79.,  95., 105.,  79.,  83.,  95.,
-         97.,  75.,  82.,  92.,  97.,  80.,  82.,  92., 101.,  83.,  85.,
-         97., 101.,  80.],
-       [ 71.,  83.,  89.,  75.,  71.,  79.,  89.,  75.,  63.,  64.,  85.,
-         75.,  74.,  83.,  88.,  70.,  74.,  83.,  88.,  74.,  74.,  83.,
-         88.,  74.,  75.,  84.,  93.,  75.,  75.,  84.,  90.,  72.,  71.,
-         81.,  93.,  75.]], dtype=float32)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>array([[ 63.,  70.,  72.,  57.,  67.,  77.,  72.,  60.,  71.,  77.,  72.,
+         64.,  70.,  75.,  82.,  62.,  70.,  79.,  82.,  65.,  70.,  79.,
+         85.,  65.,  68.,  77.,  74.,  61.,  68.,  77.,  78.,  61.,  72.,
+         81.,  82.,  65.],
+       [ 63.,  67.,  69.,  55.,  63.,  71.,  69.,  55.,  63.,  67.,  73.,
+         55.,  67.,  66.,  72.,  53.,  63.,  70.,  68.,  53.,  67.,  70.,
+         72.,  57.,  63.,  67.,  70.,  55.,  63.,  71.,  74.,  55.,  63.,
+         67.,  74.,  55.],
+       [ 75.,  83.,  85.,  71.,  71.,  75.,  85.,  67.,  71.,  79.,  77.,
+         67.,  82.,  96., 100.,  81.,  78.,  83.,  84.,  70.,  74.,  75.,
+         88.,  66.,  87., 103., 105.,  83.,  79.,  88.,  97.,  72.,  71.,
+         81.,  86.,  68.],
+       [ 88., 106., 115.,  87.,  88., 111., 111.,  91.,  88., 106., 115.,
+         87.,  88., 107., 118.,  92.,  88., 112., 113.,  88.,  88., 103.,
+        113.,  88.,  88., 107., 113.,  87.,  88., 107., 104.,  87.,  88.,
+        107., 109.,  83.],
+       [ 68.,  69.,  86.,  76.,  68.,  69.,  86.,  72.,  68.,  73.,  86.,
+         72.,  64.,  71.,  87.,  74.,  64.,  71.,  87.,  78.,  68.,  71.,
+         87.,  74.,  67.,  68.,  89.,  79.,  67.,  68.,  89.,  75.,  67.,
+         72.,  85.,  71.]], dtype=float32)</code></pre>
 </div>
 </div>
-<div id="03c0e65f" class="cell" data-execution_count="334">
+<div id="03c0e65f" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>y_train[:<span class="dv">5</span>] <span class="co"># first five rows of target data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="334">
-<pre><code>array([2, 0, 5, 3, 5])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>array([5, 5, 5, 2, 4])</code></pre>
 </div>
 </div>
-<div id="aac4ea96" class="cell" data-execution_count="335">
+<div id="aac4ea96" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras <span class="im">import</span> layers</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> keras.models.Sequential([</span>
@@ -3711,21 +3711,21 @@ timestamp
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    layers.Dense(<span class="bu">len</span>(np.unique(y))) </span>
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="57f30a7c" class="cell" data-execution_count="336">
+<div id="57f30a7c" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">Model: "sequential_11"</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">Model: "sequential"</span>
 </pre>
 </div>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
 ┃<span style="font-weight: bold"> Layer (type)                    </span>┃<span style="font-weight: bold"> Output Shape           </span>┃<span style="font-weight: bold">       Param # </span>┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ dense_18 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">500</span>)            │        <span style="color: #00af00; text-decoration-color: #00af00">18,500</span> │
+│ dense (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                   │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">500</span>)            │        <span style="color: #00af00; text-decoration-color: #00af00">18,500</span> │
 ├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dense_19 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">500</span>)            │       <span style="color: #00af00; text-decoration-color: #00af00">250,500</span> │
+│ dense_1 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">500</span>)            │       <span style="color: #00af00; text-decoration-color: #00af00">250,500</span> │
 ├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dense_20 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">6</span>)              │         <span style="color: #00af00; text-decoration-color: #00af00">3,006</span> │
+│ dense_2 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ (<span style="color: #00d7ff; text-decoration-color: #00d7ff">None</span>, <span style="color: #00af00; text-decoration-color: #00af00">6</span>)              │         <span style="color: #00af00; text-decoration-color: #00af00">3,006</span> │
 └─────────────────────────────────┴────────────────────────┴───────────────┘
 </pre>
 </div>
@@ -3745,97 +3745,97 @@ timestamp
 </section>
 <section id="train-the-data-and-make-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="train-the-data-and-make-predictions">Train the data and make predictions</h2>
-<div id="518d040f" class="cell" data-execution_count="337">
+<div id="518d040f" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>model(X_train[:<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="337">
+<div class="cell-output cell-output-display" data-execution_count="37">
 <pre><code>&lt;tf.Tensor: shape=(5, 6), dtype=float32, numpy=
-array([[-59.840546 , -28.11649  ,   9.300575 ,  13.508272 , -64.32475  ,
-        -29.1754   ],
-       [-59.374634 , -30.725103 ,   8.224603 ,  17.244871 , -71.97246  ,
-        -32.705643 ],
-       [-52.210888 , -23.572702 ,   4.798986 ,  10.781328 , -56.349655 ,
-        -24.837269 ],
-       [-57.679657 , -27.35187  ,   7.1376467,  14.23564  , -62.67731  ,
-        -27.308472 ],
-       [-54.924942 , -25.236101 ,   6.6893754,  13.306425 , -56.897594 ,
-        -25.36     ]], dtype=float32)&gt;</code></pre>
+array([[ 14.330679 ,  -4.664956 ,  -8.741774 ,  -6.880457 ,   1.873765 ,
+         14.979021 ],
+       [ 13.455207 ,  -4.072483 ,  -7.892398 ,  -7.3552794,   1.8109777,
+         13.604643 ],
+       [ 15.390393 ,  -5.3483734, -14.239582 ,  -7.51396  ,   3.959106 ,
+         19.957952 ],
+       [ 17.20682  ,  -5.180315 , -15.053029 ,  -9.738934 ,   3.3238802,
+         21.687113 ],
+       [ 11.1366415,  -3.3746386, -10.642702 ,  -7.3522043,   4.175025 ,
+         16.877045 ]], dtype=float32)&gt;</code></pre>
 </div>
 </div>
 <p>We can apply the softmax layer to transform the data into probabilities.</p>
-<div id="b64cbeb7" class="cell" data-execution_count="338">
+<div id="b64cbeb7" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>softmax <span class="op">=</span> keras.layers.Softmax()</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>softmax(model(X_train[:<span class="dv">5</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="338">
+<div class="cell-output cell-output-display" data-execution_count="38">
 <pre><code>&lt;tf.Tensor: shape=(5, 6), dtype=float32, numpy=
-array([[1.37593833e-32, 8.24479558e-19, 1.46624139e-02, 9.85337496e-01,
-        1.55286098e-34, 2.85958276e-19],
-       [5.30296129e-34, 1.46842673e-21, 1.20919045e-04, 9.99879122e-01,
-        0.00000000e+00, 2.02634852e-22],
-       [4.38261151e-28, 1.19988527e-15, 2.51656072e-03, 9.97483373e-01,
-        6.98700150e-30, 3.38801003e-16],
-       [5.85091499e-32, 8.67791355e-19, 8.26079748e-04, 9.99173939e-01,
-        3.95159048e-34, 9.06279242e-19],
-       [2.32762232e-30, 1.82227161e-17, 1.33558456e-03, 9.98664379e-01,
-        3.23744263e-31, 1.60991665e-17]], dtype=float32)&gt;</code></pre>
+array([[3.43362778e-01, 1.93220573e-09, 3.27728643e-11, 2.10801640e-10,
+        1.33593164e-06, 6.56635940e-01],
+       [4.62708503e-01, 1.13013012e-08, 2.47834031e-10, 4.24060592e-10,
+        4.05772926e-06, 5.37287474e-01],
+       [1.02765663e-02, 1.01184998e-11, 1.39223979e-15, 1.16041627e-12,
+        1.11507283e-07, 9.89723325e-01],
+       [1.12031568e-02, 2.12193175e-12, 1.09412205e-16, 2.22304627e-14,
+        1.04726574e-08, 9.88796830e-01],
+       [3.20316898e-03, 1.59739166e-09, 1.11411770e-12, 2.99210275e-11,
+        3.03520619e-06, 9.96793687e-01]], dtype=float32)&gt;</code></pre>
 </div>
 </div>
 </section>
 <section id="compile-the-model-by-specifying-the-loss-function-and-optimization-algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="compile-the-model-by-specifying-the-loss-function-and-optimization-algorithm">Compile the model, by specifying the loss function and optimization algorithm</h2>
-<div id="f0e99a72" class="cell" data-execution_count="339">
+<div id="f0e99a72" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> keras.losses.SparseCategoricalCrossentropy(from_logits<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(optimizer<span class="op">=</span> <span class="st">"adam"</span>, loss <span class="op">=</span> loss_fn, metrics<span class="op">=</span>[<span class="st">"accuracy"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="1984cc3f" class="cell" data-execution_count="340">
+<div id="1984cc3f" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model.fit(X_train, y_train, epochs <span class="op">=</span> <span class="dv">20</span>,  verbose<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 1/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.4473 - loss: 16.3183
+97/97 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.3960 - loss: 18.9771
 Epoch 2/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.6662 - loss: 1.1052
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7031 - loss: 0.8707
 Epoch 3/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.6687 - loss: 1.3513
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7096 - loss: 0.8774
 Epoch 4/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7382 - loss: 0.8283
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7150 - loss: 0.8075
 Epoch 5/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7448 - loss: 0.8583
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7459 - loss: 0.8138
 Epoch 6/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7361 - loss: 0.7511
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7558 - loss: 0.6525
 Epoch 7/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7575 - loss: 0.6375
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7633 - loss: 0.6328
 Epoch 8/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7653 - loss: 0.6094
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7969 - loss: 0.5224
 Epoch 9/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7653 - loss: 0.5858
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7761 - loss: 0.5531
 Epoch 10/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7846 - loss: 0.5468
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7913 - loss: 0.5354
 Epoch 11/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7954 - loss: 0.5088
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7813 - loss: 0.5683
 Epoch 12/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7851 - loss: 0.5337
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7826 - loss: 0.5241
 Epoch 13/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8137 - loss: 0.4870
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7893 - loss: 0.5272
 Epoch 14/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.7994 - loss: 0.5150
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8069 - loss: 0.4950
 Epoch 15/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.7982 - loss: 0.4913
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8215 - loss: 0.4513
 Epoch 16/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8056 - loss: 0.4910
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8076 - loss: 0.4766
 Epoch 17/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8101 - loss: 0.4929
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8012 - loss: 0.4842
 Epoch 18/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8350 - loss: 0.4505
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8338 - loss: 0.4325
 Epoch 19/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8135 - loss: 0.4591
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8124 - loss: 0.4657
 Epoch 20/20
-97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8272 - loss: 0.4332</code></pre>
+97/97 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - accuracy: 0.8049 - loss: 0.4804</code></pre>
 </div>
 </div>
 </section>
 <section id="plot-the-progress-of-the-training-over-time" class="level2">
 <h2 class="anchored" data-anchor-id="plot-the-progress-of-the-training-over-time">Plot the progress of the training over time</h2>
 <p>The training accuracy is improving over time and is hovering at around 80%.</p>
-<div id="32efb25d" class="cell" data-execution_count="341">
+<div id="32efb25d" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>plt.plot(history.history[<span class="st">"accuracy"</span>])</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>plt.gca().<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"epoch"</span>, ylabel<span class="op">=</span><span class="st">"training accuracy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3851,70 +3851,70 @@ Epoch 20/20
 <section id="evaluate-the-model-on-our-test-data" class="level2">
 <h2 class="anchored" data-anchor-id="evaluate-the-model-on-our-test-data">Evaluate the model on our test data</h2>
 <p>We’re able to achieve an accuracy of around 80%.</p>
-<div id="d0257d01" class="cell" data-execution_count="342">
+<div id="d0257d01" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>model.evaluate(X_test, y_test, verbose<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>42/42 - 0s - 3ms/step - accuracy: 0.8084 - loss: 0.4991</code></pre>
+<pre><code>42/42 - 0s - 3ms/step - accuracy: 0.7949 - loss: 0.5223</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="342">
-<pre><code>[0.49911341071128845, 0.8084146976470947]</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<pre><code>[0.522253692150116, 0.7948910593986511]</code></pre>
 </div>
 </div>
 </section>
 <section id="prediction-probabilities" class="level2">
 <h2 class="anchored" data-anchor-id="prediction-probabilities">Prediction Probabilities</h2>
-<div id="bf4779c8" class="cell" data-execution_count="343">
+<div id="bf4779c8" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>model(X_train[:<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="343">
+<div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>&lt;tf.Tensor: shape=(5, 6), dtype=float32, numpy=
-array([[ -4.61132  ,  -5.4756303,   3.9168983,   2.9974535,  -5.0337152,
-          2.8182533],
-       [ 11.904403 ,  -9.574733 ,  -0.4442518,  -3.9789078,  -3.848419 ,
-        -11.430846 ],
-       [ -5.5762663,  -4.828492 ,   1.9301039,   2.1198177,  -4.007193 ,
-          5.0956087],
-       [ -5.1913986,  -5.278966 ,   3.028898 ,   2.4791439,  -4.607054 ,
-          3.698829 ],
-       [ -5.188107 ,  -4.5503697,   1.3234905,   1.383246 ,  -3.5140615,
-          2.3614984]], dtype=float32)&gt;</code></pre>
+array([[-3.2564087 , -5.2264066 ,  0.77950776,  1.7083402 , -3.5599189 ,
+         2.9703608 ],
+       [-5.4485703 , -5.5300303 , -1.8344328 ,  0.73341477, -0.48724002,
+         3.4024415 ],
+       [-3.7386181 , -3.9295647 , -0.08160114,  0.8814881 , -0.9732225 ,
+         1.5727332 ],
+       [-0.3460873 , -5.9270325 ,  3.452885  ,  1.1476189 , -5.334968  ,
+        -1.6315415 ],
+       [-3.0256038 , -2.085518  , -3.086216  , -1.4295872 ,  2.5746348 ,
+         0.0109342 ]], dtype=float32)&gt;</code></pre>
 </div>
 </div>
-<div id="c353518e" class="cell" data-execution_count="344">
+<div id="c353518e" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>prob_model <span class="op">=</span> keras.models.Sequential([</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    model,</span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    layers.Softmax()</span>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a4aa63a6" class="cell" data-execution_count="345">
+<div id="a4aa63a6" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>prob_model(X_train[:<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="345">
+<div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>&lt;tf.Tensor: shape=(5, 6), dtype=float32, numpy=
-array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
-        7.48396196e-05, 1.92396849e-01],
-       [9.99995470e-01, 4.69599970e-10, 4.33556215e-06, 1.26463163e-07,
-        1.44090194e-07, 7.33885314e-11],
-       [2.12075811e-05, 4.47966231e-05, 3.85892391e-02, 4.66506742e-02,
-        1.01842896e-04, 9.14592266e-01],
-       [7.61949705e-05, 6.98065705e-05, 2.83110261e-01, 1.63380593e-01,
-        1.36679591e-04, 5.53226471e-01],
-       [3.03448236e-04, 5.74183068e-04, 2.04190478e-01, 2.16763899e-01,
-        1.61850255e-03, 5.76549470e-01]], dtype=float32)&gt;</code></pre>
+array([[1.4127031e-03, 1.9701147e-04, 7.9951584e-02, 2.0240161e-01,
+        1.0428891e-03, 7.1499419e-01],
+       [1.3076646e-04, 1.2053643e-04, 4.8539578e-03, 6.3284606e-02,
+        1.8671295e-02, 9.1293889e-01],
+       [2.7732656e-03, 2.2912072e-03, 1.0745181e-01, 2.8149977e-01,
+        4.4054218e-02, 5.6192970e-01],
+       [1.9842867e-02, 7.4787808e-05, 8.8608837e-01, 8.8371612e-02,
+        1.3519508e-04, 5.4870476e-03],
+       [3.3249243e-03, 8.5124793e-03, 3.1293808e-03, 1.6402991e-02,
+        8.9936203e-01, 6.9268137e-02]], dtype=float32)&gt;</code></pre>
 </div>
 </div>
-<div id="4f904c82" class="cell" data-execution_count="346">
+<div id="4f904c82" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> prob_model.predict(X_test).argmax(axis <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>42/42 ━━━━━━━━━━━━━━━━━━━━ 0s 995us/step</code></pre>
+<pre><code>42/42 ━━━━━━━━━━━━━━━━━━━━ 0s 1ms/step </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="346">
-<pre><code>array([5, 0, 5, ..., 2, 0, 0])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<pre><code>array([0, 2, 2, ..., 2, 2, 0])</code></pre>
 </div>
 </div>
-<div id="8fb5c597" class="cell" data-execution_count="347">
+<div id="8fb5c597" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>[le.classes_[predictions[i]] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="347">
-<pre><code>[7, 1, 7, 1, 3, 7, 1, 1, 1, 7]</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<pre><code>[1, 3, 3, 1, 5, 3, 1, 7, 5, 2]</code></pre>
 </div>
 </div>
 </section>
@@ -4090,19 +4090,21 @@ array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
 <li>Prepare and clean data</li>
 <li>Split data into training and testing</li>
 <li>Train random forest model</li>
-<li>Evaluate</li>
+<li>Create predictions</li>
+<li>Evaluate accuracy</li>
 <li>Create visualization</li>
 </ul>
 <p>This week we’ll be focusing on predicting air quality using a random forest model that is made up of 100 decision trees. We’ll also be evaluating accuracy and plotting the predicted vs actual data.</p>
 <section id="dataset-1" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-1">Dataset</h2>
-<p>We’ll be using the UCI Machine Learning Dataset on Air Quality.</p>
+<p>We’ll be using the UCI Machine Learning Dataset on Air Quality. https://archive.ics.uci.edu/dataset/360/air+quality</p>
 <p>“It contains the responses of a gas multisensor device deployed on the field in an Italian city. Hourly responses averages are recorded along with gas concentrations references from a certified analyzer.</p>
 <p>The dataset contains 9358 instances of hourly averaged responses from an array of 5 metal oxide chemical sensors embedded in an Air Quality Chemical Multisensor Device. The device was located on the field in a significantly polluted area, at road level,within an Italian city. Data were recorded from March 2004 to February 2005 (one year)representing the longest freely available recordings of on field deployed air quality chemical sensor devices responses. Ground Truth hourly averaged concentrations for CO, Non Metanic Hydrocarbons, Benzene, Total Nitrogen Oxides (NOx) and Nitrogen Dioxide (NO2) and were provided by a co-located reference certified analyzer. Evidences of cross-sensitivities as well as both concept and sensor drifts are present as described in De Vito et al., Sens. And Act. B, Vol. 129,2,2008 (citation required) eventually affecting sensors concentration estimation capabilities. Missing values are tagged with -200 value. This dataset can be used exclusively for research purposes. Commercial purposes are fully excluded.”</p>
 </section>
 <section id="add-imports" class="level2">
 <h2 class="anchored" data-anchor-id="add-imports">Add Imports</h2>
-<div id="1d1d1132" class="cell" data-execution_count="9">
+<p>We’re using sklearn Random Forests model and also adding in imports for calculating accuracy.</p>
+<div id="1d1d1132" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
@@ -4113,7 +4115,8 @@ array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
 </section>
 <section id="load-data-and-prepare-and-clean-it" class="level2">
 <h2 class="anchored" data-anchor-id="load-data-and-prepare-and-clean-it">Load Data and Prepare and Clean It</h2>
-<div id="be777696" class="cell">
+<p>Let’s read in the dataset. First we’ll drop unnamed column names. Then we’ll convert the Date and Time columns into a single one that is formatted in a standardized way. Then we’ll drop NA columns for Datetime. For the missing values, we’ll try to fill them in using linear interpolation, but if it’s not possible then we’ll remove any rows.</p>
+<div id="be777696" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'AirQualityUCI.csv'</span>, sep<span class="op">=</span><span class="st">';'</span>, decimal<span class="op">=</span><span class="st">','</span>, na_values<span class="op">=-</span><span class="dv">200</span>)</span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[:, <span class="op">~</span>df.columns.<span class="bu">str</span>.contains(<span class="st">'^Unnamed'</span>)] </span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4124,52 +4127,688 @@ array([[1.14176117e-04, 4.81072020e-05, 5.77209413e-01, 2.30156690e-01,
 <span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.interpolate(method<span class="op">=</span><span class="st">'linear'</span>).dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div id="a5e39b2f" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">feature_0</th>
+<th data-quarto-table-cell-role="th">feature_1</th>
+<th data-quarto-table-cell-role="th">feature_2</th>
+<th data-quarto-table-cell-role="th">feature_3</th>
+<th data-quarto-table-cell-role="th">feature_4</th>
+<th data-quarto-table-cell-role="th">feature_5</th>
+<th data-quarto-table-cell-role="th">feature_6</th>
+<th data-quarto-table-cell-role="th">feature_7</th>
+<th data-quarto-table-cell-role="th">feature_8</th>
+<th data-quarto-table-cell-role="th">feature_9</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">feature_27</th>
+<th data-quarto-table-cell-role="th">feature_28</th>
+<th data-quarto-table-cell-role="th">feature_29</th>
+<th data-quarto-table-cell-role="th">feature_30</th>
+<th data-quarto-table-cell-role="th">feature_31</th>
+<th data-quarto-table-cell-role="th">feature_32</th>
+<th data-quarto-table-cell-role="th">feature_33</th>
+<th data-quarto-table-cell-role="th">feature_34</th>
+<th data-quarto-table-cell-role="th">feature_35</th>
+<th data-quarto-table-cell-role="th">label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>92</td>
+<td>115</td>
+<td>120</td>
+<td>94</td>
+<td>84</td>
+<td>102</td>
+<td>106</td>
+<td>79</td>
+<td>84</td>
+<td>102</td>
+<td>...</td>
+<td>104</td>
+<td>88</td>
+<td>121</td>
+<td>128</td>
+<td>100</td>
+<td>84</td>
+<td>107</td>
+<td>113</td>
+<td>87</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>84</td>
+<td>102</td>
+<td>106</td>
+<td>79</td>
+<td>84</td>
+<td>102</td>
+<td>102</td>
+<td>83</td>
+<td>80</td>
+<td>102</td>
+<td>...</td>
+<td>100</td>
+<td>84</td>
+<td>107</td>
+<td>113</td>
+<td>87</td>
+<td>84</td>
+<td>99</td>
+<td>104</td>
+<td>79</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>84</td>
+<td>102</td>
+<td>102</td>
+<td>83</td>
+<td>80</td>
+<td>102</td>
+<td>102</td>
+<td>79</td>
+<td>84</td>
+<td>94</td>
+<td>...</td>
+<td>87</td>
+<td>84</td>
+<td>99</td>
+<td>104</td>
+<td>79</td>
+<td>84</td>
+<td>99</td>
+<td>104</td>
+<td>79</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>80</td>
+<td>102</td>
+<td>102</td>
+<td>79</td>
+<td>84</td>
+<td>94</td>
+<td>102</td>
+<td>79</td>
+<td>80</td>
+<td>94</td>
+<td>...</td>
+<td>79</td>
+<td>84</td>
+<td>99</td>
+<td>104</td>
+<td>79</td>
+<td>84</td>
+<td>103</td>
+<td>104</td>
+<td>79</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>84</td>
+<td>94</td>
+<td>102</td>
+<td>79</td>
+<td>80</td>
+<td>94</td>
+<td>98</td>
+<td>76</td>
+<td>80</td>
+<td>102</td>
+<td>...</td>
+<td>79</td>
+<td>84</td>
+<td>103</td>
+<td>104</td>
+<td>79</td>
+<td>79</td>
+<td>107</td>
+<td>109</td>
+<td>87</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4430</td>
+<td>56</td>
+<td>64</td>
+<td>108</td>
+<td>96</td>
+<td>64</td>
+<td>71</td>
+<td>108</td>
+<td>96</td>
+<td>68</td>
+<td>75</td>
+<td>...</td>
+<td>92</td>
+<td>66</td>
+<td>83</td>
+<td>108</td>
+<td>96</td>
+<td>66</td>
+<td>87</td>
+<td>104</td>
+<td>89</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4431</td>
+<td>64</td>
+<td>71</td>
+<td>108</td>
+<td>96</td>
+<td>68</td>
+<td>75</td>
+<td>108</td>
+<td>96</td>
+<td>71</td>
+<td>87</td>
+<td>...</td>
+<td>96</td>
+<td>66</td>
+<td>87</td>
+<td>104</td>
+<td>89</td>
+<td>63</td>
+<td>87</td>
+<td>104</td>
+<td>89</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4432</td>
+<td>68</td>
+<td>75</td>
+<td>108</td>
+<td>96</td>
+<td>71</td>
+<td>87</td>
+<td>108</td>
+<td>88</td>
+<td>71</td>
+<td>91</td>
+<td>...</td>
+<td>89</td>
+<td>63</td>
+<td>87</td>
+<td>104</td>
+<td>89</td>
+<td>70</td>
+<td>100</td>
+<td>104</td>
+<td>85</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4433</td>
+<td>71</td>
+<td>87</td>
+<td>108</td>
+<td>88</td>
+<td>71</td>
+<td>91</td>
+<td>100</td>
+<td>81</td>
+<td>76</td>
+<td>95</td>
+<td>...</td>
+<td>89</td>
+<td>70</td>
+<td>100</td>
+<td>104</td>
+<td>85</td>
+<td>70</td>
+<td>91</td>
+<td>104</td>
+<td>85</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4434</td>
+<td>71</td>
+<td>91</td>
+<td>100</td>
+<td>81</td>
+<td>76</td>
+<td>95</td>
+<td>108</td>
+<td>88</td>
+<td>80</td>
+<td>95</td>
+<td>...</td>
+<td>85</td>
+<td>70</td>
+<td>91</td>
+<td>104</td>
+<td>85</td>
+<td>63</td>
+<td>91</td>
+<td>100</td>
+<td>81</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+<p>4435 rows × 37 columns</p>
+</div>
+</div>
+</div>
 </section>
 <section id="create-lag-features" class="level2">
 <h2 class="anchored" data-anchor-id="create-lag-features">Create lag features</h2>
-<p>Investigate data by breaking it down into little bits of data that get captured overtime. This will allow us to see how the data fluctuates to best predict future data.</p>
-<div id="876aed92" class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>target_col <span class="op">=</span> <span class="st">'CO(GT)'</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>lag_hours <span class="op">=</span> <span class="dv">24</span></span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lag <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, lag_hours <span class="op">+</span> <span class="dv">1</span>):</span>
-<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="ss">f'</span><span class="sc">{</span>target_col<span class="sc">}</span><span class="ss">_lag_</span><span class="sc">{</span>lag<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> df[target_col].shift(lag)</span>
-<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>df.dropna(inplace<span class="op">=</span><span class="va">True</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s select our predictor variable which is CO(GT). We want to investigate the data by breaking it down into little bits of data that get captured overtime. This will allow us to see how the data fluctuates to best predict future data. We’ll create a new column that capture the CO(GT) levels at every hour.</p>
+<div id="876aed92" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>target_col <span class="op">=</span> <span class="st">'CO(GT)'</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>lag_hours <span class="op">=</span> <span class="dv">24</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lag <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, lag_hours <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="ss">f'</span><span class="sc">{</span>target_col<span class="sc">}</span><span class="ss">_lag_</span><span class="sc">{</span>lag<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> df[target_col].shift(lag)</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>df.dropna(inplace<span class="op">=</span><span class="va">True</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a4d869cd" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="53">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CO(GT)</th>
+<th data-quarto-table-cell-role="th">PT08.S1(CO)</th>
+<th data-quarto-table-cell-role="th">NMHC(GT)</th>
+<th data-quarto-table-cell-role="th">C6H6(GT)</th>
+<th data-quarto-table-cell-role="th">PT08.S2(NMHC)</th>
+<th data-quarto-table-cell-role="th">NOx(GT)</th>
+<th data-quarto-table-cell-role="th">PT08.S3(NOx)</th>
+<th data-quarto-table-cell-role="th">NO2(GT)</th>
+<th data-quarto-table-cell-role="th">PT08.S4(NO2)</th>
+<th data-quarto-table-cell-role="th">PT08.S5(O3)</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_15</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_16</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_17</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_18</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_19</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_20</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_21</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_22</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_23</th>
+<th data-quarto-table-cell-role="th">CO(GT)_lag_24</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Datetime</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2004-03-11 18:00:00</td>
+<td>4.8</td>
+<td>1581.0</td>
+<td>307.0</td>
+<td>20.8</td>
+<td>1319.0</td>
+<td>281.0</td>
+<td>799.0</td>
+<td>151.0</td>
+<td>2083.0</td>
+<td>1409.0</td>
+<td>...</td>
+<td>0.60</td>
+<td>0.90</td>
+<td>1.00</td>
+<td>1.20</td>
+<td>1.2</td>
+<td>1.6</td>
+<td>2.2</td>
+<td>2.2</td>
+<td>2.0</td>
+<td>2.6</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2004-03-11 19:00:00</td>
+<td>6.9</td>
+<td>1776.0</td>
+<td>461.0</td>
+<td>27.4</td>
+<td>1488.0</td>
+<td>383.0</td>
+<td>702.0</td>
+<td>172.0</td>
+<td>2333.0</td>
+<td>1704.0</td>
+<td>...</td>
+<td>0.65</td>
+<td>0.60</td>
+<td>0.90</td>
+<td>1.00</td>
+<td>1.2</td>
+<td>1.2</td>
+<td>1.6</td>
+<td>2.2</td>
+<td>2.2</td>
+<td>2.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2004-03-11 20:00:00</td>
+<td>6.1</td>
+<td>1640.0</td>
+<td>401.0</td>
+<td>24.0</td>
+<td>1404.0</td>
+<td>351.0</td>
+<td>743.0</td>
+<td>165.0</td>
+<td>2191.0</td>
+<td>1654.0</td>
+<td>...</td>
+<td>0.70</td>
+<td>0.65</td>
+<td>0.60</td>
+<td>0.90</td>
+<td>1.0</td>
+<td>1.2</td>
+<td>1.2</td>
+<td>1.6</td>
+<td>2.2</td>
+<td>2.2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2004-03-11 21:00:00</td>
+<td>3.9</td>
+<td>1313.0</td>
+<td>197.0</td>
+<td>12.8</td>
+<td>1076.0</td>
+<td>240.0</td>
+<td>957.0</td>
+<td>136.0</td>
+<td>1707.0</td>
+<td>1285.0</td>
+<td>...</td>
+<td>0.70</td>
+<td>0.70</td>
+<td>0.65</td>
+<td>0.60</td>
+<td>0.9</td>
+<td>1.0</td>
+<td>1.2</td>
+<td>1.2</td>
+<td>1.6</td>
+<td>2.2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2004-03-11 22:00:00</td>
+<td>1.5</td>
+<td>965.0</td>
+<td>61.0</td>
+<td>4.7</td>
+<td>749.0</td>
+<td>94.0</td>
+<td>1325.0</td>
+<td>85.0</td>
+<td>1333.0</td>
+<td>821.0</td>
+<td>...</td>
+<td>1.10</td>
+<td>0.70</td>
+<td>0.70</td>
+<td>0.65</td>
+<td>0.6</td>
+<td>0.9</td>
+<td>1.0</td>
+<td>1.2</td>
+<td>1.2</td>
+<td>1.6</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2005-04-04 10:00:00</td>
+<td>3.1</td>
+<td>1314.0</td>
+<td>275.0</td>
+<td>13.5</td>
+<td>1101.0</td>
+<td>472.0</td>
+<td>539.0</td>
+<td>190.0</td>
+<td>1374.0</td>
+<td>1729.0</td>
+<td>...</td>
+<td>2.70</td>
+<td>1.20</td>
+<td>1.40</td>
+<td>1.30</td>
+<td>1.1</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.4</td>
+<td>1.3</td>
+<td>1.4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2005-04-04 11:00:00</td>
+<td>2.4</td>
+<td>1163.0</td>
+<td>275.0</td>
+<td>11.4</td>
+<td>1027.0</td>
+<td>353.0</td>
+<td>604.0</td>
+<td>179.0</td>
+<td>1264.0</td>
+<td>1269.0</td>
+<td>...</td>
+<td>2.50</td>
+<td>2.70</td>
+<td>1.20</td>
+<td>1.40</td>
+<td>1.3</td>
+<td>1.1</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.4</td>
+<td>1.3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2005-04-04 12:00:00</td>
+<td>2.4</td>
+<td>1142.0</td>
+<td>275.0</td>
+<td>12.4</td>
+<td>1063.0</td>
+<td>293.0</td>
+<td>603.0</td>
+<td>175.0</td>
+<td>1241.0</td>
+<td>1092.0</td>
+<td>...</td>
+<td>1.50</td>
+<td>2.50</td>
+<td>2.70</td>
+<td>1.20</td>
+<td>1.4</td>
+<td>1.3</td>
+<td>1.1</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2005-04-04 13:00:00</td>
+<td>2.1</td>
+<td>1003.0</td>
+<td>275.0</td>
+<td>9.5</td>
+<td>961.0</td>
+<td>235.0</td>
+<td>702.0</td>
+<td>156.0</td>
+<td>1041.0</td>
+<td>770.0</td>
+<td>...</td>
+<td>1.60</td>
+<td>1.50</td>
+<td>2.50</td>
+<td>2.70</td>
+<td>1.2</td>
+<td>1.4</td>
+<td>1.3</td>
+<td>1.1</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2005-04-04 14:00:00</td>
+<td>2.2</td>
+<td>1071.0</td>
+<td>275.0</td>
+<td>11.9</td>
+<td>1047.0</td>
+<td>265.0</td>
+<td>654.0</td>
+<td>168.0</td>
+<td>1129.0</td>
+<td>816.0</td>
+<td>...</td>
+<td>1.20</td>
+<td>1.60</td>
+<td>1.50</td>
+<td>2.50</td>
+<td>2.7</td>
+<td>1.2</td>
+<td>1.4</td>
+<td>1.3</td>
+<td>1.1</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>9333 rows × 37 columns</p>
+</div>
+</div>
 </div>
 </section>
 <section id="split-into-training-and-test-data" class="level2">
 <h2 class="anchored" data-anchor-id="split-into-training-and-test-data">Split into training and test data</h2>
-<div id="15f3f345" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="ss">f'</span><span class="sc">{</span>target_col<span class="sc">}</span><span class="ss">_lag_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, lag_hours <span class="op">+</span> <span class="dv">1</span>)]]</span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[target_col]</span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s create a supervised machine learning model that does time series prediction. The input features will be the CO(GT) at each hour for the past day and the target variable is the actual CO(GT). We’ll split the data in such a way that 20% of it will be for testing purposes and the other 80% is for training.</p>
+<div id="15f3f345" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="ss">f'</span><span class="sc">{</span>target_col<span class="sc">}</span><span class="ss">_lag_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, lag_hours <span class="op">+</span> <span class="dv">1</span>)]]</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[target_col]</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="train-random-forest-model" class="level2">
 <h2 class="anchored" data-anchor-id="train-random-forest-model">Train random forest model</h2>
 <p>We’re building 100 decision trees and setting a random seed.</p>
-<div id="8bb718f3" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">50</span>)</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>“A random forest is a meta estimator that fits a number of decision tree regressors on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. Trees in the forest use the best split strategy, i.e.&nbsp;equivalent to passing splitter=”best” to the underlying DecisionTreeRegressor. The sub-sample size is controlled with the max_samples parameter if bootstrap=True (default), otherwise the whole dataset is used to build each tree.”</p>
+<div id="8bb718f3" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="evaluate" class="level2">
 <h2 class="anchored" data-anchor-id="evaluate">Evaluate</h2>
 <p>Let’s figure out the coefficient of determination, the mean absoluate error, the root mean squared error, and the mean absoluate percentage error.</p>
-<div id="f9dbdb45" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> r2_score(y_test, y_pred)</span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>mae <span class="op">=</span> mean_absolute_error(y_test, y_pred)</span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> np.sqrt(mean_squared_error(y_test, y_pred))</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>mape <span class="op">=</span> mean_absolute_percentage_error(y_test, y_pred)</span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R² Score: </span><span class="sc">{</span>r2<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MAE: </span><span class="sc">{</span>mae<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RMSE: </span><span class="sc">{</span>rmse<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MAPE: </span><span class="sc">{</span>mape<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
-<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximate Accuracy: </span><span class="sc">{</span><span class="dv">100</span> <span class="op">-</span> mape <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f9dbdb45" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> r2_score(y_test, y_pred)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>mae <span class="op">=</span> mean_absolute_error(y_test, y_pred)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> np.sqrt(mean_squared_error(y_test, y_pred))</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>mape <span class="op">=</span> mean_absolute_percentage_error(y_test, y_pred)</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R² Score: </span><span class="sc">{</span>r2<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MAE: </span><span class="sc">{</span>mae<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RMSE: </span><span class="sc">{</span>rmse<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MAPE: </span><span class="sc">{</span>mape<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Approximate Accuracy: </span><span class="sc">{</span><span class="dv">100</span> <span class="op">-</span> mape <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R² Score: 0.8152
 MAE: 0.3883
@@ -4178,24 +4817,24 @@ MAPE: 29.66%
 Approximate Accuracy: 70.34%</code></pre>
 </div>
 </div>
-<p>Based on the evaluation, the random forest model isn’t too bad since it’s able to achieve 70% accuracy.</p>
+<p>Based on the evaluation, the random forest model performs decently since it’s able to achieve 70% accuracy.</p>
 </section>
 <section id="plot-accuracy-by-comparing-predictions-with-real-data" class="level2">
 <h2 class="anchored" data-anchor-id="plot-accuracy-by-comparing-predictions-with-real-data">Plot accuracy by comparing predictions with real data</h2>
 <p>The orange line represents the predicted data and the blue line represents the actual data.</p>
-<div id="dae8a7aa" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>plt.plot(y_test.values, label<span class="op">=</span><span class="st">'Actual CO(GT)'</span>)</span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>plt.plot(y_pred, label<span class="op">=</span><span class="st">'Predicted CO(GT)'</span>)</span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Random Forest: CO(GT) Prediction'</span>)</span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time Step'</span>)</span>
-<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'CO (mg/m³)'</span>)</span>
-<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="dae8a7aa" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>plt.plot(y_test.values, label<span class="op">=</span><span class="st">'Actual CO(GT)'</span>)</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>plt.plot(y_pred, label<span class="op">=</span><span class="st">'Predicted CO(GT)'</span>)</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Random Forest: CO(GT) Prediction'</span>)</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time Step'</span>)</span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'CO (mg/m³)'</span>)</span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-60-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-61-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
