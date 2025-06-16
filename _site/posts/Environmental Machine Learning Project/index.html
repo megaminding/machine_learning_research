@@ -4839,6 +4839,552 @@ Approximate Accuracy: 70.34%</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="importance-of-predicting-co" class="level2">
+<h2 class="anchored" data-anchor-id="importance-of-predicting-co">Importance of predicting CO</h2>
+<p>The data we are trying to predict is the true hourly averaged concentration CO in mg/m^3. It’s important to use machine learning to predict CO because carbon monoxide is a greenhouse gas that contributes to air pollution, which can cause acid rain, damage vegetation, and reduce visibility. By learning to accurately predict CO levels, we can develop better environmental protection measures to help counteract against the negative effects. It is crucial for public health and safety.</p>
+</section>
+</section>
+<section id="week-nine-goals" class="level1">
+<h1>Week nine goals</h1>
+<ul>
+<li>Find dataset on crops, specifically the environmental conditions and crop water requirement</li>
+<li>Data clean and prep</li>
+<li>Select feature and predictor variables</li>
+<li>Split data</li>
+<li>Perform decision trees</li>
+<li>Determine accuracy and plot evaluation of model</li>
+</ul>
+<section id="import-data" class="level2">
+<h2 class="anchored" data-anchor-id="import-data">Import Data</h2>
+<p>I obtained a dataset containing information on crop water requirement. There are 15 different types of crop. For each entry of crop, it’s described by the soil type (dry, humid or wet), a temperature range, weather condition, and region type. It also has details on the water requirement, which is the amount of water that a particular crop needs under certain environmental conditions to grow healthily. We want to predict whether irrigation is necessary. This is important because it can help farmers save time, money, water and also have a good environmental impact.</p>
+<p>https://www.kaggle.com/datasets/prateekkkumar/crop-water-requirement/data</p>
+<div id="88511732" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'DATASET - Sheet1.csv'</span>)</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CROP TYPE</th>
+<th data-quarto-table-cell-role="th">SOIL TYPE</th>
+<th data-quarto-table-cell-role="th">REGION</th>
+<th data-quarto-table-cell-role="th">TEMPERATURE</th>
+<th data-quarto-table-cell-role="th">WEATHER CONDITION</th>
+<th data-quarto-table-cell-role="th">WATER REQUIREMENT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>BANANA</td>
+<td>DRY</td>
+<td>DESERT</td>
+<td>10-20</td>
+<td>NORMAL</td>
+<td>8.750</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>BANANA</td>
+<td>DRY</td>
+<td>DESERT</td>
+<td>10-20</td>
+<td>SUNNY</td>
+<td>10.250</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>BANANA</td>
+<td>DRY</td>
+<td>DESERT</td>
+<td>10-20</td>
+<td>WINDY</td>
+<td>9.650</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>BANANA</td>
+<td>DRY</td>
+<td>DESERT</td>
+<td>10-20</td>
+<td>RAINY</td>
+<td>0.750</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>BANANA</td>
+<td>DRY</td>
+<td>DESERT</td>
+<td>20-30</td>
+<td>NORMAL</td>
+<td>9.850</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2875</td>
+<td>ONION</td>
+<td>WET</td>
+<td>HUMID</td>
+<td>30-40</td>
+<td>RAINY</td>
+<td>0.100</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2876</td>
+<td>ONION</td>
+<td>WET</td>
+<td>HUMID</td>
+<td>40-50</td>
+<td>NORMAL</td>
+<td>4.625</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2877</td>
+<td>ONION</td>
+<td>WET</td>
+<td>HUMID</td>
+<td>40-50</td>
+<td>SUNNY</td>
+<td>6.125</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2878</td>
+<td>ONION</td>
+<td>WET</td>
+<td>HUMID</td>
+<td>40-50</td>
+<td>WINDY</td>
+<td>5.625</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2879</td>
+<td>ONION</td>
+<td>WET</td>
+<td>HUMID</td>
+<td>40-50</td>
+<td>RAINY</td>
+<td>0.200</td>
+</tr>
+</tbody>
+</table>
+
+<p>2880 rows × 6 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="data-cleaning-and-prep" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleaning-and-prep">Data Cleaning and Prep</h2>
+<p>Now it’s time to prep the data. The first thing we want to do is transorm the temperature data from a range into something more readable with one digit. We can do this by creating a function that takes the middle value of the range and applying that to a new column called “TEMPERATURE_NUM”.</p>
+<p>The next thing we want to do is to create one-hot encodings for the following columns: ‘CROP TYPE’, ‘SOIL TYPE’, ‘REGION’, ‘WEATHER CONDITION’. This is done to convert each category into a new binary (0 or 1) column. For example, for the column CROP TYPE_BANANA, if it is a banana then the value will be true, or otherwise false. By doing these one-hot encodings, it is easier for the machine to work with the data and understand the features of it.</p>
+<p>Now we want to create a column for our predictor data, which will be whether the data entry is bigger than or less than the median of the water requirement—- this will help us determine whether it needs irriation or not. We’re using the median of water requirement as our determinant for needing irrigation, because water requirement is the amount of water that a particular crop needs under certain environmental conditions to grow healthily. So if the water requirement is bigger smaller than the median then it needs irrigation since</p>
+<div id="39512376" class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> temp_to_num(temp_range):</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    low, high <span class="op">=</span> temp_range.split(<span class="st">'-'</span>)</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="bu">float</span>(low) <span class="op">+</span> <span class="bu">float</span>(high)) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'TEMPERATURE_NUM'</span>] <span class="op">=</span> df[<span class="st">'TEMPERATURE'</span>].<span class="bu">apply</span>(temp_to_num)</span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>df_encoded <span class="op">=</span> pd.get_dummies(df, columns<span class="op">=</span>[<span class="st">'CROP TYPE'</span>, <span class="st">'SOIL TYPE'</span>, <span class="st">'REGION'</span>, <span class="st">'WEATHER CONDITION'</span>])</span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>median_req <span class="op">=</span> df[<span class="st">'WATER REQUIREMENT'</span>].median()</span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>df_encoded[<span class="st">'needs_irrigation'</span>] <span class="op">=</span> (df[<span class="st">'WATER REQUIREMENT'</span>] <span class="op">&gt;</span> median_req).astype(<span class="bu">int</span>)</span>
+<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-12"><a href="#cb85-12" aria-hidden="true" tabindex="-1"></a>df_encoded</span>
+<span id="cb85-13"><a href="#cb85-13" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">TEMPERATURE</th>
+<th data-quarto-table-cell-role="th">WATER REQUIREMENT</th>
+<th data-quarto-table-cell-role="th">needs_irrigation</th>
+<th data-quarto-table-cell-role="th">TEMPERATURE_NUM</th>
+<th data-quarto-table-cell-role="th">CROP TYPE_BANANA</th>
+<th data-quarto-table-cell-role="th">CROP TYPE_BEAN</th>
+<th data-quarto-table-cell-role="th">CROP TYPE_CABBAGE</th>
+<th data-quarto-table-cell-role="th">CROP TYPE_CITRUS</th>
+<th data-quarto-table-cell-role="th">CROP TYPE_COTTON</th>
+<th data-quarto-table-cell-role="th">CROP TYPE_MAIZE</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">SOIL TYPE_HUMID</th>
+<th data-quarto-table-cell-role="th">SOIL TYPE_WET</th>
+<th data-quarto-table-cell-role="th">REGION_DESERT</th>
+<th data-quarto-table-cell-role="th">REGION_HUMID</th>
+<th data-quarto-table-cell-role="th">REGION_SEMI ARID</th>
+<th data-quarto-table-cell-role="th">REGION_SEMI HUMID</th>
+<th data-quarto-table-cell-role="th">WEATHER CONDITION_NORMAL</th>
+<th data-quarto-table-cell-role="th">WEATHER CONDITION_RAINY</th>
+<th data-quarto-table-cell-role="th">WEATHER CONDITION_SUNNY</th>
+<th data-quarto-table-cell-role="th">WEATHER CONDITION_WINDY</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>10-20</td>
+<td>8.750</td>
+<td>1</td>
+<td>15.0</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>10-20</td>
+<td>10.250</td>
+<td>1</td>
+<td>15.0</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>10-20</td>
+<td>9.650</td>
+<td>1</td>
+<td>15.0</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>10-20</td>
+<td>0.750</td>
+<td>0</td>
+<td>15.0</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>20-30</td>
+<td>9.850</td>
+<td>1</td>
+<td>25.0</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2875</td>
+<td>30-40</td>
+<td>0.100</td>
+<td>0</td>
+<td>35.0</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2876</td>
+<td>40-50</td>
+<td>4.625</td>
+<td>0</td>
+<td>45.0</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2877</td>
+<td>40-50</td>
+<td>6.125</td>
+<td>1</td>
+<td>45.0</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2878</td>
+<td>40-50</td>
+<td>5.625</td>
+<td>0</td>
+<td>45.0</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2879</td>
+<td>40-50</td>
+<td>0.200</td>
+<td>0</td>
+<td>45.0</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+<p>2880 rows × 30 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="select-feature-columns-and-predictor-column.-then-split-data" class="level2">
+<h2 class="anchored" data-anchor-id="select-feature-columns-and-predictor-column.-then-split-data">Select feature columns and predictor column. Then split data</h2>
+<p>First we go through all the columns that we performed one-hot encoding on and the temperature, which will form the feature_cols, or input variables. Our y variable is needs_irrigation, which is the data we want to predict.</p>
+<p>Then we split the data. 20% will be used for testing, and the rest for training.</p>
+<p>Let’s look at the shape of our training data.</p>
+<div id="1a561ee8" class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [<span class="st">'TEMPERATURE_NUM'</span>] <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>               [col <span class="cf">for</span> col <span class="kw">in</span> df_encoded.columns <span class="cf">if</span> col.startswith((<span class="st">'CROP TYPE_'</span>, <span class="st">'SOIL TYPE_'</span>, <span class="st">'REGION_'</span>, <span class="st">'WEATHER CONDITION_'</span>))]</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_encoded[feature_cols]</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_encoded[<span class="st">'needs_irrigation'</span>]</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Training samples: </span><span class="sc">{</span><span class="bu">len</span>(X_train)<span class="sc">}</span><span class="ss">, Test samples: </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb86-12"><a href="#cb86-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Features shape:'</span>, X_train.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Training samples: 2304, Test samples: 576
+Features shape: (2304, 27)</code></pre>
+</div>
+</div>
+</section>
+<section id="decision-tree" class="level2">
+<h2 class="anchored" data-anchor-id="decision-tree">Decision Tree</h2>
+<p>Here we are using a decision tree. We chose a max depth of 7, which means the tree can have at most a depth of 7, or 7 levels. This is done to prevent overfitting, meaning a tree with too many levels might try too hard to capture all the details, leading to poorer acuracy.</p>
+<p>Then we fit the model onto our training data and predict whether the crop needs irrigation or not based on features like crop type, soil type, region, weather condition, and temperature.</p>
+<div id="a6062b54" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>clf.fit(X_train, y_train)</span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> clf.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="determine-accuracy" class="level2">
+<h2 class="anchored" data-anchor-id="determine-accuracy">Determine Accuracy</h2>
+<div id="2d02b4a0" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.8767361111111112</code></pre>
+</div>
+</div>
+<div id="7ef911fb" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> RocCurveDisplay</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>RocCurveDisplay.from_estimator(clf, X_test, y_test)</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-67-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analysis-of-false-positive-rate-vs-true-positive-rate" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-of-false-positive-rate-vs-true-positive-rate">Analysis of False Positive Rate vs True Positive Rate</h2>
+<p>This ROC curve is a graph that shows the performance of a binary classifier, and the closer it is to 1, the better it is at discrimination. The upward climb to 1 shows that the classifier is getting better and better at obtaining more accurate results.</p>
+</section>
+<section id="importance-of-results" class="level2">
+<h2 class="anchored" data-anchor-id="importance-of-results">Importance of results</h2>
+<p>In this research project, we tried predict whether the crop needs irrigation or not based on features like crop type, soil type, region, weather condition, and temperature. We used a decision tree.</p>
+<p>Using machine learning and data to determine whether a crop needs irrigation is important because it can be used to help the world: - save water (avoid overwatering and only use irrigation when needed) - environmental sustainability (reduce water run off and soil erosion) - save time and labor (help farmers use their resources wisely) - better crop health (too much water can be bad for the plant)</p>
 
 
 </section>
