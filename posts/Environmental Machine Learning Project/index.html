@@ -5381,6 +5381,45 @@ Features shape: (2304, 27)</code></pre>
 <h2 class="anchored" data-anchor-id="analysis-of-false-positive-rate-vs-true-positive-rate">Analysis of False Positive Rate vs True Positive Rate</h2>
 <p>This ROC curve is a graph that shows the performance of a binary classifier, and the closer it is to 1, the better it is at discrimination. The upward climb to 1 shows that the classifier is getting better and better at obtaining more accurate results.</p>
 </section>
+<section id="random-forest" class="level2">
+<h2 class="anchored" data-anchor-id="random-forest">Random Forest</h2>
+<p>Let’s try improving our performance by using Random Forest.</p>
+<div id="e5c0c044" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>rf_clf <span class="op">=</span> RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">7</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>rf_clf.fit(X_train, y_train)</span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>rf_pred <span class="op">=</span> rf_clf.predict(X_test)</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Random Forest Test Accuracy: </span><span class="sc">{</span>accuracy_score(y_test, rf_pred)<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Random Forest Test Accuracy: 0.9010</code></pre>
+</div>
+</div>
+</section>
+<section id="now-lets-visually-compare-the-accuracies" class="level2">
+<h2 class="anchored" data-anchor-id="now-lets-visually-compare-the-accuracies">Now let’s visually compare the accuracies</h2>
+<p>They perform very similarly!</p>
+<div id="cee03b5b" class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>accuracies <span class="op">=</span> {</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Decision Tree'</span>: accuracy_score(y_test, y_pred),</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Random Forest'</span>: accuracy_score(y_test, rf_pred)</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>plt.bar(accuracies.keys(), accuracies.values())</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Accuracy'</span>)</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Model Accuracy Comparison'</span>)</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-69-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="importance-of-results" class="level2">
 <h2 class="anchored" data-anchor-id="importance-of-results">Importance of results</h2>
 <p>In this research project, we tried predict whether the crop needs irrigation or not based on features like crop type, soil type, region, weather condition, and temperature. We used a decision tree.</p>

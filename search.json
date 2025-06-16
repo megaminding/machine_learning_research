@@ -385,6 +385,20 @@
     "text": "Analysis of False Positive Rate vs True Positive Rate\nThis ROC curve is a graph that shows the performance of a binary classifier, and the closer it is to 1, the better it is at discrimination. The upward climb to 1 shows that the classifier is getting better and better at obtaining more accurate results."
   },
   {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#random-forest",
+    "href": "posts/Environmental Machine Learning Project/index.html#random-forest",
+    "title": "Environmental Data Project",
+    "section": "Random Forest",
+    "text": "Random Forest\nLet’s try improving our performance by using Random Forest.\n\nfrom sklearn.ensemble import RandomForestClassifier\n\nrf_clf = RandomForestClassifier(n_estimators=100, max_depth=7, random_state=42)\nrf_clf.fit(X_train, y_train)\nrf_pred = rf_clf.predict(X_test)\n\nprint(f\"Random Forest Test Accuracy: {accuracy_score(y_test, rf_pred):.4f}\")\n\nRandom Forest Test Accuracy: 0.9010"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#now-lets-visually-compare-the-accuracies",
+    "href": "posts/Environmental Machine Learning Project/index.html#now-lets-visually-compare-the-accuracies",
+    "title": "Environmental Data Project",
+    "section": "Now let’s visually compare the accuracies",
+    "text": "Now let’s visually compare the accuracies\nThey perform very similarly!\n\naccuracies = {\n    'Decision Tree': accuracy_score(y_test, y_pred),\n    'Random Forest': accuracy_score(y_test, rf_pred)\n}\n\nplt.bar(accuracies.keys(), accuracies.values())\nplt.ylim(0, 1)\nplt.ylabel('Accuracy')\nplt.title('Model Accuracy Comparison')\nplt.show()"
+  },
+  {
     "objectID": "posts/Environmental Machine Learning Project/index.html#importance-of-results",
     "href": "posts/Environmental Machine Learning Project/index.html#importance-of-results",
     "title": "Environmental Data Project",
