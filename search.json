@@ -336,6 +336,62 @@
     "text": "Plot accuracy by comparing predictions with real data\nThe orange line represents the predicted data and the blue line represents the actual data.\n\nplt.figure(figsize=(12, 5))\nplt.plot(y_test.values, label='Actual CO(GT)')\nplt.plot(y_pred, label='Predicted CO(GT)')\nplt.title('Random Forest: CO(GT) Prediction')\nplt.xlabel('Time Step')\nplt.ylabel('CO (mg/m³)')\nplt.legend()\nplt.show()"
   },
   {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#importance-of-predicting-co",
+    "href": "posts/Environmental Machine Learning Project/index.html#importance-of-predicting-co",
+    "title": "Environmental Data Project",
+    "section": "Importance of predicting CO",
+    "text": "Importance of predicting CO\nThe data we are trying to predict is the true hourly averaged concentration CO in mg/m^3. It’s important to use machine learning to predict CO because carbon monoxide is a greenhouse gas that contributes to air pollution, which can cause acid rain, damage vegetation, and reduce visibility. By learning to accurately predict CO levels, we can develop better environmental protection measures to help counteract against the negative effects. It is crucial for public health and safety."
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#import-data",
+    "href": "posts/Environmental Machine Learning Project/index.html#import-data",
+    "title": "Environmental Data Project",
+    "section": "Import Data",
+    "text": "Import Data\nI obtained a dataset containing information on crop water requirement. There are 15 different types of crop. For each entry of crop, it’s described by the soil type (dry, humid or wet), a temperature range, weather condition, and region type. It also has details on the water requirement, which is the amount of water that a particular crop needs under certain environmental conditions to grow healthily. We want to predict whether irrigation is necessary. This is important because it can help farmers save time, money, water and also have a good environmental impact.\nhttps://www.kaggle.com/datasets/prateekkkumar/crop-water-requirement/data\n\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\n\ndf = pd.read_csv('DATASET - Sheet1.csv')\n\ndf\n\n\n\n\n\n\n\n\nCROP TYPE\nSOIL TYPE\nREGION\nTEMPERATURE\nWEATHER CONDITION\nWATER REQUIREMENT\n\n\n\n\n0\nBANANA\nDRY\nDESERT\n10-20\nNORMAL\n8.750\n\n\n1\nBANANA\nDRY\nDESERT\n10-20\nSUNNY\n10.250\n\n\n2\nBANANA\nDRY\nDESERT\n10-20\nWINDY\n9.650\n\n\n3\nBANANA\nDRY\nDESERT\n10-20\nRAINY\n0.750\n\n\n4\nBANANA\nDRY\nDESERT\n20-30\nNORMAL\n9.850\n\n\n...\n...\n...\n...\n...\n...\n...\n\n\n2875\nONION\nWET\nHUMID\n30-40\nRAINY\n0.100\n\n\n2876\nONION\nWET\nHUMID\n40-50\nNORMAL\n4.625\n\n\n2877\nONION\nWET\nHUMID\n40-50\nSUNNY\n6.125\n\n\n2878\nONION\nWET\nHUMID\n40-50\nWINDY\n5.625\n\n\n2879\nONION\nWET\nHUMID\n40-50\nRAINY\n0.200\n\n\n\n\n2880 rows × 6 columns"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#data-cleaning-and-prep",
+    "href": "posts/Environmental Machine Learning Project/index.html#data-cleaning-and-prep",
+    "title": "Environmental Data Project",
+    "section": "Data Cleaning and Prep",
+    "text": "Data Cleaning and Prep\nNow it’s time to prep the data. The first thing we want to do is transorm the temperature data from a range into something more readable with one digit. We can do this by creating a function that takes the middle value of the range and applying that to a new column called “TEMPERATURE_NUM”.\nThe next thing we want to do is to create one-hot encodings for the following columns: ‘CROP TYPE’, ‘SOIL TYPE’, ‘REGION’, ‘WEATHER CONDITION’. This is done to convert each category into a new binary (0 or 1) column. For example, for the column CROP TYPE_BANANA, if it is a banana then the value will be true, or otherwise false. By doing these one-hot encodings, it is easier for the machine to work with the data and understand the features of it.\nNow we want to create a column for our predictor data, which will be whether the data entry is bigger than or less than the median of the water requirement—- this will help us determine whether it needs irriation or not. We’re using the median of water requirement as our determinant for needing irrigation, because water requirement is the amount of water that a particular crop needs under certain environmental conditions to grow healthily. So if the water requirement is bigger smaller than the median then it needs irrigation since\n\ndef temp_to_num(temp_range):\n    low, high = temp_range.split('-')\n    return (float(low) + float(high)) / 2\n\ndf['TEMPERATURE_NUM'] = df['TEMPERATURE'].apply(temp_to_num)\n\ndf_encoded = pd.get_dummies(df, columns=['CROP TYPE', 'SOIL TYPE', 'REGION', 'WEATHER CONDITION'])\n\nmedian_req = df['WATER REQUIREMENT'].median()\ndf_encoded['needs_irrigation'] = (df['WATER REQUIREMENT'] &gt; median_req).astype(int)\n\ndf_encoded\n\n\n\n\n\n\n\n\n\nTEMPERATURE\nWATER REQUIREMENT\nneeds_irrigation\nTEMPERATURE_NUM\nCROP TYPE_BANANA\nCROP TYPE_BEAN\nCROP TYPE_CABBAGE\nCROP TYPE_CITRUS\nCROP TYPE_COTTON\nCROP TYPE_MAIZE\n...\nSOIL TYPE_HUMID\nSOIL TYPE_WET\nREGION_DESERT\nREGION_HUMID\nREGION_SEMI ARID\nREGION_SEMI HUMID\nWEATHER CONDITION_NORMAL\nWEATHER CONDITION_RAINY\nWEATHER CONDITION_SUNNY\nWEATHER CONDITION_WINDY\n\n\n\n\n0\n10-20\n8.750\n1\n15.0\nTrue\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nFalse\nTrue\nFalse\nFalse\nFalse\nTrue\nFalse\nFalse\nFalse\n\n\n1\n10-20\n10.250\n1\n15.0\nTrue\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nFalse\nTrue\nFalse\nFalse\nFalse\nFalse\nFalse\nTrue\nFalse\n\n\n2\n10-20\n9.650\n1\n15.0\nTrue\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nFalse\nTrue\nFalse\nFalse\nFalse\nFalse\nFalse\nFalse\nTrue\n\n\n3\n10-20\n0.750\n0\n15.0\nTrue\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nFalse\nTrue\nFalse\nFalse\nFalse\nFalse\nTrue\nFalse\nFalse\n\n\n4\n20-30\n9.850\n1\n25.0\nTrue\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nFalse\nTrue\nFalse\nFalse\nFalse\nTrue\nFalse\nFalse\nFalse\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n2875\n30-40\n0.100\n0\n35.0\nFalse\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nTrue\nFalse\nTrue\nFalse\nFalse\nFalse\nTrue\nFalse\nFalse\n\n\n2876\n40-50\n4.625\n0\n45.0\nFalse\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nTrue\nFalse\nTrue\nFalse\nFalse\nTrue\nFalse\nFalse\nFalse\n\n\n2877\n40-50\n6.125\n1\n45.0\nFalse\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nTrue\nFalse\nTrue\nFalse\nFalse\nFalse\nFalse\nTrue\nFalse\n\n\n2878\n40-50\n5.625\n0\n45.0\nFalse\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nTrue\nFalse\nTrue\nFalse\nFalse\nFalse\nFalse\nFalse\nTrue\n\n\n2879\n40-50\n0.200\n0\n45.0\nFalse\nFalse\nFalse\nFalse\nFalse\nFalse\n...\nFalse\nTrue\nFalse\nTrue\nFalse\nFalse\nFalse\nTrue\nFalse\nFalse\n\n\n\n\n2880 rows × 30 columns"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#select-feature-columns-and-predictor-column.-then-split-data",
+    "href": "posts/Environmental Machine Learning Project/index.html#select-feature-columns-and-predictor-column.-then-split-data",
+    "title": "Environmental Data Project",
+    "section": "Select feature columns and predictor column. Then split data",
+    "text": "Select feature columns and predictor column. Then split data\nFirst we go through all the columns that we performed one-hot encoding on and the temperature, which will form the feature_cols, or input variables. Our y variable is needs_irrigation, which is the data we want to predict.\nThen we split the data. 20% will be used for testing, and the rest for training.\nLet’s look at the shape of our training data.\n\nfeature_cols = ['TEMPERATURE_NUM'] + \\\n               [col for col in df_encoded.columns if col.startswith(('CROP TYPE_', 'SOIL TYPE_', 'REGION_', 'WEATHER CONDITION_'))]\n\nX = df_encoded[feature_cols]\ny = df_encoded['needs_irrigation']\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42\n)\n\nprint(f'Training samples: {len(X_train)}, Test samples: {len(X_test)}')\nprint('Features shape:', X_train.shape)\n\nTraining samples: 2304, Test samples: 576\nFeatures shape: (2304, 27)"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#decision-tree",
+    "href": "posts/Environmental Machine Learning Project/index.html#decision-tree",
+    "title": "Environmental Data Project",
+    "section": "Decision Tree",
+    "text": "Decision Tree\nHere we are using a decision tree. We chose a max depth of 7, which means the tree can have at most a depth of 7, or 7 levels. This is done to prevent overfitting, meaning a tree with too many levels might try too hard to capture all the details, leading to poorer acuracy.\nThen we fit the model onto our training data and predict whether the crop needs irrigation or not based on features like crop type, soil type, region, weather condition, and temperature.\n\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.metrics import accuracy_score\n\nclf = DecisionTreeClassifier(max_depth=7)\n\nclf.fit(X_train, y_train)\n\ny_pred = clf.predict(X_test)"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#determine-accuracy",
+    "href": "posts/Environmental Machine Learning Project/index.html#determine-accuracy",
+    "title": "Environmental Data Project",
+    "section": "Determine Accuracy",
+    "text": "Determine Accuracy\n\naccuracy = accuracy_score(y_test, y_pred)\nprint(f\"Accuracy: {accuracy}\")\n\nAccuracy: 0.8767361111111112\n\n\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.metrics import RocCurveDisplay\n\nRocCurveDisplay.from_estimator(clf, X_test, y_test)\nplt.show()"
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#analysis-of-false-positive-rate-vs-true-positive-rate",
+    "href": "posts/Environmental Machine Learning Project/index.html#analysis-of-false-positive-rate-vs-true-positive-rate",
+    "title": "Environmental Data Project",
+    "section": "Analysis of False Positive Rate vs True Positive Rate",
+    "text": "Analysis of False Positive Rate vs True Positive Rate\nThis ROC curve is a graph that shows the performance of a binary classifier, and the closer it is to 1, the better it is at discrimination. The upward climb to 1 shows that the classifier is getting better and better at obtaining more accurate results."
+  },
+  {
+    "objectID": "posts/Environmental Machine Learning Project/index.html#importance-of-results",
+    "href": "posts/Environmental Machine Learning Project/index.html#importance-of-results",
+    "title": "Environmental Data Project",
+    "section": "Importance of results",
+    "text": "Importance of results\nIn this research project, we tried predict whether the crop needs irrigation or not based on features like crop type, soil type, region, weather condition, and temperature. We used a decision tree.\nUsing machine learning and data to determine whether a crop needs irrigation is important because it can be used to help the world: - save water (avoid overwatering and only use irrigation when needed) - environmental sustainability (reduce water run off and soil erosion) - save time and labor (help farmers use their resources wisely) - better crop health (too much water can be bad for the plant)"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "mlresearch",
