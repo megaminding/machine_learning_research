@@ -389,7 +389,7 @@
     "href": "posts/Environmental Machine Learning Project/index.html#random-forest",
     "title": "Environmental Data Project",
     "section": "Random Forest",
-    "text": "Random Forest\nLet’s try improving our performance by using Random Forest.\n\nfrom sklearn.ensemble import RandomForestClassifier\n\nrf_clf = RandomForestClassifier(n_estimators=100, max_depth=7, random_state=42)\nrf_clf.fit(X_train, y_train)\nrf_pred = rf_clf.predict(X_test)\n\nprint(f\"Random Forest Test Accuracy: {accuracy_score(y_test, rf_pred):.4f}\")\n\nRandom Forest Test Accuracy: 0.9010"
+    "text": "Random Forest\nLet’s see if we can improve our performance by using Random Forest instead of decision trees. Random forest is a collection of decision trees.\n\nfrom sklearn.ensemble import RandomForestClassifier\n\nrf_clf = RandomForestClassifier(n_estimators=100, max_depth=7, random_state=42)\nrf_clf.fit(X_train, y_train)\nrf_pred = rf_clf.predict(X_test)\n\nprint(f\"Random Forest Test Accuracy: {accuracy_score(y_test, rf_pred):.4f}\")\n\nRandom Forest Test Accuracy: 0.9010"
   },
   {
     "objectID": "posts/Environmental Machine Learning Project/index.html#now-lets-visually-compare-the-accuracies",
